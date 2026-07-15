@@ -62,66 +62,8 @@
     "lint": "yarn package:lint",
     "prepack": "yarn package:clean-dist"
   },
-  "peerDependencies": {
-    "@datadog/datadog-ci-plugin-aas": "workspace:*",
-    "@datadog/datadog-ci-plugin-cloud-run": "workspace:*",
-    "@datadog/datadog-ci-plugin-container-app": "workspace:*",
-    "@datadog/datadog-ci-plugin-coverage": "workspace:*",
-    "@datadog/datadog-ci-plugin-deployment": "workspace:*",
-    "@datadog/datadog-ci-plugin-dora": "workspace:*",
-    "@datadog/datadog-ci-plugin-gate": "workspace:*",
-    "@datadog/datadog-ci-plugin-junit": "workspace:*",
-    "@datadog/datadog-ci-plugin-lambda": "workspace:*",
-    "@datadog/datadog-ci-plugin-sarif": "workspace:*",
-    "@datadog/datadog-ci-plugin-sbom": "workspace:*",
-    "@datadog/datadog-ci-plugin-stepfunctions": "workspace:*",
-    "@datadog/datadog-ci-plugin-synthetics": "workspace:*",
-    "@datadog/datadog-ci-plugin-terraform": "workspace:*"
-  },
-  "peerDependenciesMeta": {
-    "@datadog/datadog-ci-plugin-aas": {
-      "optional": true
-    },
-    "@datadog/datadog-ci-plugin-cloud-run": {
-      "optional": true
-    },
-    "@datadog/datadog-ci-plugin-container-app": {
-      "optional": true
-    },
-    "@datadog/datadog-ci-plugin-coverage": {
-      "optional": true
-    },
-    "@datadog/datadog-ci-plugin-deployment": {
-      "optional": true
-    },
-    "@datadog/datadog-ci-plugin-dora": {
-      "optional": true
-    },
-    "@datadog/datadog-ci-plugin-gate": {
-      "optional": true
-    },
-    "@datadog/datadog-ci-plugin-junit": {
-      "optional": true
-    },
-    "@datadog/datadog-ci-plugin-lambda": {
-      "optional": true
-    },
-    "@datadog/datadog-ci-plugin-sarif": {
-      "optional": true
-    },
-    "@datadog/datadog-ci-plugin-sbom": {
-      "optional": true
-    },
-    "@datadog/datadog-ci-plugin-stepfunctions": {
-      "optional": true
-    },
-    "@datadog/datadog-ci-plugin-synthetics": {
-      "optional": true
-    },
-    "@datadog/datadog-ci-plugin-terraform": {
-      "optional": true
-    }
-  },
+  "peerDependencies": {},
+  "peerDependenciesMeta": {},
   "dependencies": {
     "@antfu/install-pkg": "^1.1.0",
     "@types/datadog-metrics": "^0.6.1",
