@@ -1,6 +1,6 @@
 # dSYMs command
 
-Upload dSYM files to Datadog to symbolicate your crash reports.
+Upload dSYM files to OpenObserve to symbolicate your crash reports.
 
 **This command runs only in macOS.**
 
@@ -8,21 +8,21 @@ Upload dSYM files to Datadog to symbolicate your crash reports.
 
 ### Setup
 
-You need to have `DD_API_KEY` in your environment.
+You need to have `OO_API_KEY` in your environment.
 
 ```bash
 # Environment setup
-export DD_API_KEY="<API KEY>"
+export OO_API_KEY="<API KEY>"
 ```
 
-By default, requests are sent to Datadog US1. It is possible to configure the tool to use a different site by setting the `DD_SITE` environment variable to the corresponding [site parameter][2].
+By default, requests are sent to OpenObserve US1. It is possible to configure the tool to use a different site by setting the `OO_SITE` environment variable to the corresponding [site parameter][2].
 
 ```bash
 # Example environment setup for US5
-export DD_SITE="us5.datadoghq.com"
+export OO_SITE="us5.datadoghq.com"
 ```
 
-It is also possible to override the full URL for the intake endpoint by defining the `DATADOG_DSYM_INTAKE_URL` environment variable.
+It is also possible to override the full URL for the intake endpoint by defining the `OPENOBSERVE_DSYM_INTAKE_URL` environment variable.
 
 ### Commands
 
@@ -34,7 +34,7 @@ If your app has `BITCODE` enabled, more info in **Bitcode** section.
 To upload the dSYM files in your Derived Path, this command should be run:
 
 ```bash
-datadog-ci dsyms upload ~/Library/Developer/Xcode/DerivedData/
+openobserve-ci dsyms upload ~/Library/Developer/Xcode/DerivedData/
 ```
 
 In addition, some optional parameters are available:
@@ -45,10 +45,10 @@ In addition, some optional parameters are available:
 #### Bitcode
 
 With bitcode enabled, you should download your app's dSYM files from [App Store Connect](https://appstoreconnect.apple.com/).
-They come in the form of a zip file, named `appDsyms.zip`. In that case, you can run `datadog-ci` by pointing to the zip file.
+They come in the form of a zip file, named `appDsyms.zip`. In that case, you can run `openobserve-ci` by pointing to the zip file.
 
 ```bash
-datadog-ci dsyms upload ~/Downloads/appDsyms.zip
+openobserve-ci dsyms upload ~/Downloads/appDsyms.zip
 ```
 
 ### End-to-end testing process
@@ -56,7 +56,7 @@ datadog-ci dsyms upload ~/Downloads/appDsyms.zip
 To verify this command works as expected, you can trigger a test run and verify it returns 0:
 
 ```bash
-export DD_API_KEY='<API key>'
+export OO_API_KEY='<API key>'
 
 // at this point, build any project in Xcode so that it produces dSYM files in Derived Data path
 // assuming your Derived Data path is ~/Library/Developer/Xcode/DerivedData/

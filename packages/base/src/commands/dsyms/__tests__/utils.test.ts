@@ -1,7 +1,7 @@
 import fs, {promises} from 'fs'
 
-import {globSync} from '@datadog/datadog-ci-base/helpers/glob'
-import {buildPath} from '@datadog/datadog-ci-base/helpers/utils'
+import {globSync} from '@openobserve/openobserve-ci-base/helpers/glob'
+import {buildPath} from '@openobserve/openobserve-ci-base/helpers/utils'
 
 import {
   createUniqueTmpDirectory,

@@ -22,7 +22,7 @@ if [ -z "$SCOPE" ]; then
 	echo "Usage: $0 <scope>"
 	exit 1
 fi
-PLUGIN_PKG="@datadog/datadog-ci-plugin-$SCOPE"
+PLUGIN_PKG="@openobserve/openobserve-ci-plugin-$SCOPE"
 PLUGIN_DIR="packages/plugin-$SCOPE"
 
 if [ -d "$PLUGIN_DIR" ]; then
@@ -47,17 +47,17 @@ cat > "$PLUGIN_DIR/package.json" <<EOF
 {
   "name": "$PLUGIN_PKG",
   "version": "$(jq -r .version packages/base/package.json)",
-  "description": "Datadog CI plugin for \`$SCOPE\` commands",
+  "description": "OpenObserve CI plugin for \`$SCOPE\` commands",
   "license": "Apache-2.0",
   "keywords": [
     "datadog",
-    "datadog-ci",
+    "openobserve-ci",
     "plugin"
   ],
-  "homepage": "https://github.com/DataDog/datadog-ci/tree/master/$PLUGIN_DIR",
+  "homepage": "https://github.com/DataDog/openobserve-ci/tree/master/$PLUGIN_DIR",
   "repository": {
     "type": "git",
-    "url": "https://github.com/DataDog/datadog-ci.git",
+    "url": "https://github.com/DataDog/openobserve-ci.git",
     "directory": "$PLUGIN_DIR"
   },
   "main": "dist/bundle.js",
@@ -91,7 +91,7 @@ cat > "$PLUGIN_DIR/package.json" <<EOF
     "prepack": "yarn package:clean-dist; yarn package:bundle:npm"
   },
   "devDependencies": {
-    "@datadog/datadog-ci-base": "workspace:*"
+    "@openobserve/openobserve-ci-base": "workspace:*"
   }
 }
 EOF

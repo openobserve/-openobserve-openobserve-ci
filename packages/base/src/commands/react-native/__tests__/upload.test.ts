@@ -1,5 +1,5 @@
-import type {CommandContext} from '@datadog/datadog-ci-base'
-import type {MultipartStringValue} from '@datadog/datadog-ci-base/helpers/upload'
+import type {CommandContext} from '@openobserve/openobserve-ci-base'
+import type {MultipartStringValue} from '@openobserve/openobserve-ci-base/helpers/upload'
 
 import chalk from 'chalk'
 import {Cli} from 'clipanion'
@@ -8,8 +8,8 @@ import {
   createCommand,
   createMockContext,
   getEnvVarPlaceholders,
-} from '@datadog/datadog-ci-base/helpers/__tests__/testing-tools'
-import * as APIKeyHelpers from '@datadog/datadog-ci-base/helpers/apikey'
+} from '@openobserve/openobserve-ci-base/helpers/__tests__/testing-tools'
+import * as APIKeyHelpers from '@openobserve/openobserve-ci-base/helpers/apikey'
 
 import {RNSourcemap} from '../interfaces'
 import {ReactNativeUploadCommand} from '../upload'
@@ -21,7 +21,7 @@ describe('upload', () => {
       const command = new ReactNativeUploadCommand()
 
       expect(command['getRequestBuilder'].bind(command)).toThrow(
-        `Missing ${chalk.bold('DATADOG_API_KEY')} or ${chalk.bold('DD_API_KEY')} in your environment.`
+        `Missing ${chalk.bold('OPENOBSERVE_API_KEY')} or ${chalk.bold('OO_API_KEY')} in your environment.`
       )
     })
   })
@@ -63,7 +63,7 @@ describe('upload', () => {
           'src/commands/react-native/__tests__/fixtures/sourcemap-with-no-files/empty.min.js.map'
         )
       )
-      // The command will fetch git metadatas for the current datadog-ci repository.
+      // The command will fetch git metadatas for the current openobserve-ci repository.
       // The `empty.min.js.map` contains no files, therefore no file payload should be set.
       await command['addRepositoryDataToPayloads'](sourcemaps)
       expect(sourcemaps[0].gitData).toBeDefined()
@@ -79,7 +79,7 @@ describe('upload', () => {
       const sourcemaps = new Array<RNSourcemap>(
         new RNSourcemap('main.jsbundle', 'src/commands/react-native/__tests__/fixtures/basic-ios/main.jsbundle.map')
       )
-      // The command will fetch git metadatas for the current datadog-ci repository.
+      // The command will fetch git metadatas for the current openobserve-ci repository.
       // The `main.jsbundle.map` contains the "git.test.ts" filename which matches a tracked filename,
       // therefore a file payload should be set.
       // Removing the "git.test.ts" file will break this test.
@@ -196,7 +196,7 @@ describe('execute', () => {
     })
     expect(apiKeyValidatorSpy).toHaveBeenCalledWith({
       apiKey: '12345678900987654321aabbccddeeff',
-      datadogSite: expect.anything(),
+      ooSite: expect.anything(),
       metricsLogger: expect.anything(),
     })
   })
@@ -207,7 +207,7 @@ describe('execute', () => {
     const {context, code} = await runCLI('./src/commands/react-native/__tests__/fixtures/basic-ios/main.jsbundle', {
       configPath: './src/commands/react-native/__tests__/fixtures/config/config-with-api-key.json',
       env: {
-        DATADOG_API_KEY: 'env_API_key',
+        OPENOBSERVE_API_KEY: 'env_API_key',
       },
     })
 
@@ -215,7 +215,7 @@ describe('execute', () => {
     expect(code).toBe(0)
     expect(apiKeyValidatorSpy).toHaveBeenCalledWith({
       apiKey: 'env_API_key',
-      datadogSite: expect.anything(),
+      ooSite: expect.anything(),
       metricsLogger: expect.anything(),
     })
     expect(output).toContain('API keys were specified both in a configuration file and in the environment.')
@@ -231,7 +231,7 @@ describe('execute', () => {
     const output = context.stdout.toString().split('\n')
     expect(code).toBe(0)
     expect(output[2]).toContain(
-      '⚠️ --bundle option was not provided. A default bundle name will be used. Please update @datadog/mobile-react-native or pass a --bundle option.'
+      '⚠️ --bundle option was not provided. A default bundle name will be used. Please update @openobserve/mobile-react-native or pass a --bundle option.'
     )
   })
 })

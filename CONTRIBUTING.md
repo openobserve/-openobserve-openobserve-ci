@@ -1,6 +1,6 @@
 ## Contributing
 
-Pull requests for bug fixes are welcome, but before submitting new features or changes to current functionality, [open an issue](https://github.com/DataDog/datadog-ci/issues/new)
+Pull requests for bug fixes are welcome, but before submitting new features or changes to current functionality, [open an issue](https://github.com/DataDog/openobserve-ci/issues/new)
 and discuss your ideas or propose the changes you wish to make. After a resolution is reached, a PR can be submitted for review.
 
 ### Listing NPM packages
@@ -8,16 +8,16 @@ and discuss your ideas or propose the changes you wish to make. After a resoluti
 This repository is a monorepo containing multiple packages published to NPM. You can list all packages with the following command:
 
 ```sh
-npm search 'maintainer:datadog keywords:datadog-ci'
+npm search 'maintainer:datadog keywords:openobserve-ci'
 ```
 
 To only list the plugins:
 
 ```sh
-npm search 'maintainer:datadog keywords:datadog-ci,plugin'
+npm search 'maintainer:datadog keywords:openobserve-ci,plugin'
 ```
 
-You can also use the following datadog-ci command to get more information:
+You can also use the following openobserve-ci command to get more information:
 
 ```sh
 yarn launch plugin list --all
@@ -35,12 +35,12 @@ yarn launch <scope> <command> ...
 ```
 
 `yarn launch` runs the CLI from TypeScript source with the `development` condition. It is the right command for
-day-to-day development because changes in `packages/base/src`, `packages/datadog-ci/src`, and plugin `src` files are
+day-to-day development because changes in `packages/base/src`, `packages/openobserve-ci/src`, and plugin `src` files are
 picked up without rebuilding.
 
-`yarn launch:dist` runs the packaged CLI bundle from `packages/datadog-ci/dist/bundle.js`. Build it first with
+`yarn launch:dist` runs the packaged CLI bundle from `packages/openobserve-ci/dist/bundle.js`. Build it first with
 `yarn bundle:npm`. When testing changes to separately installable plugins, rebuild the plugin bundle too, for example
-with `yarn workspace @datadog/datadog-ci-plugin-lambda prepack`.
+with `yarn workspace @openobserve/openobserve-ci-plugin-lambda prepack`.
 
 ### Framework and libraries used
 
@@ -57,11 +57,11 @@ Follow the [Structure](#structure) below for any commands you add. Then, don't f
 
 The repository is a monorepo:
 
-- **`packages/base`** (`@datadog/datadog-ci-base`): Holds command definitions (descriptions, paths, arguments), but **not their implementation**.
-  - As an **exception**, some commands that are core to datadog-ci with multiple scopes depending on each other are implemented in the base package.
+- **`packages/base`** (`@openobserve/openobserve-ci-base`): Holds command definitions (descriptions, paths, arguments), but **not their implementation**.
+  - As an **exception**, some commands that are core to openobserve-ci with multiple scopes depending on each other are implemented in the base package.
 - **`packages/plugin-<scope>`**: Holds command implementations for a specific scope.
   - A plugin can either be **built-in** if it's lightweight, or **separately installable** if it pulls many dependencies.
-- **`packages/datadog-ci`**: Thin CLI entrypoint that imports commands from the base package, and **lists built-in plugins** as `dependencies`.
+- **`packages/openobserve-ci`**: Thin CLI entrypoint that imports commands from the base package, and **lists built-in plugins** as `dependencies`.
 
 The skeleton of **any command** is defined in the base package:
 
@@ -82,7 +82,7 @@ Your new command can be put:
 To add a new command to a scope, create `packages/base/src/commands/<scope>/<command>.ts`:
 
 ```typescript
-import {BaseCommand} from '@datadog/datadog-ci-base'
+import {BaseCommand} from '@openobserve/openobserve-ci-base'
 import {Command, Option} from 'clipanion'
 
 export class FooBarCommand extends BaseCommand {
@@ -107,7 +107,7 @@ Then, create a new plugin with `yarn plugin:create <scope>`.
 Inside the plugin, create `packages/plugin-<scope>/src/commands/<command>.ts`:
 
 ```typescript
-import {FooBarCommand} from '@datadog/datadog-ci-base/commands/foo/bar'
+import {FooBarCommand} from '@openobserve/openobserve-ci-base/commands/foo/bar'
 
 export class PluginCommand extends FooBarCommand {
 
@@ -125,9 +125,9 @@ Unit tests in a given folder go in a `__tests__/` subfolder. Run them with `yarn
 
 If your command is related to a beta product or feature, or you want to test out the command first, you can mark your command as beta.
 
-To do so, add your command's scope to the [`BETA_COMMANDS` set](packages/datadog-ci/src/cli.ts) in `packages/datadog-ci/src/cli.ts`.
+To do so, add your command's scope to the [`BETA_COMMANDS` set](packages/openobserve-ci/src/cli.ts) in `packages/openobserve-ci/src/cli.ts`.
 
-Users have to prefix their command line with `DD_BETA_COMMANDS_ENABLED=1` to use the command. Make sure to document this in your command's README for visibility. This should be removed once the command goes out of beta.
+Users have to prefix their command line with `OO_BETA_COMMANDS_ENABLED=1` to use the command. Make sure to document this in your command's README for visibility. This should be removed once the command goes out of beta.
 
 Optionally, you can create a pre-release for your command by following the [Pre-Release Process](#pre-release-process) instructions below.
 
@@ -135,35 +135,35 @@ Optionally, you can create a pre-release for your command by following the [Pre-
 
 - The [Usage section in the root README](README.md#usage) must be updated to link to:
   - The new command's README.
-  - And 📚 should link to the official Datadog documentation site.
+  - And 📚 should link to the official OpenObserve documentation site.
   - **Note:** If your command is beta, use the [Beta commands](README.md#beta-commands) section instead.
 
 - The command should be added under the right product in the [CODEOWNERS](.github/CODEOWNERS) file to ensure the right people are notified when a PR is opened.
-  - If you are only adding a sub-command (e.g. `datadog-ci <existing-command> <new-sub-command>`), no changes are required.
+  - If you are only adding a sub-command (e.g. `openobserve-ci <existing-command> <new-sub-command>`), no changes are required.
 
 - If you are adding a command for a new product, you should:
-  - Create a label [here](https://github.com/DataDog/datadog-ci/issues/labels) and add it to [`pr-required-labels.yml`](.github/workflows/pr-required-labels.yml).
+  - Create a label [here](https://github.com/DataDog/openobserve-ci/issues/labels) and add it to [`pr-required-labels.yml`](.github/workflows/pr-required-labels.yml).
   - Update [`advanced-issue-labeler.yml`](.github/advanced-issue-labeler.yml).
   - Update the `changelog` configuration in [`release.yml`](.github/release.yml).
 
 ### Registering API calls
 
-All API calls are typed to make datadog-ci's network traffic auditable. All Datadog API calls are marked with `datadogRoute()`, the rest is marked with `thirdParty()`.
+All API calls are typed to make openobserve-ci's network traffic auditable. All OpenObserve API calls are marked with `ooRoute()`, the rest is marked with `thirdParty()`.
 
-**Never** cast raw strings to `DatadogRoute` or `ThirdParty` directly.
+**Never** cast raw strings to `OpenObserveRoute` or `ThirdParty` directly.
 
-#### Datadog API calls
+#### OpenObserve API calls
 
-Add the path to `DATADOG_ROUTE_PATHS` in `packages/base/src/helpers/request/datadog-route.ts`, then use `datadogRoute()` to build the route:
+Add the path to `OPENOBSERVE_ROUTE_PATHS` in `packages/base/src/helpers/request/datadog-route.ts`, then use `ooRoute()` to build the route:
 
 ```typescript
-import {datadogRoute} from '@datadog/datadog-ci-base/helpers/request/datadog-route'
+import {ooRoute} from '@openobserve/openobserve-ci-base/helpers/request/datadog-route'
 
 // Static path
-const url = datadogRoute('/api/v2/cireport')
+const url = ooRoute('/api/v2/cireport')
 
 // Path with parameters
-const url = datadogRoute('/synthetics/ci/batch/:batchId', {batchId: '123'})
+const url = ooRoute('/synthetics/ci/batch/:batchId', {batchId: '123'})
 ```
 
 #### Third-party API calls
@@ -171,18 +171,18 @@ const url = datadogRoute('/synthetics/ci/batch/:batchId', {batchId: '123'})
 Use `thirdParty()` for external URLs, like blob storage presigned URLs:
 
 ```typescript
-import {thirdParty} from '@datadog/datadog-ci-base/helpers/request/third-party'
+import {thirdParty} from '@openobserve/openobserve-ci-base/helpers/request/third-party'
 
 const url = thirdParty('https://cloud-provider.com/blob-storage/presigned-url')
 ```
 
 ### Plugin bundle architecture
 
-Each plugin is bundled with [tsdown](https://tsdown.dev/) via `scripts/tsdown-plugin.mjs` (triggered by `yarn prepack`). The build produces three kinds of outputs, configured in part by `datadog-ci.meta.json` at the repo root.
+Each plugin is bundled with [tsdown](https://tsdown.dev/) via `scripts/tsdown-plugin.mjs` (triggered by `yarn prepack`). The build produces three kinds of outputs, configured in part by `openobserve-ci.meta.json` at the repo root.
 
 #### Main bundle (`dist/bundle.js` + `dist/bundle.d.ts`)
 
-The main bundle is a **fully self-contained** CJS file with zero runtime dependencies. All `devDependencies` (including heavy ones like `@aws-sdk/*`) are inlined into the bundle. This is what the `datadog-ci` CLI loads at runtime.
+The main bundle is a **fully self-contained** CJS file with zero runtime dependencies. All `devDependencies` (including heavy ones like `@aws-sdk/*`) are inlined into the bundle. This is what the `openobserve-ci` CLI loads at runtime.
 
 The entry point is a virtual file that re-exports `src/index.ts` (if present) and all command implementations as a `commands` map.
 
@@ -198,13 +198,13 @@ These exist for backwards compatibility with the CLI's plugin loader. They have 
 
 #### Extra bundles (`dist/<subpath>.js` + `dist/<subpath>.d.ts`)
 
-Extra bundles are separate entrypoints exposed via `package.json` `exports` for **programmatic use by external projects** (e.g. `serverless-remote-instrumentation` importing `@datadog/datadog-ci-plugin-lambda/functions/instrument`).
+Extra bundles are separate entrypoints exposed via `package.json` `exports` for **programmatic use by external projects** (e.g. `serverless-remote-instrumentation` importing `@openobserve/openobserve-ci-plugin-lambda/functions/instrument`).
 
 Unlike the main bundle, extra bundles may **externalize** certain dependencies so that the consumer's own copies are used at runtime and — critically — so that TypeScript types are compatible. Without externalization, the `.d.ts` would inline all transitive type definitions (e.g. 22K+ lines from `@smithy/types`), causing type conflicts when the consumer also depends on those packages.
 
-Extra bundles are configured in `datadog-ci.meta.json`.
+Extra bundles are configured in `openobserve-ci.meta.json`.
 
-#### `datadog-ci.meta.json`
+#### `openobserve-ci.meta.json`
 
 This file configures per-plugin bundle behavior. Structure:
 
@@ -234,8 +234,8 @@ When `extraBundleExternalPatterns` is set, the plugin's `package.json` should de
 
 The CI performs tests to avoid regressions by building the project, running unit tests and running end-to-end tests.
 
-For the end-to-end tests (defined in `.github/workflows/ci.yml` inside the `e2e-test` job), the `datadog-ci` package is installed in a new project with a `.tgz` artifact and configured with files in the `.github/workflows/e2e` folder.
-Then a suite of commands are tested to ensure they work as expected. Each command generally uses a dedicated Datadog org (e.g. `Synthetics E2E Testing Org` for Synthetics tests).
+For the end-to-end tests (defined in `.github/workflows/ci.yml` inside the `e2e-test` job), the `openobserve-ci` package is installed in a new project with a `.tgz` artifact and configured with files in the `.github/workflows/e2e` folder.
+Then a suite of commands are tested to ensure they work as expected. Each command generally uses a dedicated OpenObserve org (e.g. `Synthetics E2E Testing Org` for Synthetics tests).
 
 ### Workflow
 

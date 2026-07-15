@@ -2,13 +2,13 @@ import type {RNSourcemap} from './interfaces'
 
 import chalk from 'chalk'
 
-import {ICONS} from '@datadog/datadog-ci-base/helpers/formatting'
-import {UploadStatus} from '@datadog/datadog-ci-base/helpers/upload'
-import {pluralize} from '@datadog/datadog-ci-base/helpers/utils'
+import {ICONS} from '@openobserve/openobserve-ci-base/helpers/formatting'
+import {UploadStatus} from '@openobserve/openobserve-ci-base/helpers/upload'
+import {pluralize} from '@openobserve/openobserve-ci-base/helpers/utils'
 
 export const renderGitWarning = (errorMessage: string) =>
   chalk.yellow(`${ICONS.WARNING} An error occurred while invoking git: ${errorMessage}
-Make sure the command is running within your git repository to fully leverage Datadog's git integration.
+Make sure the command is running within your git repository to fully leverage OpenObserve's git integration.
 To ignore this warning use the --disable-git flag.\n`)
 
 export const renderGitDataNotAttachedWarning = (sourcemap: string, errorMessage: string) =>
@@ -40,7 +40,7 @@ export const renderRetriedUpload = (payload: RNSourcemap, errorMessage: string, 
 
 export const renderRemoveSourcesContentWarning = () =>
   `Removing the "sourcesContent" part of the sourcemap file. ${chalk.yellow(
-    'Use the --remove-sources-content only if your sourcemap file is too heavy to upload to Datadog.\n'
+    'Use the --remove-sources-content only if your sourcemap file is too heavy to upload to OpenObserve.\n'
   )}`
 
 export const renderFailedSourcesContentRemovalError = (payload: RNSourcemap, errorMessage: string) => `${chalk.red(
@@ -137,7 +137,7 @@ export const renderCommandInfo = (
   fullStr += startStr
   if (!bundlePath) {
     fullStr += chalk.red(
-      `${ICONS.WARNING} --bundle option was not provided. A default bundle name will be used. Please update @datadog/mobile-react-native or pass a --bundle option.\n`
+      `${ICONS.WARNING} --bundle option was not provided. A default bundle name will be used. Please update @openobserve/mobile-react-native or pass a --bundle option.\n`
     )
   }
   fullStr += chalk.green(

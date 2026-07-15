@@ -2,7 +2,7 @@ import crypto from 'node:crypto'
 import {promises as fs} from 'node:fs'
 import os from 'node:os'
 
-import {DATADOG_CI_COMMAND, execPromise, execPromiseWithRetries} from '../../helpers/exec'
+import {OPENOBSERVE_CI_COMMAND, execPromise, execPromiseWithRetries} from '../../helpers/exec'
 
 import {checkTelemetryFlowing} from '../helpers/telemetry-checker'
 import {triggerTraffic} from '../helpers/traffic'
@@ -23,7 +23,7 @@ const port = process.env.PORT || 3000
 http
   .createServer((_req, res) => {
     res.writeHead(200, {'Content-Type': 'text/plain'})
-    res.end('Hello from the datadog-ci AAS Windows e2e app\\n')
+    res.end('Hello from the openobserve-ci AAS Windows e2e app\\n')
   })
   .listen(port)
 `
@@ -61,7 +61,7 @@ describeOrSkip('aas (Windows)', () => {
   // Tie telemetry to this run via service/env/version/run-id so the checker asserts
   // identity, not mere existence.
   const instrumentCommand =
-    `${DATADOG_CI_COMMAND} aas instrument` +
+    `${OPENOBSERVE_CI_COMMAND} aas instrument` +
     ` -s "${subscriptionId}"` +
     ` -g "${resourceGroup}"` +
     ` -n "${windowsAppName}"` +
@@ -129,7 +129,7 @@ describeOrSkip('aas (Windows)', () => {
     const result = await execPromiseWithRetries(
       instrumentCommand,
       {
-        DD_API_KEY: process.env.DATADOG_API_KEY,
+        OO_API_KEY: process.env.OPENOBSERVE_API_KEY,
       },
       {maxAttempts: 5, delaySeconds: 30}
     )
@@ -148,7 +148,7 @@ describeOrSkip('aas (Windows)', () => {
     // so spans flow once it's fully ready.
     await triggerTraffic(appUrl, {attempts: 20, requiredSuccesses: 10})
 
-    // Windows App Service doesn't support Datadog log collection, so assert traces only.
+    // Windows App Service doesn't support OpenObserve log collection, so assert traces only.
     await checkTelemetryFlowing(
       {
         serviceName: windowsAppName,
@@ -164,7 +164,7 @@ describeOrSkip('aas (Windows)', () => {
     const result = await execPromiseWithRetries(
       instrumentCommand,
       {
-        DD_API_KEY: process.env.DATADOG_API_KEY,
+        OO_API_KEY: process.env.OPENOBSERVE_API_KEY,
       },
       {maxAttempts: 5, delaySeconds: 30}
     )
@@ -176,9 +176,9 @@ describeOrSkip('aas (Windows)', () => {
 
   it('uninstrument and verify', async () => {
     const result = await execPromiseWithRetries(
-      `${DATADOG_CI_COMMAND} aas uninstrument -s "${subscriptionId}" -g "${resourceGroup}" -n "${windowsAppName}"`,
+      `${OPENOBSERVE_CI_COMMAND} aas uninstrument -s "${subscriptionId}" -g "${resourceGroup}" -n "${windowsAppName}"`,
       {
-        DD_API_KEY: process.env.DATADOG_API_KEY,
+        OO_API_KEY: process.env.OPENOBSERVE_API_KEY,
       }
     )
     expect(result.exitCode).toBe(0)

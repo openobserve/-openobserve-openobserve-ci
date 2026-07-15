@@ -1,29 +1,29 @@
 import type {RNPlatform} from './interfaces'
-import type {ApiKeyValidator} from '@datadog/datadog-ci-base/helpers/apikey'
-import type {RepositoryData} from '@datadog/datadog-ci-base/helpers/git/format-git-sourcemaps-data'
-import type {RequestBuilder} from '@datadog/datadog-ci-base/helpers/interfaces'
-import type {MetricsLogger} from '@datadog/datadog-ci-base/helpers/metrics'
+import type {ApiKeyValidator} from '@openobserve/openobserve-ci-base/helpers/apikey'
+import type {RepositoryData} from '@openobserve/openobserve-ci-base/helpers/git/format-git-sourcemaps-data'
+import type {RequestBuilder} from '@openobserve/openobserve-ci-base/helpers/interfaces'
+import type {MetricsLogger} from '@openobserve/openobserve-ci-base/helpers/metrics'
 
 import chalk from 'chalk'
 import {Command, Option} from 'clipanion'
 
-import {BaseCommand} from '@datadog/datadog-ci-base'
-import {FIPS_ENV_VAR, FIPS_IGNORE_ERROR_ENV_VAR} from '@datadog/datadog-ci-base/constants'
-import {getDatadogSiteFromEnv} from '@datadog/datadog-ci-base/helpers/api'
-import {newApiKeyValidator} from '@datadog/datadog-ci-base/helpers/apikey'
-import {getBaseSourcemapIntakeUrl} from '@datadog/datadog-ci-base/helpers/base-intake-url'
-import {doWithMaxConcurrency} from '@datadog/datadog-ci-base/helpers/concurrency'
-import {toBoolean} from '@datadog/datadog-ci-base/helpers/env'
-import {InvalidConfigurationError} from '@datadog/datadog-ci-base/helpers/errors'
-import {enableFips} from '@datadog/datadog-ci-base/helpers/fips'
-import {getRepositoryData, newSimpleGit} from '@datadog/datadog-ci-base/helpers/git/format-git-sourcemaps-data'
-import {getMetricsLogger} from '@datadog/datadog-ci-base/helpers/metrics'
-import {datadogRoute} from '@datadog/datadog-ci-base/helpers/request/datadog-route'
-import {upload, UploadStatus} from '@datadog/datadog-ci-base/helpers/upload'
-import {getRequestBuilder, resolveConfigFromFileAndEnvironment} from '@datadog/datadog-ci-base/helpers/utils'
-import * as validation from '@datadog/datadog-ci-base/helpers/validation'
-import {checkAPIKeyOverride} from '@datadog/datadog-ci-base/helpers/validation'
-import {cliVersion} from '@datadog/datadog-ci-base/version'
+import {BaseCommand} from '@openobserve/openobserve-ci-base'
+import {FIPS_ENV_VAR, FIPS_IGNORE_ERROR_ENV_VAR} from '@openobserve/openobserve-ci-base/constants'
+import {getOpenObserveSiteFromEnv} from '@openobserve/openobserve-ci-base/helpers/api'
+import {newApiKeyValidator} from '@openobserve/openobserve-ci-base/helpers/apikey'
+import {getBaseSourcemapIntakeUrl} from '@openobserve/openobserve-ci-base/helpers/base-intake-url'
+import {doWithMaxConcurrency} from '@openobserve/openobserve-ci-base/helpers/concurrency'
+import {toBoolean} from '@openobserve/openobserve-ci-base/helpers/env'
+import {InvalidConfigurationError} from '@openobserve/openobserve-ci-base/helpers/errors'
+import {enableFips} from '@openobserve/openobserve-ci-base/helpers/fips'
+import {getRepositoryData, newSimpleGit} from '@openobserve/openobserve-ci-base/helpers/git/format-git-sourcemaps-data'
+import {getMetricsLogger} from '@openobserve/openobserve-ci-base/helpers/metrics'
+import {ooRoute} from '@openobserve/openobserve-ci-base/helpers/request/datadog-route'
+import {upload, UploadStatus} from '@openobserve/openobserve-ci-base/helpers/upload'
+import {getRequestBuilder, resolveConfigFromFileAndEnvironment} from '@openobserve/openobserve-ci-base/helpers/utils'
+import * as validation from '@openobserve/openobserve-ci-base/helpers/validation'
+import {checkAPIKeyOverride} from '@openobserve/openobserve-ci-base/helpers/validation'
+import {cliVersion} from '@openobserve/openobserve-ci-base/version'
 
 import {RNSourcemap, RN_SUPPORTED_PLATFORMS} from './interfaces'
 import {
@@ -47,19 +47,19 @@ export class ReactNativeUploadCommand extends BaseCommand {
 
   public static usage = Command.Usage({
     category: 'RUM',
-    description: 'Upload React Native sourcemaps to Datadog.',
+    description: 'Upload React Native sourcemaps to OpenObserve.',
     details: `
-      This command will upload React Native sourcemaps and their corresponding JavaScript bundle to Datadog in order to un-minify front-end stack traces received by Datadog.\n
+      This command will upload React Native sourcemaps and their corresponding JavaScript bundle to OpenObserve in order to un-minify front-end stack traces received by OpenObserve.\n
       See README for details.
     `,
     examples: [
       [
         'Upload ios sourcemaps',
-        'datadog-ci react-native upload --platform ios --service com.company.app --bundle ./main.jsbundle --sourcemap ./main.jsbundle.map --release-version 1.23.4 --build-version 1234',
+        'openobserve-ci react-native upload --platform ios --service com.company.app --bundle ./main.jsbundle --sourcemap ./main.jsbundle.map --release-version 1.23.4 --build-version 1234',
       ],
       [
         'Upload android sourcemaps',
-        'datadog-ci react-native upload --platform android --service com.company.app --bundle ./index.android.bundle --sourcemap ./index.android.bundle.map --release-version 1.23.4 --build-version 1234',
+        'openobserve-ci react-native upload --platform android --service com.company.app --bundle ./index.android.bundle --sourcemap ./index.android.bundle.map --release-version 1.23.4 --build-version 1234',
       ],
     ],
   })
@@ -80,7 +80,7 @@ export class ReactNativeUploadCommand extends BaseCommand {
 
   private cliVersion = cliVersion
   private config: Record<string, string> = {
-    datadogSite: 'datadoghq.com',
+    ooSite: 'datadoghq.com',
   }
   private fips = Option.Boolean('--fips', false)
   private fipsIgnoreError = Option.Boolean('--fips-ignore-error', false)
@@ -150,15 +150,15 @@ export class ReactNativeUploadCommand extends BaseCommand {
     this.config = await resolveConfigFromFileAndEnvironment(
       this.config,
       {
-        apiKey: process.env.DATADOG_API_KEY || process.env.DD_API_KEY,
-        datadogSite: getDatadogSiteFromEnv(),
+        apiKey: process.env.OPENOBSERVE_API_KEY || process.env.OO_API_KEY,
+        ooSite: getOpenObserveSiteFromEnv(),
       },
       {
         configPath: this.configPath,
-        defaultConfigPaths: ['datadog-ci.json', '../datadog-ci.json'],
+        defaultConfigPaths: ['openobserve-ci.json', '../openobserve-ci.json'],
         configFromFileCallback: (configFromFile: any) => {
           checkAPIKeyOverride(
-            process.env.DATADOG_API_KEY || process.env.DD_API_KEY,
+            process.env.OPENOBSERVE_API_KEY || process.env.OO_API_KEY,
             configFromFile.apiKey,
             this.context.stdout
           )
@@ -168,7 +168,7 @@ export class ReactNativeUploadCommand extends BaseCommand {
 
     const metricsLogger = getMetricsLogger({
       apiKey: this.config.apiKey,
-      datadogSite: this.config.datadogSite,
+      ooSite: this.config.ooSite,
       defaultTags: [
         `version:${this.releaseVersion}`,
         `build:${this.buildVersion}`,
@@ -182,7 +182,7 @@ export class ReactNativeUploadCommand extends BaseCommand {
 
     const apiKeyValidator = newApiKeyValidator({
       apiKey: this.config.apiKey,
-      datadogSite: this.config.datadogSite,
+      ooSite: this.config.ooSite,
       metricsLogger: metricsLogger.logger,
     })
     const useGit = this.disableGit === undefined || !this.disableGit
@@ -282,18 +282,18 @@ export class ReactNativeUploadCommand extends BaseCommand {
   private getRequestBuilder(): RequestBuilder {
     if (!this.config.apiKey) {
       throw new InvalidConfigurationError(
-        `Missing ${chalk.bold('DATADOG_API_KEY')} or ${chalk.bold('DD_API_KEY')} in your environment.`
+        `Missing ${chalk.bold('OPENOBSERVE_API_KEY')} or ${chalk.bold('OO_API_KEY')} in your environment.`
       )
     }
 
     return getRequestBuilder({
       apiKey: this.config.apiKey,
-      baseUrl: getBaseSourcemapIntakeUrl(this.config.datadogSite),
+      baseUrl: getBaseSourcemapIntakeUrl(this.config.ooSite),
       headers: new Map([
-        ['DD-EVP-ORIGIN', 'datadog-ci_react-native'],
+        ['DD-EVP-ORIGIN', 'openobserve-ci_react-native'],
         ['DD-EVP-ORIGIN-VERSION', this.cliVersion],
       ]),
-      overrideUrl: datadogRoute('/api/v2/srcmap'),
+      overrideUrl: ooRoute('/api/v2/srcmap'),
     })
   }
 

@@ -10,9 +10,9 @@ import {RequestError} from '../request'
 import {thirdParty} from '../request/third-party'
 
 export const MOCK_BASE_URL = 'https://app.datadoghq.com/'
-export const MOCK_DATADOG_API_KEY = '02aeb762fff59ac0d5ad1536cd9633bd'
+export const MOCK_OPENOBSERVE_API_KEY = '02aeb762fff59ac0d5ad1536cd9633bd'
 export const MOCK_CWD = 'mock-folder'
-export const MOCK_FLARE_FOLDER_PATH = upath.join(MOCK_CWD, '.datadog-ci')
+export const MOCK_FLARE_FOLDER_PATH = upath.join(MOCK_CWD, '.openobserve-ci')
 
 interface MockContextOptions {
   /**
@@ -61,10 +61,10 @@ export const createMockContext = (opts?: MockContextOptions): MockCommandContext
 }
 
 export const getEnvVarPlaceholders = () => ({
-  DD_API_KEY: 'PLACEHOLDER',
-  DD_APP_KEY: 'PLACEHOLDER',
-  DATADOG_API_KEY: 'PLACEHOLDER',
-  DATADOG_APP_KEY: 'PLACEHOLDER',
+  OO_API_KEY: 'PLACEHOLDER',
+  OO_APP_KEY: 'PLACEHOLDER',
+  OPENOBSERVE_API_KEY: 'PLACEHOLDER',
+  OPENOBSERVE_APP_KEY: 'PLACEHOLDER',
 })
 
 export const makeRunCLI =

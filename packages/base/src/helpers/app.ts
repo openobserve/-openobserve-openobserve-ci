@@ -1,30 +1,30 @@
 import type {SpanTags} from './interfaces'
 
-import {getDatadogSite} from './api'
+import {getOpenObserveSite} from './api'
 import {CI_JOB_URL, CI_PIPELINE_URL} from './tags'
 
-export const DEFAULT_DATADOG_SUBDOMAIN = 'app'
+export const DEFAULT_OPENOBSERVE_SUBDOMAIN = 'app'
 
 export const getBaseUrl = () => {
-  const site = getDatadogSite()
-  const subdomain = process.env.DD_SUBDOMAIN || ''
+  const site = getOpenObserveSite()
+  const subdomain = process.env.OO_SUBDOMAIN || ''
 
   return getCommonAppBaseURL(site, subdomain)
 }
 
-export const getCommonAppBaseURL = (datadogSite: string, subdomain: string) => {
-  const validSubdomain = subdomain || DEFAULT_DATADOG_SUBDOMAIN
-  const datadogSiteParts = datadogSite.split('.')
+export const getCommonAppBaseURL = (ooSite: string, subdomain: string) => {
+  const validSubdomain = subdomain || DEFAULT_OPENOBSERVE_SUBDOMAIN
+  const ooSiteParts = ooSite.split('.')
 
-  if (datadogSiteParts.length === 3) {
-    if (validSubdomain === DEFAULT_DATADOG_SUBDOMAIN) {
-      return `https://${datadogSite}/`
+  if (ooSiteParts.length === 3) {
+    if (validSubdomain === DEFAULT_OPENOBSERVE_SUBDOMAIN) {
+      return `https://${ooSite}/`
     }
 
-    return `https://${validSubdomain}.${datadogSiteParts[1]}.${datadogSiteParts[2]}/`
+    return `https://${validSubdomain}.${ooSiteParts[1]}.${ooSiteParts[2]}/`
   }
 
-  return `https://${validSubdomain}.${datadogSite}/`
+  return `https://${validSubdomain}.${ooSite}/`
 }
 
 export const getTestRunsUrlPath = (spanTags: SpanTags, queryPrefix = ''): string => {

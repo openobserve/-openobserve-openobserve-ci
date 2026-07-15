@@ -16,7 +16,7 @@ export type CommandContext = BaseContext & {
 export abstract class BaseCommand extends Command<CommandContext> {
   // Hidden while the JSON logging migration is in progress: most commands do not
   // honour it yet. Unhide once coverage is broad enough.
-  // Resolution order (handled by clipanion): CLI flag > DD_LOG_FORMAT env var > default.
+  // Resolution order (handled by clipanion): CLI flag > OO_LOG_FORMAT env var > default.
   protected logFormat = Option.String('--log-format', 'text', {
     env: LOG_FORMAT_ENV_VAR,
     hidden: true,

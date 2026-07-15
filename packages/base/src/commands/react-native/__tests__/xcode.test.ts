@@ -2,8 +2,8 @@ import {readFileSync, writeFileSync} from 'fs'
 
 import {Cli} from 'clipanion'
 
-import {createMockContext, getEnvVarPlaceholders} from '@datadog/datadog-ci-base/helpers/__tests__/testing-tools'
-import * as formatGitSourcemapsData from '@datadog/datadog-ci-base/helpers/git/format-git-sourcemaps-data'
+import {createMockContext, getEnvVarPlaceholders} from '@openobserve/openobserve-ci-base/helpers/__tests__/testing-tools'
+import * as formatGitSourcemapsData from '@openobserve/openobserve-ci-base/helpers/git/format-git-sourcemaps-data'
 
 import * as utils from '../utils'
 import {ReactNativeXcodeCommand} from '../xcode'
@@ -172,7 +172,7 @@ describe('xcode', () => {
         ...process.env,
         ...basicEnvironment,
         // This ensures we point to an existing file as the command is ran without any script path
-        DATADOG_CI_REACT_NATIVE_PATH: './src/commands/react-native/__tests__/fixtures/react-native',
+        OPENOBSERVE_CI_REACT_NATIVE_PATH: './src/commands/react-native/__tests__/fixtures/react-native',
       }
       const {context, code} = await runCLI()
       // Uncomment these lines for debugging failing script
@@ -194,7 +194,7 @@ describe('xcode', () => {
         // This ensures we point to an existing hermes bundle file
         CONFIGURATION_BUILD_DIR: './src/commands/react-native/__tests__/fixtures/sourcemap-with-debug-id-in-bundle',
         // This ensures we point to an existing file as the command is ran without any script path
-        DATADOG_CI_REACT_NATIVE_PATH: './src/commands/react-native/__tests__/fixtures/react-native',
+        OPENOBSERVE_CI_REACT_NATIVE_PATH: './src/commands/react-native/__tests__/fixtures/react-native',
         // This ensures we point to an existing podfile with hermes enabled
         PODS_PODFILE_DIR_PATH: './src/commands/react-native/__tests__/fixtures/podfile-lock/with-hermes',
       }
@@ -220,7 +220,7 @@ describe('xcode', () => {
         // This ensures we point to an existing hermes bundle file
         CONFIGURATION_BUILD_DIR: './src/commands/react-native/__tests__/fixtures/compose-sourcemaps',
         // This ensures we point to an existing file as the command is ran without any script path
-        DATADOG_CI_REACT_NATIVE_PATH: './src/commands/react-native/__tests__/fixtures/react-native',
+        OPENOBSERVE_CI_REACT_NATIVE_PATH: './src/commands/react-native/__tests__/fixtures/react-native',
         // This ensures we point to an existing podfile with hermes enabled
         PODS_PODFILE_DIR_PATH: './src/commands/react-native/__tests__/fixtures/podfile-lock/with-hermes',
       }
@@ -246,8 +246,8 @@ describe('xcode', () => {
         // This ensures we point to an existing hermes bundle file
         CONFIGURATION_BUILD_DIR: './src/commands/react-native/__tests__/fixtures/compose-sourcemaps',
         // This ensures we point to an existing file as the command is ran without any script path
-        DATADOG_CI_REACT_NATIVE_PATH: './src/commands/react-native/__tests__/fixtures/react-native',
-        DATADOG_REACT_NATIVE_PATH: './src/commands/react-native/__tests__/fixtures/datadog-react-native-with-tmp',
+        OPENOBSERVE_CI_REACT_NATIVE_PATH: './src/commands/react-native/__tests__/fixtures/react-native',
+        OPENOBSERVE_REACT_NATIVE_PATH: './src/commands/react-native/__tests__/fixtures/datadog-react-native-with-tmp',
         // This ensures we point to an existing podfile with hermes enabled
         PODS_PODFILE_DIR_PATH: './src/commands/react-native/__tests__/fixtures/podfile-lock/with-hermes',
       }
@@ -281,8 +281,8 @@ describe('xcode', () => {
         // This ensures we point to an existing hermes bundle file
         CONFIGURATION_BUILD_DIR: './src/commands/react-native/__tests__/fixtures/compose-sourcemaps',
         // This ensures we point to an existing file as the command is ran without any script path
-        DATADOG_CI_REACT_NATIVE_PATH: './src/commands/react-native/__tests__/fixtures/react-native',
-        DATADOG_REACT_NATIVE_PATH: './src/commands/react-native/__tests__/fixtures/datadog-react-native',
+        OPENOBSERVE_CI_REACT_NATIVE_PATH: './src/commands/react-native/__tests__/fixtures/react-native',
+        OPENOBSERVE_REACT_NATIVE_PATH: './src/commands/react-native/__tests__/fixtures/datadog-react-native',
         // This ensures we point to an existing podfile with hermes enabled
         PODS_PODFILE_DIR_PATH: './src/commands/react-native/__tests__/fixtures/podfile-lock/with-hermes',
       }
@@ -595,7 +595,7 @@ describe('xcode', () => {
 
         expect(code).toBe(1)
         const output = context.stderr.toString()
-        expect(output).toContain(`Environment variable ${variable} is missing for Datadog sourcemaps upload.`)
+        expect(output).toContain(`Environment variable ${variable} is missing for OpenObserve sourcemaps upload.`)
       }
     )
 
@@ -698,7 +698,7 @@ describe('xcode', () => {
 
       expect(code).toBe(1)
       const output = context.stderr.toString()
-      expect(output).toContain('Error running bundle script from datadog-ci xcode')
+      expect(output).toContain('Error running bundle script from openobserve-ci xcode')
       expect(output).toContain(
         'Error: spawn ./src/commands/react-native/__tests__/fixtures/bundle-script/non_existent.sh ENOENT'
       )
@@ -722,7 +722,7 @@ describe('xcode', () => {
       expect(output).toContain('[bundle script]: Starting failing script')
 
       const errorOutput = context.stderr.toString()
-      expect(errorOutput).toContain('Error running bundle script from datadog-ci xcode.')
+      expect(errorOutput).toContain('Error running bundle script from openobserve-ci xcode.')
       expect(errorOutput).toContain('[bundle script]: Custom error message from script')
     })
 

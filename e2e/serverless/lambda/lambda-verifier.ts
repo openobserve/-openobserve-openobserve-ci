@@ -20,11 +20,11 @@ export interface LambdaSnapshot {
   tags: Record<string, string>
 }
 
-const DATADOG_NODE_HANDLER = '/opt/nodejs/node_modules/datadog-lambda-js/handler.handler'
+const OPENOBSERVE_NODE_HANDLER = '/opt/nodejs/node_modules/datadog-lambda-js/handler.handler'
 const ORIGINAL_HANDLER = 'index.handler'
 const SERVERLESS_CI_TAG = 'dd_sls_ci'
-const NODE_LAYER_NAME = 'Datadog-Node24-x'
-const EXTENSION_LAYER_NAME = 'Datadog-Extension'
+const NODE_LAYER_NAME = 'OpenObserve-Node24-x'
+const EXTENSION_LAYER_NAME = 'OpenObserve-Extension'
 
 const getFunctionConfiguration = (functionName: string, region: string): LambdaFunctionConfiguration => {
   const output = execSync(
@@ -91,14 +91,14 @@ export const verifyLambdaInstrumented = (
   // The deployed layer versions must match what the instrument command requested.
   expect(getLayerVersion(layerArns, NODE_LAYER_NAME)).toBe(expectedLayerVersions.node)
   expect(getLayerVersion(layerArns, EXTENSION_LAYER_NAME)).toBe(expectedLayerVersions.extension)
-  expect(config.Handler).toBe(DATADOG_NODE_HANDLER)
-  expect(env.DD_LAMBDA_HANDLER).toBe(ORIGINAL_HANDLER)
-  expect(env.DD_SERVICE).toBe(expectedTags.service)
-  expect(env.DD_ENV).toBe(expectedTags.environment)
-  expect(env.DD_VERSION).toBe(expectedTags.version)
-  expect(env.DD_TRACE_ENABLED).toBe('true')
-  expect(env.DD_API_KEY).toBeDefined()
-  expect(env.DD_SITE).toBeDefined()
+  expect(config.Handler).toBe(OPENOBSERVE_NODE_HANDLER)
+  expect(env.OO_LAMBDA_HANDLER).toBe(ORIGINAL_HANDLER)
+  expect(env.OO_SERVICE).toBe(expectedTags.service)
+  expect(env.OO_ENV).toBe(expectedTags.environment)
+  expect(env.OO_VERSION).toBe(expectedTags.version)
+  expect(env.OO_TRACE_ENABLED).toBe('true')
+  expect(env.OO_API_KEY).toBeDefined()
+  expect(env.OO_SITE).toBeDefined()
   expect(Object.keys(tags)).toContain(SERVERLESS_CI_TAG)
 
   console.log('\nAll instrumented Lambda checks passed.')
@@ -127,12 +127,12 @@ export const verifyLambdaExtensionOnly = (
   expect(hasLayer(layerArns, NODE_LAYER_NAME)).toBe(false)
   // No language layer means no handler rewrite.
   expect(config.Handler).toBe(originalHandler)
-  expect(env.DD_LAMBDA_HANDLER).toBeUndefined()
-  expect(env.DD_SERVICE).toBe(expectedTags.service)
-  expect(env.DD_ENV).toBe(expectedTags.environment)
-  expect(env.DD_VERSION).toBe(expectedTags.version)
-  expect(env.DD_API_KEY).toBeDefined()
-  expect(env.DD_SITE).toBeDefined()
+  expect(env.OO_LAMBDA_HANDLER).toBeUndefined()
+  expect(env.OO_SERVICE).toBe(expectedTags.service)
+  expect(env.OO_ENV).toBe(expectedTags.environment)
+  expect(env.OO_VERSION).toBe(expectedTags.version)
+  expect(env.OO_API_KEY).toBeDefined()
+  expect(env.OO_SITE).toBeDefined()
   expect(Object.keys(tags)).toContain(SERVERLESS_CI_TAG)
 
   console.log('\nAll extension-only Lambda checks passed.')
@@ -154,7 +154,7 @@ export const verifyLambdaUninstrumented = (
   expect(hasLayer(layerArns, NODE_LAYER_NAME)).toBe(false)
   expect(hasLayer(layerArns, EXTENSION_LAYER_NAME)).toBe(false)
   expect(config.Handler).toBe(originalHandler)
-  expect(Object.keys(env).filter((name) => name.startsWith('DD_'))).toHaveLength(0)
+  expect(Object.keys(env).filter((name) => name.startsWith('OO_'))).toHaveLength(0)
   expect(Object.keys(tags)).not.toContain(SERVERLESS_CI_TAG)
 
   console.log('\nAll uninstrumented Lambda checks passed.')

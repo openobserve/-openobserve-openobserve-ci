@@ -3,10 +3,10 @@
   "compilerOptions": {
     "noEmit": true
   },
-  // All plugins are listed here so they keep being built even when we drop them from `@datadog/datadog-ci` in the future.
+  // All plugins are listed here so they keep being built even when we drop them from `@openobserve/openobserve-ci` in the future.
   "references": [
     {"path": "./packages/base"},
-    {"path": "./packages/datadog-ci"},
+    {"path": "./packages/openobserve-ci"},
     {"path": "./packages/plugin-aas"},
     {"path": "./packages/plugin-cloud-run"},
     {"path": "./packages/plugin-container-app"},

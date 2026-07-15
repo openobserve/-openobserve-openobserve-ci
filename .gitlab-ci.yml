@@ -15,7 +15,7 @@ build-docker-image:
     - docker buildx build
       --platform linux/amd64,linux/arm64/v8
       --build-arg "VERSION=${CI_COMMIT_TAG}"
-      --tag "registry.ddbuild.io/ci/datadog-ci:v${CI_PIPELINE_ID}-${CI_COMMIT_SHORT_SHA}"
+      --tag "registry.ddbuild.io/ci/openobserve-ci:v${CI_PIPELINE_ID}-${CI_COMMIT_SHORT_SHA}"
       --push
       .
 
@@ -28,7 +28,7 @@ publish-docker-image:
     branch: main
     strategy: depend
   variables:
-    IMG_SOURCES: registry.ddbuild.io/ci/datadog-ci:v${CI_PIPELINE_ID}-${CI_COMMIT_SHORT_SHA}
+    IMG_SOURCES: registry.ddbuild.io/ci/openobserve-ci:v${CI_PIPELINE_ID}-${CI_COMMIT_SHORT_SHA}
     IMG_DESTINATIONS: ci:${CI_COMMIT_TAG},ci:latest
     IMG_SIGNING: 'false'
 
@@ -61,4 +61,4 @@ catalog-endpoints-upload:
     - chmod +x "${CI_PROJECT_DIR}/ci-identities-gitlab-job-client"
   script:
     - ${CI_PROJECT_DIR}/ci-identities-gitlab-job-client assume-role
-    - aws s3 cp endpoints.csv s3://dd-datadog-ci/endpoints.csv
+    - aws s3 cp endpoints.csv s3://dd-openobserve-ci/endpoints.csv

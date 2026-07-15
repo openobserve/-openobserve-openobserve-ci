@@ -1,38 +1,38 @@
-import {isValidDatadogSite} from '../validation'
+import {isValidOpenObserveSite} from '../validation'
 
 describe('validation', () => {
-  test('isValidDatadogSite', () => {
-    expect(isValidDatadogSite()).toBe(false)
-    expect(isValidDatadogSite(undefined)).toBe(false)
-    expect(isValidDatadogSite('')).toBe(false)
-    expect(isValidDatadogSite('random')).toBe(false)
-    expect(isValidDatadogSite('myorg.datadoghq.com')).toBe(false)
-    expect(isValidDatadogSite('myorg.app.datadoghq.com')).toBe(false)
-    expect(isValidDatadogSite('myorg.us3.datadoghq.com')).toBe(false)
+  test('isValidOpenObserveSite', () => {
+    expect(isValidOpenObserveSite()).toBe(false)
+    expect(isValidOpenObserveSite(undefined)).toBe(false)
+    expect(isValidOpenObserveSite('')).toBe(false)
+    expect(isValidOpenObserveSite('random')).toBe(false)
+    expect(isValidOpenObserveSite('myorg.datadoghq.com')).toBe(false)
+    expect(isValidOpenObserveSite('myorg.app.datadoghq.com')).toBe(false)
+    expect(isValidOpenObserveSite('myorg.us3.datadoghq.com')).toBe(false)
 
-    expect(isValidDatadogSite('datadoghq.com')).toBe(true)
+    expect(isValidOpenObserveSite('datadoghq.com')).toBe(true)
 
-    expect(isValidDatadogSite('ap1.datadoghq.com')).toBe(true)
-    expect(isValidDatadogSite('AP1.datadoghq.com')).toBe(true)
+    expect(isValidOpenObserveSite('ap1.datadoghq.com')).toBe(true)
+    expect(isValidOpenObserveSite('AP1.datadoghq.com')).toBe(true)
 
-    expect(isValidDatadogSite('ap2.datadoghq.com')).toBe(true)
-    expect(isValidDatadogSite('AP2.datadoghq.com')).toBe(true)
+    expect(isValidOpenObserveSite('ap2.datadoghq.com')).toBe(true)
+    expect(isValidOpenObserveSite('AP2.datadoghq.com')).toBe(true)
 
-    expect(isValidDatadogSite('uk1.datadoghq.com')).toBe(true)
-    expect(isValidDatadogSite('UK1.datadoghq.com')).toBe(true)
+    expect(isValidOpenObserveSite('uk1.datadoghq.com')).toBe(true)
+    expect(isValidOpenObserveSite('UK1.datadoghq.com')).toBe(true)
 
-    expect(isValidDatadogSite('us3.datadoghq.com')).toBe(true)
-    expect(isValidDatadogSite('US3.datadoghq.com')).toBe(true)
+    expect(isValidOpenObserveSite('us3.datadoghq.com')).toBe(true)
+    expect(isValidOpenObserveSite('US3.datadoghq.com')).toBe(true)
 
-    expect(isValidDatadogSite('us5.datadoghq.com')).toBe(true)
-    expect(isValidDatadogSite('US5.datadoghq.com')).toBe(true)
+    expect(isValidOpenObserveSite('us5.datadoghq.com')).toBe(true)
+    expect(isValidOpenObserveSite('US5.datadoghq.com')).toBe(true)
 
-    expect(isValidDatadogSite('us2.ddog-gov.com')).toBe(true)
-    expect(isValidDatadogSite('US2.ddog-gov.com')).toBe(true)
+    expect(isValidOpenObserveSite('us2.ddog-gov.com')).toBe(true)
+    expect(isValidOpenObserveSite('US2.ddog-gov.com')).toBe(true)
 
-    process.env.DD_CI_BYPASS_SITE_VALIDATION = 'true'
+    process.env.OO_CI_BYPASS_SITE_VALIDATION = 'true'
 
-    expect(isValidDatadogSite('')).toBe(true)
-    expect(isValidDatadogSite('random')).toBe(true)
+    expect(isValidOpenObserveSite('')).toBe(true)
+    expect(isValidOpenObserveSite('random')).toBe(true)
   })
 })

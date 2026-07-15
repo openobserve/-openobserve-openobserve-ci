@@ -9,7 +9,7 @@ import type {Command, CommandClass} from 'clipanion'
 import chalk from 'chalk'
 import createDebug from 'debug'
 
-import {peerDependencies} from '@datadog/datadog-ci-base/package.json'
+import {peerDependencies} from '@openobserve/openobserve-ci-base/package.json'
 
 import {cliVersion} from '../version'
 
@@ -52,9 +52,9 @@ export const executePluginCommand = async <T extends Command>(instance: T): Prom
     console.log(
       [
         `To troubleshoot, run:`,
-        `  ${chalk.bold.cyan(`datadog-ci plugin check`)} ${chalk.magenta(scope)}`,
+        `  ${chalk.bold.cyan(`openobserve-ci plugin check`)} ${chalk.magenta(scope)}`,
         ...(command
-          ? [`or`, `  ${chalk.bold.cyan(`datadog-ci plugin check`)} ${chalk.magenta(scope)} ${chalk.magenta(command)}`]
+          ? [`or`, `  ${chalk.bold.cyan(`openobserve-ci plugin check`)} ${chalk.magenta(scope)} ${chalk.magenta(command)}`]
           : []),
         '',
       ].join('\n')
@@ -245,7 +245,7 @@ const temporarilyInstallPluginWithNpx = async (scope: string) => {
   messageBox('Installed plugin 🔌', 'green', [
     `Successfully installed ${chalk.bold(pluginDescriptor)} into ${chalk.dim(nodeModulesPath)}`,
     '',
-    `Consider installing the plugin explicitly with ${chalk.bold.cyan('datadog-ci plugin install')} ${chalk.magenta(scope)}.`,
+    `Consider installing the plugin explicitly with ${chalk.bold.cyan('openobserve-ci plugin install')} ${chalk.magenta(scope)}.`,
   ])
   console.log()
 
@@ -286,10 +286,10 @@ const handlePluginAutoInstall = async (scope: string) => {
 
 const printPluginVersion = (plugin: PackageInfo) => {
   if (plugin.version !== cliVersion) {
-    // CTA about syncing the plugin version with datadog-ci, but it's dimmed to not be too intrusive.
+    // CTA about syncing the plugin version with openobserve-ci, but it's dimmed to not be too intrusive.
     console.log(
       chalk.dim(
-        `${plugin.name} v${plugin.version} (run ${chalk.cyan('datadog-ci plugin install')} to sync with datadog-ci)`
+        `${plugin.name} v${plugin.version} (run ${chalk.cyan('openobserve-ci plugin install')} to sync with openobserve-ci)`
       )
     )
   } else {
@@ -346,7 +346,7 @@ const importPluginSubmodule = async (scope: string, command: string): Promise<Pl
   // 2. Development/default submodule export.
   // `yarn launch` passes `--conditions=development`, so this resolves to local source files.
   // Published CLI/plugin usage resolves the same export to the dist command wrapper.
-  const submoduleName = `@datadog/datadog-ci-plugin-${scope}/commands/${command}`
+  const submoduleName = `@openobserve/openobserve-ci-plugin-${scope}/commands/${command}`
   debug('Resolving submodule:', submoduleName)
   let submoduleResolveError: unknown
   let resolvedSubmodulePath: string | undefined
@@ -364,7 +364,7 @@ const importPluginSubmodule = async (scope: string, command: string): Promise<Pl
     return normalizePluginSubmodule(await import(submodulePath))
   }
 
-  const pluginPackage = `@datadog/datadog-ci-plugin-${scope}`
+  const pluginPackage = `@openobserve/openobserve-ci-plugin-${scope}`
 
   // 3. Self-contained plugin bundle fallback (published vendored bundles without submodule exports)
   try {
@@ -383,11 +383,11 @@ const importPluginSubmodule = async (scope: string, command: string): Promise<Pl
 }
 
 export const scopeToPackageName = (scope: string): string => {
-  if (scope.match(/^@datadog\/datadog-ci-plugin-[a-z-]+$/)) {
+  if (scope.match(/^@datadog\/openobserve-ci-plugin-[a-z-]+$/)) {
     return scope
   }
 
-  return `@datadog/datadog-ci-plugin-${scope}`
+  return `@openobserve/openobserve-ci-plugin-${scope}`
 }
 
 const patchModulePaths = (preferredPath?: string) => {
@@ -416,7 +416,7 @@ const isPluginSubmodule = (submodule: unknown): submodule is PluginSubModule => 
 
 /**
  * @example "1.2.3"
- * @example "file:./artifacts/@datadog-datadog-ci-base-20.tgz"
+ * @example "file:./artifacts/@datadog-openobserve-ci-base-20.tgz"
  */
 export const VERSION_OVERRIDE_REGEX = /^(\d+\.\d+\.\d+|file:\.\/[a-zA-Z0-9.\-/@]+)$/
 
@@ -437,7 +437,7 @@ const getPackageToInstall = (scope: string): PackageInfo => {
 }
 
 const importPlugin = async (scope: string): Promise<PackageInfo> => {
-  const packageNameMatch = scope.match(/^@datadog\/datadog-ci-plugin-([a-z-]+)$/)
+  const packageNameMatch = scope.match(/^@datadog\/openobserve-ci-plugin-([a-z-]+)$/)
   const normalizedScope = packageNameMatch?.[1] ?? scope
 
   const injectedPackageJson = getInjectedPluginPackageJson(normalizedScope)
@@ -447,7 +447,7 @@ const importPlugin = async (scope: string): Promise<PackageInfo> => {
 
   // Use `require()` instead of `await import()` to avoid `ERR_IMPORT_ATTRIBUTE_MISSING` due to missing `{with: {type: 'json'}}`.
   // This is only supported with `--module` set to `esnext`, `node16`, or `nodenext`.
-  return extractPackageJson(require(`@datadog/datadog-ci-plugin-${normalizedScope}/package.json`))
+  return extractPackageJson(require(`@openobserve/openobserve-ci-plugin-${normalizedScope}/package.json`))
 }
 
 const extractPackageJson = (content: unknown): PackageInfo => {
@@ -474,39 +474,39 @@ const extractPackageJson = (content: unknown): PackageInfo => {
 const packageDescriptor = (name: string, version: string) => `${name}@${version}`
 
 const showPluginNotInstalledMessageBox = (scope: string, command?: string) => {
-  const packageName = `@datadog/datadog-ci-plugin-${scope}`
+  const packageName = `@openobserve/openobserve-ci-plugin-${scope}`
 
   if (command) {
     messageBox('Plugin not installed 🔌', 'red', [
-      `The ${chalk.cyan(`datadog-ci ${scope} ${command}`)} command could not be found.`,
-      `To use this command, please install ${chalk.bold.magenta(packageName)} alongside datadog-ci.`,
+      `The ${chalk.cyan(`openobserve-ci ${scope} ${command}`)} command could not be found.`,
+      `To use this command, please install ${chalk.bold.magenta(packageName)} alongside openobserve-ci.`,
     ])
   } else {
     messageBox('Plugin not installed 🔌', 'red', [
       `The ${chalk.bold.magenta(packageName)} package could not be found.`,
-      `To use the any command in this plugin, please install it alongside datadog-ci.`,
+      `To use the any command in this plugin, please install it alongside openobserve-ci.`,
     ])
   }
 }
 
 const showPnpPeerDependencyErrorMessageBox = (scope: string) => {
-  const packageName = `@datadog/datadog-ci-plugin-${scope}`
+  const packageName = `@openobserve/openobserve-ci-plugin-${scope}`
 
   messageBox("Yarn Plug'n'Play (PnP) error 🔌", 'red', [
-    `Yarn Plug'n'Play (PnP) detected that ${chalk.bold.magenta(packageName)} was not installed alongside datadog-ci.`,
+    `Yarn Plug'n'Play (PnP) detected that ${chalk.bold.magenta(packageName)} was not installed alongside openobserve-ci.`,
   ])
 }
 
 const showInstallPluginInstructions = (scope: string) => {
-  const packageName = `@datadog/datadog-ci-plugin-${scope}`
+  const packageName = `@openobserve/openobserve-ci-plugin-${scope}`
 
   console.log(
     [
       '',
       `You can install the plugin using:`,
-      `  ${chalk.bold.cyan('datadog-ci plugin install')} ${chalk.magenta(scope)}`,
+      `  ${chalk.bold.cyan('openobserve-ci plugin install')} ${chalk.magenta(scope)}`,
       `or`,
-      `  ${chalk.bold.cyan('datadog-ci plugin install')} ${chalk.magenta(packageName)}`,
+      `  ${chalk.bold.cyan('openobserve-ci plugin install')} ${chalk.magenta(packageName)}`,
       '',
     ].join('\n')
   )

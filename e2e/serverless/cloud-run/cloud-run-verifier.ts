@@ -44,12 +44,12 @@ interface CloudRunService {
 const SIDECAR_NAME = 'datadog-sidecar'
 const SHARED_VOLUME_NAME = 'shared-volume'
 const REQUIRED_ENV_VARS = [
-  'DD_API_KEY',
-  'DD_SITE',
-  'DD_SERVICE',
-  'DD_TRACE_ENABLED',
-  'DD_LOGS_INJECTION',
-  'DD_HEALTH_PORT',
+  'OO_API_KEY',
+  'OO_SITE',
+  'OO_SERVICE',
+  'OO_TRACE_ENABLED',
+  'OO_LOGS_INJECTION',
+  'OO_HEALTH_PORT',
 ]
 
 const getCloudRunService = (serviceName: string, project: string, region: string): CloudRunService => {
@@ -130,7 +130,7 @@ export const verifyUninstrumented = (serviceName: string, project: string, regio
     const mounts = container.volumeMounts || []
     expect(mounts.some((m) => getVolumeName(m) === SHARED_VOLUME_NAME)).toBe(false)
 
-    const ddVars = (container.env || []).filter((e) => e.name.startsWith('DD_'))
+    const ddVars = (container.env || []).filter((e) => e.name.startsWith('OO_'))
     expect(ddVars).toHaveLength(0)
   }
 

@@ -1,7 +1,7 @@
-import {getDatadogSite, getIntakeUrl} from '../../helpers/api'
+import {getOpenObserveSite, getIntakeUrl} from '../../helpers/api'
 
-export const datadogSite = getDatadogSite()
+export const ooSite = getOpenObserveSite()
 
-export const apiHost = 'api.' + datadogSite
+export const apiHost = 'api.' + ooSite
 
-export const getBaseIntakeUrl = () => getIntakeUrl('sourcemap-intake', {overrideEnvVar: 'DATADOG_SOURCEMAP_INTAKE_URL'})
+export const getBaseIntakeUrl = () => getIntakeUrl('sourcemap-intake', {overrideEnvVar: 'OPENOBSERVE_SOURCEMAP_INTAKE_URL'})

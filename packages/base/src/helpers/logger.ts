@@ -18,7 +18,7 @@ export interface LoggerOptions {
   shouldIncludeTimestamp?: boolean
   /**
    * When `true`, every log call emits a single-line JSON object instead of
-   * ANSI-coloured text. Useful when Datadog itself (or any other log
+   * ANSI-coloured text. Useful when OpenObserve itself (or any other log
    * pipeline) ingests CLI output: each line parses cleanly and `level` is
    * preserved instead of every `error` showing up as `info`.
    */

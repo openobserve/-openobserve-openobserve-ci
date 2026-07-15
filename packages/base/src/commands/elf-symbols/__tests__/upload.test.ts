@@ -2,27 +2,27 @@ import {execSync} from 'child_process'
 import fs from 'fs'
 import os from 'os'
 
-import type {MultipartFileValue, MultipartPayload, MultipartStringValue} from '@datadog/datadog-ci-base/helpers/upload'
+import type {MultipartFileValue, MultipartPayload, MultipartStringValue} from '@openobserve/openobserve-ci-base/helpers/upload'
 
 import upath from 'upath'
 
-import {createCommand} from '@datadog/datadog-ci-base/helpers/__tests__/testing-tools'
-import {TrackedFilesMatcher} from '@datadog/datadog-ci-base/helpers/git/format-git-sourcemaps-data'
-import {UploadStatus} from '@datadog/datadog-ci-base/helpers/upload'
-import {cliVersion} from '@datadog/datadog-ci-base/version'
+import {createCommand} from '@openobserve/openobserve-ci-base/helpers/__tests__/testing-tools'
+import {TrackedFilesMatcher} from '@openobserve/openobserve-ci-base/helpers/git/format-git-sourcemaps-data'
+import {UploadStatus} from '@openobserve/openobserve-ci-base/helpers/upload'
+import {cliVersion} from '@openobserve/openobserve-ci-base/version'
 
 import {ElfClass} from '../elf-constants'
 import {uploadMultipartHelper} from '../helpers'
 import {renderArgumentMissingError, renderInvalidSymbolsLocation} from '../renderer'
 import {ElfSymbolsUploadCommand} from '../upload'
 
-jest.mock('@datadog/datadog-ci-base/helpers/utils', () => ({
-  ...jest.requireActual('@datadog/datadog-ci-base/helpers/utils'),
+jest.mock('@openobserve/openobserve-ci-base/helpers/utils', () => ({
+  ...jest.requireActual('@openobserve/openobserve-ci-base/helpers/utils'),
   performSubCommand: jest.fn(),
 }))
 
-jest.mock('@datadog/datadog-ci-base/helpers/git/format-git-sourcemaps-data', () => ({
-  ...jest.requireActual('@datadog/datadog-ci-base/helpers/git/format-git-sourcemaps-data'),
+jest.mock('@openobserve/openobserve-ci-base/helpers/git/format-git-sourcemaps-data', () => ({
+  ...jest.requireActual('@openobserve/openobserve-ci-base/helpers/git/format-git-sourcemaps-data'),
   getRepositoryData: jest.fn(),
 }))
 
@@ -34,7 +34,7 @@ jest.mock('../helpers', () => ({
 const fixtureDir = './src/commands/elf-symbols/__tests__/fixtures'
 const commonMetadata = {
   cli_version: cliVersion,
-  origin: 'datadog-ci',
+  origin: 'openobserve-ci',
   origin_version: cliVersion,
   type: 'elf_symbol_file',
   overwrite: false,
@@ -85,9 +85,9 @@ describe('elf-symbols upload', () => {
     test('uses API Key from env over config from JSON file', async () => {
       requireObjcopy()
       const {exitCode, context} = await runCommand((cmd) => {
-        cmd['configPath'] = `${fixtureDir}/config/datadog-ci.json`
+        cmd['configPath'] = `${fixtureDir}/config/openobserve-ci.json`
         cmd['symbolsLocations'] = [fixtureDir]
-        process.env.DATADOG_API_KEY = 'fake_api_key'
+        process.env.OPENOBSERVE_API_KEY = 'fake_api_key'
       })
       const output = context.stdout.toString().split('\n')
 

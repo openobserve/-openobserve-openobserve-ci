@@ -1,16 +1,16 @@
 [
   [
     {
-      "DD_GIT_BRANCH": "usersupplied-branch",
-      "DD_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
-      "DD_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
-      "DD_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
-      "DD_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
-      "DD_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
-      "DD_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
-      "DD_GIT_COMMIT_MESSAGE": "usersupplied-message",
-      "DD_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
-      "DD_GIT_REPOSITORY_URL": "git@github.com:DataDog/userrepo.git"
+      "OO_GIT_BRANCH": "usersupplied-branch",
+      "OO_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
+      "OO_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
+      "OO_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
+      "OO_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
+      "OO_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
+      "OO_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
+      "OO_GIT_COMMIT_MESSAGE": "usersupplied-message",
+      "OO_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
+      "OO_GIT_REPOSITORY_URL": "git@github.com:DataDog/userrepo.git"
     },
     {
       "git.branch": "usersupplied-branch",
@@ -27,16 +27,16 @@
   ],
   [
     {
-      "DD_GIT_BRANCH": "origin/usersupplied-branch",
-      "DD_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
-      "DD_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
-      "DD_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
-      "DD_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
-      "DD_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
-      "DD_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
-      "DD_GIT_COMMIT_MESSAGE": "usersupplied-message",
-      "DD_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
-      "DD_GIT_REPOSITORY_URL": "git@github.com:DataDog/userrepo.git"
+      "OO_GIT_BRANCH": "origin/usersupplied-branch",
+      "OO_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
+      "OO_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
+      "OO_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
+      "OO_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
+      "OO_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
+      "OO_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
+      "OO_GIT_COMMIT_MESSAGE": "usersupplied-message",
+      "OO_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
+      "OO_GIT_REPOSITORY_URL": "git@github.com:DataDog/userrepo.git"
     },
     {
       "git.branch": "usersupplied-branch",
@@ -53,16 +53,16 @@
   ],
   [
     {
-      "DD_GIT_BRANCH": "refs/heads/usersupplied-branch",
-      "DD_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
-      "DD_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
-      "DD_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
-      "DD_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
-      "DD_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
-      "DD_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
-      "DD_GIT_COMMIT_MESSAGE": "usersupplied-message",
-      "DD_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
-      "DD_GIT_REPOSITORY_URL": "git@github.com:DataDog/userrepo.git"
+      "OO_GIT_BRANCH": "refs/heads/usersupplied-branch",
+      "OO_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
+      "OO_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
+      "OO_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
+      "OO_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
+      "OO_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
+      "OO_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
+      "OO_GIT_COMMIT_MESSAGE": "usersupplied-message",
+      "OO_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
+      "OO_GIT_REPOSITORY_URL": "git@github.com:DataDog/userrepo.git"
     },
     {
       "git.branch": "usersupplied-branch",
@@ -79,16 +79,16 @@
   ],
   [
     {
-      "DD_GIT_BRANCH": "origin/tags/0.1.0",
-      "DD_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
-      "DD_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
-      "DD_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
-      "DD_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
-      "DD_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
-      "DD_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
-      "DD_GIT_COMMIT_MESSAGE": "usersupplied-message",
-      "DD_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
-      "DD_GIT_REPOSITORY_URL": "git@github.com:DataDog/userrepo.git"
+      "OO_GIT_BRANCH": "origin/tags/0.1.0",
+      "OO_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
+      "OO_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
+      "OO_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
+      "OO_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
+      "OO_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
+      "OO_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
+      "OO_GIT_COMMIT_MESSAGE": "usersupplied-message",
+      "OO_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
+      "OO_GIT_REPOSITORY_URL": "git@github.com:DataDog/userrepo.git"
     },
     {
       "git.commit.author.date": "usersupplied-authordate",
@@ -105,16 +105,16 @@
   ],
   [
     {
-      "DD_GIT_BRANCH": "refs/heads/tags/0.1.0",
-      "DD_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
-      "DD_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
-      "DD_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
-      "DD_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
-      "DD_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
-      "DD_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
-      "DD_GIT_COMMIT_MESSAGE": "usersupplied-message",
-      "DD_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
-      "DD_GIT_REPOSITORY_URL": "git@github.com:DataDog/userrepo.git"
+      "OO_GIT_BRANCH": "refs/heads/tags/0.1.0",
+      "OO_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
+      "OO_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
+      "OO_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
+      "OO_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
+      "OO_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
+      "OO_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
+      "OO_GIT_COMMIT_MESSAGE": "usersupplied-message",
+      "OO_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
+      "OO_GIT_REPOSITORY_URL": "git@github.com:DataDog/userrepo.git"
     },
     {
       "git.commit.author.date": "usersupplied-authordate",
@@ -131,16 +131,16 @@
   ],
   [
     {
-      "DD_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
-      "DD_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
-      "DD_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
-      "DD_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
-      "DD_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
-      "DD_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
-      "DD_GIT_COMMIT_MESSAGE": "usersupplied-message",
-      "DD_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
-      "DD_GIT_REPOSITORY_URL": "git@github.com:DataDog/userrepo.git",
-      "DD_GIT_TAG": "0.0.2"
+      "OO_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
+      "OO_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
+      "OO_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
+      "OO_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
+      "OO_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
+      "OO_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
+      "OO_GIT_COMMIT_MESSAGE": "usersupplied-message",
+      "OO_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
+      "OO_GIT_REPOSITORY_URL": "git@github.com:DataDog/userrepo.git",
+      "OO_GIT_TAG": "0.0.2"
     },
     {
       "git.commit.author.date": "usersupplied-authordate",
@@ -157,16 +157,16 @@
   ],
   [
     {
-      "DD_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
-      "DD_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
-      "DD_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
-      "DD_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
-      "DD_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
-      "DD_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
-      "DD_GIT_COMMIT_MESSAGE": "usersupplied-message",
-      "DD_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
-      "DD_GIT_REPOSITORY_URL": "https://github.com/DataDog/dogweb",
-      "DD_TEST_CASE_NAME": "http-repository-url-no-git-suffix"
+      "OO_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
+      "OO_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
+      "OO_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
+      "OO_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
+      "OO_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
+      "OO_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
+      "OO_GIT_COMMIT_MESSAGE": "usersupplied-message",
+      "OO_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
+      "OO_GIT_REPOSITORY_URL": "https://github.com/DataDog/dogweb",
+      "OO_TEST_CASE_NAME": "http-repository-url-no-git-suffix"
     },
     {
       "git.commit.author.date": "usersupplied-authordate",
@@ -182,16 +182,16 @@
   ],
   [
     {
-      "DD_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
-      "DD_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
-      "DD_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
-      "DD_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
-      "DD_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
-      "DD_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
-      "DD_GIT_COMMIT_MESSAGE": "usersupplied-message",
-      "DD_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
-      "DD_GIT_REPOSITORY_URL": "ssh://host.xz:54321/path/to/repo/",
-      "DD_TEST_CASE_NAME": "ssh-repository-url-no-git-suffix"
+      "OO_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
+      "OO_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
+      "OO_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
+      "OO_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
+      "OO_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
+      "OO_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
+      "OO_GIT_COMMIT_MESSAGE": "usersupplied-message",
+      "OO_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
+      "OO_GIT_REPOSITORY_URL": "ssh://host.xz:54321/path/to/repo/",
+      "OO_TEST_CASE_NAME": "ssh-repository-url-no-git-suffix"
     },
     {
       "git.commit.author.date": "usersupplied-authordate",
@@ -207,15 +207,15 @@
   ],
   [
     {
-      "DD_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
-      "DD_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
-      "DD_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
-      "DD_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
-      "DD_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
-      "DD_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
-      "DD_GIT_COMMIT_MESSAGE": "usersupplied-message",
-      "DD_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
-      "DD_GIT_REPOSITORY_URL": "https://user:password@github.com/DataDog/dogweb.git"
+      "OO_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
+      "OO_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
+      "OO_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
+      "OO_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
+      "OO_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
+      "OO_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
+      "OO_GIT_COMMIT_MESSAGE": "usersupplied-message",
+      "OO_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
+      "OO_GIT_REPOSITORY_URL": "https://user:password@github.com/DataDog/dogweb.git"
     },
     {
       "git.commit.author.date": "usersupplied-authordate",
@@ -231,15 +231,15 @@
   ],
   [
     {
-      "DD_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
-      "DD_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
-      "DD_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
-      "DD_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
-      "DD_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
-      "DD_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
-      "DD_GIT_COMMIT_MESSAGE": "usersupplied-message",
-      "DD_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
-      "DD_GIT_REPOSITORY_URL": "https://user@github.com/DataDog/dogweb.git"
+      "OO_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
+      "OO_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
+      "OO_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
+      "OO_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
+      "OO_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
+      "OO_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
+      "OO_GIT_COMMIT_MESSAGE": "usersupplied-message",
+      "OO_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
+      "OO_GIT_REPOSITORY_URL": "https://user@github.com/DataDog/dogweb.git"
     },
     {
       "git.commit.author.date": "usersupplied-authordate",
@@ -255,15 +255,15 @@
   ],
   [
     {
-      "DD_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
-      "DD_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
-      "DD_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
-      "DD_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
-      "DD_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
-      "DD_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
-      "DD_GIT_COMMIT_MESSAGE": "usersupplied-message",
-      "DD_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
-      "DD_GIT_REPOSITORY_URL": "https://user:password@github.com:1234/DataDog/dogweb.git"
+      "OO_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
+      "OO_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
+      "OO_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
+      "OO_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
+      "OO_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
+      "OO_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
+      "OO_GIT_COMMIT_MESSAGE": "usersupplied-message",
+      "OO_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
+      "OO_GIT_REPOSITORY_URL": "https://user:password@github.com:1234/DataDog/dogweb.git"
     },
     {
       "git.commit.author.date": "usersupplied-authordate",
@@ -279,15 +279,15 @@
   ],
   [
     {
-      "DD_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
-      "DD_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
-      "DD_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
-      "DD_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
-      "DD_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
-      "DD_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
-      "DD_GIT_COMMIT_MESSAGE": "usersupplied-message",
-      "DD_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
-      "DD_GIT_REPOSITORY_URL": "https://user:password@1.1.1.1/DataDog/dogweb.git"
+      "OO_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
+      "OO_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
+      "OO_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
+      "OO_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
+      "OO_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
+      "OO_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
+      "OO_GIT_COMMIT_MESSAGE": "usersupplied-message",
+      "OO_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
+      "OO_GIT_REPOSITORY_URL": "https://user:password@1.1.1.1/DataDog/dogweb.git"
     },
     {
       "git.commit.author.date": "usersupplied-authordate",
@@ -303,15 +303,15 @@
   ],
   [
     {
-      "DD_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
-      "DD_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
-      "DD_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
-      "DD_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
-      "DD_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
-      "DD_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
-      "DD_GIT_COMMIT_MESSAGE": "usersupplied-message",
-      "DD_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
-      "DD_GIT_REPOSITORY_URL": "https://user:password@1.1.1.1:1234/DataDog/dogweb.git"
+      "OO_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
+      "OO_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
+      "OO_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
+      "OO_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
+      "OO_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
+      "OO_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
+      "OO_GIT_COMMIT_MESSAGE": "usersupplied-message",
+      "OO_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
+      "OO_GIT_REPOSITORY_URL": "https://user:password@1.1.1.1:1234/DataDog/dogweb.git"
     },
     {
       "git.commit.author.date": "usersupplied-authordate",
@@ -327,15 +327,15 @@
   ],
   [
     {
-      "DD_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
-      "DD_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
-      "DD_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
-      "DD_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
-      "DD_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
-      "DD_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
-      "DD_GIT_COMMIT_MESSAGE": "usersupplied-message",
-      "DD_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
-      "DD_GIT_REPOSITORY_URL": "https://user:password@1.1.1.1:1234/DataDog/dogweb_with_@_yeah.git"
+      "OO_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
+      "OO_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
+      "OO_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
+      "OO_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
+      "OO_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
+      "OO_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
+      "OO_GIT_COMMIT_MESSAGE": "usersupplied-message",
+      "OO_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
+      "OO_GIT_REPOSITORY_URL": "https://user:password@1.1.1.1:1234/DataDog/dogweb_with_@_yeah.git"
     },
     {
       "git.commit.author.date": "usersupplied-authordate",
@@ -351,15 +351,15 @@
   ],
   [
     {
-      "DD_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
-      "DD_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
-      "DD_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
-      "DD_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
-      "DD_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
-      "DD_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
-      "DD_GIT_COMMIT_MESSAGE": "usersupplied-message",
-      "DD_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
-      "DD_GIT_REPOSITORY_URL": "ssh://user@host.xz:54321/path/to/repo.git/"
+      "OO_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
+      "OO_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
+      "OO_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
+      "OO_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
+      "OO_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
+      "OO_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
+      "OO_GIT_COMMIT_MESSAGE": "usersupplied-message",
+      "OO_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
+      "OO_GIT_REPOSITORY_URL": "ssh://user@host.xz:54321/path/to/repo.git/"
     },
     {
       "git.commit.author.date": "usersupplied-authordate",
@@ -375,15 +375,15 @@
   ],
   [
     {
-      "DD_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
-      "DD_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
-      "DD_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
-      "DD_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
-      "DD_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
-      "DD_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
-      "DD_GIT_COMMIT_MESSAGE": "usersupplied-message",
-      "DD_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
-      "DD_GIT_REPOSITORY_URL": "ssh://user:password@host.xz:54321/path/to/repo.git/"
+      "OO_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
+      "OO_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
+      "OO_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
+      "OO_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
+      "OO_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
+      "OO_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
+      "OO_GIT_COMMIT_MESSAGE": "usersupplied-message",
+      "OO_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
+      "OO_GIT_REPOSITORY_URL": "ssh://user:password@host.xz:54321/path/to/repo.git/"
     },
     {
       "git.commit.author.date": "usersupplied-authordate",
@@ -399,17 +399,17 @@
   ],
   [
     {
-      "DD_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
-      "DD_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
-      "DD_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
-      "DD_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
-      "DD_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
-      "DD_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
-      "DD_GIT_COMMIT_MESSAGE": "usersupplied-message",
-      "DD_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
-      "DD_GIT_PULL_REQUEST_BASE_BRANCH": "target-branch",
-      "DD_GIT_PULL_REQUEST_BASE_BRANCH_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
-      "DD_GIT_REPOSITORY_URL": "git@github.com:DataDog/userrepo.git"
+      "OO_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
+      "OO_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
+      "OO_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
+      "OO_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
+      "OO_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
+      "OO_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
+      "OO_GIT_COMMIT_MESSAGE": "usersupplied-message",
+      "OO_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
+      "OO_GIT_PULL_REQUEST_BASE_BRANCH": "target-branch",
+      "OO_GIT_PULL_REQUEST_BASE_BRANCH_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
+      "OO_GIT_REPOSITORY_URL": "git@github.com:DataDog/userrepo.git"
     },
     {
       "git.commit.author.date": "usersupplied-authordate",

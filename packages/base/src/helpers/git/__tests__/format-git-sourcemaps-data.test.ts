@@ -2,7 +2,7 @@ import {
   getRepositoryData,
   normalizeSources,
   TrackedFilesMatcher,
-} from '@datadog/datadog-ci-base/helpers/git/format-git-sourcemaps-data'
+} from '@openobserve/openobserve-ci-base/helpers/git/format-git-sourcemaps-data'
 
 describe('git', () => {
   describe('TrackedFilesMatcher', () => {

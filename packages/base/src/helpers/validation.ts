@@ -2,7 +2,7 @@ import fs from 'fs'
 
 import * as t from 'typanion'
 
-import {DATADOG_SITES} from '../constants'
+import {OPENOBSERVE_SITES} from '../constants'
 
 export const checkFile: (path: string) => {empty: boolean; exists: boolean} = (path: string) => {
   try {
@@ -22,20 +22,20 @@ export const checkFile: (path: string) => {empty: boolean; exists: boolean} = (p
 }
 
 /**
- * Check if a string is a valid Datadog site.
+ * Check if a string is a valid OpenObserve site.
  *
- * If the environment variable `DD_CI_BYPASS_SITE_VALIDATION` is
+ * If the environment variable `OO_CI_BYPASS_SITE_VALIDATION` is
  * set, then it will return `true`.
  *
  * @param site an optional string.
- * @returns a boolean indicating if the provided site is valid a Datadog site.
+ * @returns a boolean indicating if the provided site is valid a OpenObserve site.
  */
-export const isValidDatadogSite = (site?: string): boolean => {
+export const isValidOpenObserveSite = (site?: string): boolean => {
   if (site === undefined) {
     return false
   }
 
-  return !!process.env.DD_CI_BYPASS_SITE_VALIDATION || DATADOG_SITES.includes(site.toLowerCase())
+  return !!process.env.OO_CI_BYPASS_SITE_VALIDATION || OPENOBSERVE_SITES.includes(site.toLowerCase())
 }
 
 const renderDuplicateAPIKey = (environmentAPIKey: string) => {

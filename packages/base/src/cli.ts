@@ -1,8 +1,8 @@
 /* eslint-disable quote-props */
-import type {RecordWithKebabCaseKeys} from '@datadog/datadog-ci-base/helpers/types'
+import type {RecordWithKebabCaseKeys} from '@openobserve/openobserve-ci-base/helpers/types'
 
 // openobserve: trimmed to the symbol-upload commands (+ shared infra). The
-// Datadog-product commands (synthetics, sarif, lambda, dora, gate, ...) and
+// OpenObserve-product commands (synthetics, sarif, lambda, dora, gate, ...) and
 // their plugin packages were removed — see scripts/openobserve. If commands are
 // added back, regenerate via bin/lint-packages.ts.
 
@@ -34,7 +34,7 @@ export const commands = {
 } satisfies RecordWithKebabCaseKeys
 
 /**
- * All retained command scopes are implemented entirely in `@datadog/datadog-ci-base`
+ * All retained command scopes are implemented entirely in `@openobserve/openobserve-ci-base`
  * (no separate plugin packages remain after the openobserve trim).
  */
 export const noPluginExceptions: Set<string> = new Set([

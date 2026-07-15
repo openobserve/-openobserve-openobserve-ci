@@ -1,7 +1,7 @@
 import fs from 'fs'
 
-import type {CommandContext} from '@datadog/datadog-ci-base'
-import type {MultipartPayload, MultipartValue} from '@datadog/datadog-ci-base/helpers/upload'
+import type {CommandContext} from '@openobserve/openobserve-ci-base'
+import type {MultipartPayload, MultipartValue} from '@openobserve/openobserve-ci-base/helpers/upload'
 
 export class RNSourcemap {
   public bundleName: string

@@ -60,7 +60,7 @@ describe('httpRequest', () => {
     jest.clearAllMocks()
   })
 
-  test('adds the default datadog-ci user agent header', async () => {
+  test('adds the default openobserve-ci user agent header', async () => {
     await httpRequest({url: thirdParty('https://example.com')})
 
     expect(mockedFetch).toHaveBeenCalledWith('https://example.com', expect.any(Object))
@@ -68,12 +68,12 @@ describe('httpRequest', () => {
   })
 
   test('appends the active plugin token when a plugin command is running', async () => {
-    await withPluginUserAgent('@datadog/datadog-ci-plugin-synthetics', '9.9.9', async () => {
+    await withPluginUserAgent('@openobserve/openobserve-ci-plugin-synthetics', '9.9.9', async () => {
       await httpRequest({url: thirdParty('https://example.com')})
     })
 
     expect(mockedFetch).toHaveBeenCalledWith('https://example.com', expect.any(Object))
-    expect(getLastFetchHeaders()['User-Agent']).toBe(`${getUserAgent()} datadog-ci-plugin-synthetics/9.9.9`)
+    expect(getLastFetchHeaders()['User-Agent']).toBe(`${getUserAgent()} openobserve-ci-plugin-synthetics/9.9.9`)
   })
 
   describe('JSON response parsing', () => {

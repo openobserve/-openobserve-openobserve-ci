@@ -14,7 +14,7 @@ describe('printVersion', () => {
 
     printVersion(logger)
 
-    expect(JSON.parse(lines[0])).toEqual({level: 'info', message: `datadog-ci v${cliVersion}`})
+    expect(JSON.parse(lines[0])).toEqual({level: 'info', message: `openobserve-ci v${cliVersion}`})
   })
 
   it('emits a dim text banner in text mode', () => {
@@ -22,13 +22,13 @@ describe('printVersion', () => {
 
     printVersion(logger)
 
-    expect(lines[0]).toContain(`datadog-ci v${cliVersion}`)
+    expect(lines[0]).toContain(`openobserve-ci v${cliVersion}`)
     expect(() => JSON.parse(lines[0])).toThrow()
   })
 
   it('does not print for the version command', () => {
     const original = process.argv
-    process.argv = ['node', 'datadog-ci', 'version']
+    process.argv = ['node', 'openobserve-ci', 'version']
 
     try {
       const {lines, logger} = collect(false)
@@ -39,9 +39,9 @@ describe('printVersion', () => {
     }
   })
 
-  it.each(['1', 'true', 'TRUE'])('does not print when DD_CI_SKIP_VERSION_BANNER is %p', (value) => {
-    const original = process.env.DD_CI_SKIP_VERSION_BANNER
-    process.env.DD_CI_SKIP_VERSION_BANNER = value
+  it.each(['1', 'true', 'TRUE'])('does not print when OO_CI_SKIP_VERSION_BANNER is %p', (value) => {
+    const original = process.env.OO_CI_SKIP_VERSION_BANNER
+    process.env.OO_CI_SKIP_VERSION_BANNER = value
 
     try {
       const {lines, logger} = collect(false)
@@ -49,9 +49,9 @@ describe('printVersion', () => {
       expect(lines).toHaveLength(0)
     } finally {
       if (original === undefined) {
-        delete process.env.DD_CI_SKIP_VERSION_BANNER
+        delete process.env.OO_CI_SKIP_VERSION_BANNER
       } else {
-        process.env.DD_CI_SKIP_VERSION_BANNER = original
+        process.env.OO_CI_SKIP_VERSION_BANNER = original
       }
     }
   })

@@ -12,11 +12,11 @@ export class PluginListCommand extends BaseCommand {
     category: 'Plugins',
     description: 'List the available plugins.',
     details: `
-      This command lists the plugins that can be installed with the \`datadog-ci plugin install\` command.
+      This command lists the plugins that can be installed with the \`openobserve-ci plugin install\` command.
     `,
     examples: [
-      ['List the available plugins', 'datadog-ci plugin list'],
-      ['List all plugins, including built-in plugins', 'datadog-ci plugin list --all'],
+      ['List the available plugins', 'openobserve-ci plugin list'],
+      ['List all plugins, including built-in plugins', 'openobserve-ci plugin list --all'],
     ],
   })
 
@@ -56,7 +56,7 @@ export class PluginListCommand extends BaseCommand {
         .map(({name, isBuiltin}) =>
           isBuiltin
             ? ` - ${chalk.bold('(built-in)')} ${chalk.magenta(name)}`
-            : ` - ${chalk.bold.magenta(name)} (install with ${chalk.bold.cyan(`datadog-ci plugin install ${getScope(name)}`)})`
+            : ` - ${chalk.bold.magenta(name)} (install with ${chalk.bold.cyan(`openobserve-ci plugin install ${getScope(name)}`)})`
         )
         .join('\n')
     )
@@ -65,4 +65,4 @@ export class PluginListCommand extends BaseCommand {
   }
 }
 
-const getScope = (plugin: string): string => plugin.replace('@datadog/datadog-ci-plugin-', '')
+const getScope = (plugin: string): string => plugin.replace('@openobserve/openobserve-ci-plugin-', '')

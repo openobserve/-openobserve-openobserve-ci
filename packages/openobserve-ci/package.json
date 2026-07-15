@@ -1,20 +1,20 @@
 {
-  "name": "@datadog/datadog-ci",
+  "name": "@openobserve/openobserve-ci",
   "version": "5.21.1",
-  "description": "Use Datadog from your CI.",
+  "description": "Use OpenObserve from your CI.",
   "license": "Apache-2.0",
   "keywords": [
     "datadog",
-    "datadog-ci"
+    "openobserve-ci"
   ],
-  "homepage": "https://github.com/DataDog/datadog-ci",
+  "homepage": "https://github.com/DataDog/openobserve-ci",
   "bugs": {
-    "url": "https://github.com/DataDog/datadog-ci/issues"
+    "url": "https://github.com/DataDog/openobserve-ci/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/DataDog/datadog-ci.git",
-    "directory": "packages/datadog-ci"
+    "url": "https://github.com/DataDog/openobserve-ci.git",
+    "directory": "packages/openobserve-ci"
   },
   "engines": {
     "node": ">=20"
@@ -46,7 +46,7 @@
     "prepack": "yarn package:clean-dist && yarn bundle:npm"
   },
   "devDependencies": {
-    "@datadog/datadog-ci-base": "workspace:*",
+    "@openobserve/openobserve-ci-base": "workspace:*",
     "@types/jest": "29.5.3",
     "clipanion": "3.2.1",
     "typanion": "3.14.0"

@@ -1,6 +1,6 @@
 import crypto from 'node:crypto'
 
-import {DATADOG_CI_COMMAND, execPromise, execPromiseWithRetries} from '../../helpers/exec'
+import {OPENOBSERVE_CI_COMMAND, execPromise, execPromiseWithRetries} from '../../helpers/exec'
 
 import {checkTelemetryFlowing} from '../helpers/telemetry-checker'
 import {triggerTraffic} from '../helpers/traffic'
@@ -52,14 +52,14 @@ describeOrSkip('cloud-run', () => {
 
   it('instrument and verify', async () => {
     const result = await execPromiseWithRetries(
-      `${DATADOG_CI_COMMAND} cloud-run instrument` +
+      `${OPENOBSERVE_CI_COMMAND} cloud-run instrument` +
         ` --project "${project}"` +
         ` --region "${region}"` +
         ` --service "${serviceName}"` +
         ` --tracing true` +
         ` --no-source-code-integration`,
       {
-        DD_API_KEY: process.env.DATADOG_API_KEY,
+        OO_API_KEY: process.env.OPENOBSERVE_API_KEY,
       }
     )
     expect(result.exitCode).toBe(0)
@@ -80,12 +80,12 @@ describeOrSkip('cloud-run', () => {
 
   it('uninstrument and verify', async () => {
     const result = await execPromiseWithRetries(
-      `${DATADOG_CI_COMMAND} cloud-run uninstrument` +
+      `${OPENOBSERVE_CI_COMMAND} cloud-run uninstrument` +
         ` --project "${project}"` +
         ` --region "${region}"` +
         ` --service "${serviceName}"`,
       {
-        DD_API_KEY: process.env.DD_API_KEY,
+        OO_API_KEY: process.env.OO_API_KEY,
       }
     )
     expect(result.exitCode).toBe(0)

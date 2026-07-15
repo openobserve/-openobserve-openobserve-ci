@@ -1,7 +1,7 @@
 import chalk from 'chalk'
 import {build} from 'tsdown'
 
-import {builtinPluginCommands} from '../packages/datadog-ci/shims/plugin-commands.mjs'
+import {builtinPluginCommands} from '../packages/openobserve-ci/shims/plugin-commands.mjs'
 
 import {
   REPO_ROOT,
@@ -13,7 +13,7 @@ import {
   writeLegalFiles,
 } from './tsdown-shared.mjs'
 
-const packageDir = `${REPO_ROOT}/packages/datadog-ci`
+const packageDir = `${REPO_ROOT}/packages/openobserve-ci`
 const cliEntryPath = `${packageDir}/src/cli.ts`
 const outputPath = `${packageDir}/dist/bundle.js`
 

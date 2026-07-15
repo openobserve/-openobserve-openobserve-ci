@@ -1,22 +1,22 @@
-import type {RequestBuilder} from '@datadog/datadog-ci-base/helpers/interfaces'
-import type {MultipartPayload, UploadOptions} from '@datadog/datadog-ci-base/helpers/upload'
+import type {RequestBuilder} from '@openobserve/openobserve-ci-base/helpers/interfaces'
+import type {MultipartPayload, UploadOptions} from '@openobserve/openobserve-ci-base/helpers/upload'
 
 import upath from 'upath'
 
-import {getBaseSourcemapIntakeUrl} from '@datadog/datadog-ci-base/helpers/base-intake-url'
-import {datadogRoute} from '@datadog/datadog-ci-base/helpers/request/datadog-route'
-import {upload} from '@datadog/datadog-ci-base/helpers/upload'
-import {getRequestBuilder} from '@datadog/datadog-ci-base/helpers/utils'
+import {getBaseSourcemapIntakeUrl} from '@openobserve/openobserve-ci-base/helpers/base-intake-url'
+import {ooRoute} from '@openobserve/openobserve-ci-base/helpers/request/datadog-route'
+import {upload} from '@openobserve/openobserve-ci-base/helpers/upload'
+import {getRequestBuilder} from '@openobserve/openobserve-ci-base/helpers/utils'
 
 export const getFlutterRequestBuilder = (apiKey: string, cliVersion: string, site: string) =>
   getRequestBuilder({
     apiKey,
     baseUrl: getBaseSourcemapIntakeUrl(site),
     headers: new Map([
-      ['DD-EVP-ORIGIN', 'datadog-ci_flutter-symbols'],
+      ['DD-EVP-ORIGIN', 'openobserve-ci_flutter-symbols'],
       ['DD-EVP-ORIGIN-VERSION', cliVersion],
     ]),
-    overrideUrl: datadogRoute('/api/v2/srcmap'),
+    overrideUrl: ooRoute('/api/v2/srcmap'),
   })
 
 // This function exists partially just to make mocking network calls easier.

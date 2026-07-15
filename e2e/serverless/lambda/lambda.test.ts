@@ -4,7 +4,7 @@ import os from 'node:os'
 import path from 'node:path'
 
 import type {ExecResult} from '../../helpers/exec'
-import {DATADOG_CI_COMMAND, execPromise, execPromiseWithRetries} from '../../helpers/exec'
+import {OPENOBSERVE_CI_COMMAND, execPromise, execPromiseWithRetries} from '../../helpers/exec'
 
 import {checkTelemetryFlowing} from '../helpers/telemetry-checker'
 
@@ -75,9 +75,9 @@ const removeTempFiles = (tempFiles: string[]): void => {
 }
 
 const instrumentEnv = {
-  DATADOG_API_KEY: process.env.DATADOG_API_KEY,
-  DATADOG_SITE: process.env.DATADOG_SITE,
-  DD_API_KEY: process.env.DD_API_KEY,
+  OPENOBSERVE_API_KEY: process.env.OPENOBSERVE_API_KEY,
+  OPENOBSERVE_SITE: process.env.OPENOBSERVE_SITE,
+  OO_API_KEY: process.env.OO_API_KEY,
 }
 
 describeOrSkip('lambda', () => {
@@ -99,7 +99,7 @@ describeOrSkip('lambda', () => {
   let functionCreated = false
 
   const instrumentCommand =
-    `${DATADOG_CI_COMMAND} lambda instrument` +
+    `${OPENOBSERVE_CI_COMMAND} lambda instrument` +
     ` -f "${functionName}"` +
     ` -r "${region}"` +
     ` --service "${expectedTags.service}"` +
@@ -190,7 +190,7 @@ describeOrSkip('lambda', () => {
 
   it('uninstrument and verify', async () => {
     const result = await execPromiseWithRetries(
-      `${DATADOG_CI_COMMAND} lambda uninstrument -f "${functionName}" -r "${region}"`
+      `${OPENOBSERVE_CI_COMMAND} lambda uninstrument -f "${functionName}" -r "${region}"`
     )
     expectCommandToSucceed('Uninstrumenting Lambda function', result)
 
@@ -199,7 +199,7 @@ describeOrSkip('lambda', () => {
   }, 600_000)
 })
 
-// The custom (provided.al2023) runtime has no Datadog language layer, so instrumenting
+// The custom (provided.al2023) runtime has no OpenObserve language layer, so instrumenting
 // it exercises the extension-only path: only the extension layer is added, with no
 // handler rewrite.
 describeOrSkip('lambda extension-only (custom runtime)', () => {
@@ -220,7 +220,7 @@ describeOrSkip('lambda extension-only (custom runtime)', () => {
 
   // Custom runtimes reject --layer-version, so only the extension version is pinned.
   const instrumentCommand =
-    `${DATADOG_CI_COMMAND} lambda instrument` +
+    `${OPENOBSERVE_CI_COMMAND} lambda instrument` +
     ` -f "${functionName}"` +
     ` -r "${region}"` +
     ` --service "${expectedTags.service}"` +
@@ -276,7 +276,7 @@ describeOrSkip('lambda extension-only (custom runtime)', () => {
 
   it('uninstrument and verify (custom runtime)', async () => {
     const result = await execPromiseWithRetries(
-      `${DATADOG_CI_COMMAND} lambda uninstrument -f "${functionName}" -r "${region}"`
+      `${OPENOBSERVE_CI_COMMAND} lambda uninstrument -f "${functionName}" -r "${region}"`
     )
     expectCommandToSucceed('Uninstrumenting Lambda function', result)
 

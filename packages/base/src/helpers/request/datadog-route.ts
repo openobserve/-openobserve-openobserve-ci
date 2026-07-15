@@ -1,9 +1,9 @@
 /**
- * List of all Datadog API routes used by datadog-ci.
+ * List of all OpenObserve API routes used by openobserve-ci.
  *
- * Only those routes are accepted by {@link datadogRoute}.
+ * Only those routes are accepted by {@link ooRoute}.
  */
-export const DATADOG_ROUTE_PATHS = [
+export const OPENOBSERVE_ROUTE_PATHS = [
   '/api/intake/ci/custom_spans',
   '/api/ui/support/serverless/flare',
   '/api/v1/validate',
@@ -39,33 +39,33 @@ export const DATADOG_ROUTE_PATHS = [
 ] as const
 
 /**
- * Format a Datadog API route with optional parameters.
+ * Format a OpenObserve API route with optional parameters.
  *
  * @example
  * ```ts
- * const route = datadogRoute('/api/v2/resources/:resourceId', {
+ * const route = ooRoute('/api/v2/resources/:resourceId', {
  *   resourceId: '123',
  * })
  * ```
  */
-export const datadogRoute = <Route extends DatadogRoutePath>(
+export const ooRoute = <Route extends OpenObserveRoutePath>(
   route: Route,
-  ...[params]: DatadogRouteArgs<Route>
-): DatadogRoute<Route> => {
+  ...[params]: OpenObserveRouteArgs<Route>
+): OpenObserveRoute<Route> => {
   if (!params) {
-    return route as DatadogRoute<Route>
+    return route as OpenObserveRoute<Route>
   }
 
-  return route.replace(/:([A-Za-z0-9_]+)/g, (_, key: keyof DatadogRouteParams<Route>) =>
+  return route.replace(/:([A-Za-z0-9_]+)/g, (_, key: keyof OpenObserveRouteParams<Route>) =>
     encodeURIComponent(String(params[key]))
-  ) as DatadogRoute<Route>
+  ) as OpenObserveRoute<Route>
 }
 
-export type DatadogRoute<Route extends string = string> = Route & {[datadogRouteBrand]: true}
+export type OpenObserveRoute<Route extends string = string> = Route & {[ooRouteBrand]: true}
 
-type DatadogRoutePath = (typeof DATADOG_ROUTE_PATHS)[number]
+type OpenObserveRoutePath = (typeof OPENOBSERVE_ROUTE_PATHS)[number]
 
-declare const datadogRouteBrand: unique symbol
+declare const ooRouteBrand: unique symbol
 
 type RouteParamNames<Route extends string> = Route extends `${string}:${infer Param}/${infer Rest}`
   ? Param | RouteParamNames<Rest>
@@ -75,9 +75,9 @@ type RouteParamNames<Route extends string> = Route extends `${string}:${infer Pa
       ? Param
       : never
 
-type DatadogRouteParams<Route extends DatadogRoutePath> = {
+type OpenObserveRouteParams<Route extends OpenObserveRoutePath> = {
   [Param in RouteParamNames<Route>]: string | number
 }
 
-type DatadogRouteArgs<Route extends DatadogRoutePath> =
-  RouteParamNames<Route> extends never ? [] : [params: DatadogRouteParams<Route>]
+type OpenObserveRouteArgs<Route extends OpenObserveRoutePath> =
+  RouteParamNames<Route> extends never ? [] : [params: OpenObserveRouteParams<Route>]

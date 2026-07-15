@@ -1,6 +1,6 @@
 import crypto from 'node:crypto'
 
-import {DATADOG_CI_COMMAND, execPromise, execPromiseWithRetries} from '../../helpers/exec'
+import {OPENOBSERVE_CI_COMMAND, execPromise, execPromiseWithRetries} from '../../helpers/exec'
 
 import {checkTelemetryFlowing} from '../helpers/telemetry-checker'
 import {triggerTraffic} from '../helpers/traffic'
@@ -23,7 +23,7 @@ describeOrSkip('aas (Linux)', () => {
   // Tie telemetry to this run via service/env/version/run-id so the checker asserts
   // identity, not mere existence.
   const instrumentCommand =
-    `${DATADOG_CI_COMMAND} aas instrument` +
+    `${OPENOBSERVE_CI_COMMAND} aas instrument` +
     ` -s "${subscriptionId}"` +
     ` -g "${resourceGroup}"` +
     ` -n "${linuxAppName}"` +
@@ -71,7 +71,7 @@ describeOrSkip('aas (Linux)', () => {
 
   it('instrument and verify', async () => {
     const result = await execPromiseWithRetries(instrumentCommand, {
-      DD_API_KEY: process.env.DATADOG_API_KEY,
+      OO_API_KEY: process.env.OPENOBSERVE_API_KEY,
     })
     expect(result.exitCode).toBe(0)
 
@@ -98,7 +98,7 @@ describeOrSkip('aas (Linux)', () => {
 
   it('instrument is idempotent', async () => {
     const result = await execPromiseWithRetries(instrumentCommand, {
-      DD_API_KEY: process.env.DATADOG_API_KEY,
+      OO_API_KEY: process.env.OPENOBSERVE_API_KEY,
     })
     expect(result.exitCode).toBe(0)
 
@@ -108,9 +108,9 @@ describeOrSkip('aas (Linux)', () => {
 
   it('uninstrument and verify', async () => {
     const result = await execPromiseWithRetries(
-      `${DATADOG_CI_COMMAND} aas uninstrument -s "${subscriptionId}" -g "${resourceGroup}" -n "${linuxAppName}"`,
+      `${OPENOBSERVE_CI_COMMAND} aas uninstrument -s "${subscriptionId}" -g "${resourceGroup}" -n "${linuxAppName}"`,
       {
-        DD_API_KEY: process.env.DATADOG_API_KEY,
+        OO_API_KEY: process.env.OPENOBSERVE_API_KEY,
       }
     )
     expect(result.exitCode).toBe(0)

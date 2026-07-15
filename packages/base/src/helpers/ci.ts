@@ -64,13 +64,13 @@ export const CI_ENGINES = {
   TEAMCITY: 'teamcity',
 }
 
-export const envDDGithubJobName = 'DD_GITHUB_JOB_NAME'
-export const envDDGithubStepIndex = 'DD_GITHUB_STEP_INDEX'
-const envJenkinsCustomStageID = 'DD_CUSTOM_STAGE_ID'
+export const envDDGithubJobName = 'OO_GITHUB_JOB_NAME'
+export const envDDGithubStepIndex = 'OO_GITHUB_STEP_INDEX'
+const envJenkinsCustomStageID = 'OO_CUSTOM_STAGE_ID'
 
-// DD_GITHUB_JOB_NAME is an override that is required for adding custom tags and metrics
+// OO_GITHUB_JOB_NAME is an override that is required for adding custom tags and metrics
 // to GHA jobs if the 'name' property is used. It's ok for it to be missing in case the name property is not used.
-// DD_CUSTOM_STAGE_ID is only present in recent Jenkins plugin versions.
+// OO_CUSTOM_STAGE_ID is only present in recent Jenkins plugin versions.
 // Also, pipelines without stages lack this env variable
 const envAllowedToBeMissing = [envDDGithubJobName, envJenkinsCustomStageID]
 
@@ -107,8 +107,8 @@ export const validateLevel = (level: string | undefined): string | undefined => 
     return `Level '${CI_LEVELS.STAGE}' is only supported for providers [${stageProviders.join(', ')}]`
   }
 
-  if (level === CI_LEVELS.STAGE && provider === CI_ENGINES.JENKINS && !process.env.DD_CUSTOM_STAGE_ID) {
-    return `Level '${CI_LEVELS.STAGE}' for Jenkins requires the Datadog plugin version to be >= 9.2`
+  if (level === CI_LEVELS.STAGE && provider === CI_ENGINES.JENKINS && !process.env.OO_CUSTOM_STAGE_ID) {
+    return `Level '${CI_LEVELS.STAGE}' for Jenkins requires the OpenObserve plugin version to be >= 9.2`
   }
 
   if (level === CI_LEVELS.STEP && provider !== CI_ENGINES.GITHUB) {
@@ -480,7 +480,7 @@ export const getCISpanTags = (fallbackGithubJobName?: string, fallbackGithubJobI
       GITHUB_REPOSITORY,
       GITHUB_SERVER_URL,
       GITHUB_RUN_ATTEMPT,
-      DD_GITHUB_JOB_NAME,
+      OO_GITHUB_JOB_NAME,
       GITHUB_BASE_REF,
       JOB_CHECK_RUN_ID,
     } = env
@@ -519,7 +519,7 @@ export const getCISpanTags = (fallbackGithubJobName?: string, fallbackGithubJobI
         GITHUB_REPOSITORY,
         GITHUB_RUN_ID,
         GITHUB_RUN_ATTEMPT,
-        DD_GITHUB_JOB_NAME: DD_GITHUB_JOB_NAME ?? fallbackGithubJobName,
+        OO_GITHUB_JOB_NAME: OO_GITHUB_JOB_NAME ?? fallbackGithubJobName,
       }),
     }
 
@@ -548,8 +548,8 @@ export const getCISpanTags = (fallbackGithubJobName?: string, fallbackGithubJobI
       GIT_COMMIT,
       GIT_URL,
       GIT_URL_1,
-      DD_CUSTOM_TRACE_ID,
-      DD_CUSTOM_PARENT_ID,
+      OO_CUSTOM_TRACE_ID,
+      OO_CUSTOM_PARENT_ID,
       NODE_NAME,
       NODE_LABELS,
       CHANGE_ID,
@@ -567,8 +567,8 @@ export const getCISpanTags = (fallbackGithubJobName?: string, fallbackGithubJobI
       [GIT_BRANCH]: JENKINS_GIT_BRANCH,
       [CI_NODE_NAME]: NODE_NAME,
       [CI_ENV_VARS]: JSON.stringify({
-        DD_CUSTOM_TRACE_ID,
-        DD_CUSTOM_PARENT_ID,
+        OO_CUSTOM_TRACE_ID,
+        OO_CUSTOM_PARENT_ID,
       }),
     }
 
@@ -946,8 +946,8 @@ export const getCISpanTags = (fallbackGithubJobName?: string, fallbackGithubJobI
   if (env.CODEBUILD_INITIATOR?.startsWith('codepipeline')) {
     const {
       CODEBUILD_BUILD_ARN,
-      DD_ACTION_EXECUTION_ID,
-      DD_PIPELINE_EXECUTION_ID,
+      OO_ACTION_EXECUTION_ID,
+      OO_PIPELINE_EXECUTION_ID,
       CODEBUILD_SOURCE_VERSION,
       CODEBUILD_RESOLVED_SOURCE_VERSION,
       CODEBUILD_WEBHOOK_BASE_REF,
@@ -955,9 +955,9 @@ export const getCISpanTags = (fallbackGithubJobName?: string, fallbackGithubJobI
 
     tags = {
       [CI_PROVIDER_NAME]: CI_ENGINES.AWSCODEPIPELINE,
-      [CI_JOB_ID]: DD_ACTION_EXECUTION_ID,
-      [CI_PIPELINE_ID]: DD_PIPELINE_EXECUTION_ID,
-      [CI_ENV_VARS]: JSON.stringify({CODEBUILD_BUILD_ARN, DD_PIPELINE_EXECUTION_ID, DD_ACTION_EXECUTION_ID}),
+      [CI_JOB_ID]: OO_ACTION_EXECUTION_ID,
+      [CI_PIPELINE_ID]: OO_PIPELINE_EXECUTION_ID,
+      [CI_ENV_VARS]: JSON.stringify({CODEBUILD_BUILD_ARN, OO_PIPELINE_EXECUTION_ID, OO_ACTION_EXECUTION_ID}),
     }
 
     const prMatch = (CODEBUILD_SOURCE_VERSION ?? '').match(/^pr\/(\d+)$/)
@@ -1108,14 +1108,14 @@ export const getCIEnv = (): {ciEnv: Record<string, string>; provider: string} =>
 
   if (process.env.TEAMCITY_VERSION) {
     return {
-      ciEnv: filterEnv(['DATADOG_BUILD_ID']),
+      ciEnv: filterEnv(['OPENOBSERVE_BUILD_ID']),
       provider: 'teamcity',
     }
   }
 
   if (process.env.JENKINS_URL) {
     return {
-      ciEnv: filterEnv(['DD_CUSTOM_PARENT_ID', envJenkinsCustomStageID, 'DD_CUSTOM_TRACE_ID']),
+      ciEnv: filterEnv(['OO_CUSTOM_PARENT_ID', envJenkinsCustomStageID, 'OO_CUSTOM_TRACE_ID']),
       provider: 'jenkins',
     }
   }
@@ -1224,7 +1224,7 @@ export const isInteractive = ({stream = process.stdout}: {stream?: NodeJS.WriteS
 }
 
 export const shouldGetGithubJobDisplayName = (): boolean => {
-  return getCIProvider() === CI_ENGINES.GITHUB && process.env.DD_GITHUB_JOB_NAME === undefined
+  return getCIProvider() === CI_ENGINES.GITHUB && process.env.OO_GITHUB_JOB_NAME === undefined
 }
 
 export const shouldGetGithubJobID = (): boolean => {
@@ -1457,7 +1457,7 @@ const getGithubJobAttributeFromLogFiles = (
  * property or matrix jobs. In this case the correlation will not work as GITHUB_JOB
  * contains a 'fake' job name.
  *
- * Previous to this, users had to set manually the DD_GITHUB_JOB_NAME env variable
+ * Previous to this, users had to set manually the OO_GITHUB_JOB_NAME env variable
  * pointing to the real job name.
  *
  * The diagnostic log files from the runner contain the display name, which enables

@@ -1389,9 +1389,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@datadog/datadog-api-client@npm:1.53.0":
+"@openobserve/datadog-api-client@npm:1.53.0":
   version: 1.53.0
-  resolution: "@datadog/datadog-api-client@npm:1.53.0"
+  resolution: "@openobserve/datadog-api-client@npm:1.53.0"
   dependencies:
     "@types/buffer-from": "npm:^1.1.0"
     "@types/node": "npm:*"
@@ -1405,9 +1405,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@datadog/datadog-ci-base@workspace:*, @datadog/datadog-ci-base@workspace:packages/base":
+"@openobserve/openobserve-ci-base@workspace:*, @openobserve/openobserve-ci-base@workspace:packages/base":
   version: 0.0.0-use.local
-  resolution: "@datadog/datadog-ci-base@workspace:packages/base"
+  resolution: "@openobserve/openobserve-ci-base@workspace:packages/base"
   dependencies:
     "@antfu/install-pkg": "npm:^1.1.0"
     "@types/async-retry": "npm:^1.4.8"
@@ -1441,69 +1441,69 @@ __metadata:
     undici: "npm:^7.28.0"
     upath: "npm:^2.0.1"
   peerDependencies:
-    "@datadog/datadog-ci-plugin-aas": "workspace:*"
-    "@datadog/datadog-ci-plugin-cloud-run": "workspace:*"
-    "@datadog/datadog-ci-plugin-container-app": "workspace:*"
-    "@datadog/datadog-ci-plugin-coverage": "workspace:*"
-    "@datadog/datadog-ci-plugin-deployment": "workspace:*"
-    "@datadog/datadog-ci-plugin-dora": "workspace:*"
-    "@datadog/datadog-ci-plugin-gate": "workspace:*"
-    "@datadog/datadog-ci-plugin-junit": "workspace:*"
-    "@datadog/datadog-ci-plugin-lambda": "workspace:*"
-    "@datadog/datadog-ci-plugin-sarif": "workspace:*"
-    "@datadog/datadog-ci-plugin-sbom": "workspace:*"
-    "@datadog/datadog-ci-plugin-stepfunctions": "workspace:*"
-    "@datadog/datadog-ci-plugin-synthetics": "workspace:*"
-    "@datadog/datadog-ci-plugin-terraform": "workspace:*"
+    "@openobserve/openobserve-ci-plugin-aas": "workspace:*"
+    "@openobserve/openobserve-ci-plugin-cloud-run": "workspace:*"
+    "@openobserve/openobserve-ci-plugin-container-app": "workspace:*"
+    "@openobserve/openobserve-ci-plugin-coverage": "workspace:*"
+    "@openobserve/openobserve-ci-plugin-deployment": "workspace:*"
+    "@openobserve/openobserve-ci-plugin-dora": "workspace:*"
+    "@openobserve/openobserve-ci-plugin-gate": "workspace:*"
+    "@openobserve/openobserve-ci-plugin-junit": "workspace:*"
+    "@openobserve/openobserve-ci-plugin-lambda": "workspace:*"
+    "@openobserve/openobserve-ci-plugin-sarif": "workspace:*"
+    "@openobserve/openobserve-ci-plugin-sbom": "workspace:*"
+    "@openobserve/openobserve-ci-plugin-stepfunctions": "workspace:*"
+    "@openobserve/openobserve-ci-plugin-synthetics": "workspace:*"
+    "@openobserve/openobserve-ci-plugin-terraform": "workspace:*"
   peerDependenciesMeta:
-    "@datadog/datadog-ci-plugin-aas":
+    "@openobserve/openobserve-ci-plugin-aas":
       optional: true
-    "@datadog/datadog-ci-plugin-cloud-run":
+    "@openobserve/openobserve-ci-plugin-cloud-run":
       optional: true
-    "@datadog/datadog-ci-plugin-container-app":
+    "@openobserve/openobserve-ci-plugin-container-app":
       optional: true
-    "@datadog/datadog-ci-plugin-coverage":
+    "@openobserve/openobserve-ci-plugin-coverage":
       optional: true
-    "@datadog/datadog-ci-plugin-deployment":
+    "@openobserve/openobserve-ci-plugin-deployment":
       optional: true
-    "@datadog/datadog-ci-plugin-dora":
+    "@openobserve/openobserve-ci-plugin-dora":
       optional: true
-    "@datadog/datadog-ci-plugin-gate":
+    "@openobserve/openobserve-ci-plugin-gate":
       optional: true
-    "@datadog/datadog-ci-plugin-junit":
+    "@openobserve/openobserve-ci-plugin-junit":
       optional: true
-    "@datadog/datadog-ci-plugin-lambda":
+    "@openobserve/openobserve-ci-plugin-lambda":
       optional: true
-    "@datadog/datadog-ci-plugin-sarif":
+    "@openobserve/openobserve-ci-plugin-sarif":
       optional: true
-    "@datadog/datadog-ci-plugin-sbom":
+    "@openobserve/openobserve-ci-plugin-sbom":
       optional: true
-    "@datadog/datadog-ci-plugin-stepfunctions":
+    "@openobserve/openobserve-ci-plugin-stepfunctions":
       optional: true
-    "@datadog/datadog-ci-plugin-synthetics":
+    "@openobserve/openobserve-ci-plugin-synthetics":
       optional: true
-    "@datadog/datadog-ci-plugin-terraform":
+    "@openobserve/openobserve-ci-plugin-terraform":
       optional: true
   languageName: unknown
   linkType: soft
 
-"@datadog/datadog-ci-plugin-aas@workspace:packages/plugin-aas":
+"@openobserve/openobserve-ci-plugin-aas@workspace:packages/plugin-aas":
   version: 0.0.0-use.local
-  resolution: "@datadog/datadog-ci-plugin-aas@workspace:packages/plugin-aas"
+  resolution: "@openobserve/openobserve-ci-plugin-aas@workspace:packages/plugin-aas"
   dependencies:
     "@azure/arm-appservice": "npm:16.0.0"
     "@azure/arm-resources": "npm:6.1.0"
     "@azure/identity": "npm:4.10.1"
-    "@datadog/datadog-ci-base": "workspace:*"
+    "@openobserve/openobserve-ci-base": "workspace:*"
     chalk: "npm:3.0.0"
   languageName: unknown
   linkType: soft
 
-"@datadog/datadog-ci-plugin-cloud-run@workspace:packages/plugin-cloud-run":
+"@openobserve/openobserve-ci-plugin-cloud-run@workspace:packages/plugin-cloud-run":
   version: 0.0.0-use.local
-  resolution: "@datadog/datadog-ci-plugin-cloud-run@workspace:packages/plugin-cloud-run"
+  resolution: "@openobserve/openobserve-ci-plugin-cloud-run@workspace:packages/plugin-cloud-run"
   dependencies:
-    "@datadog/datadog-ci-base": "workspace:*"
+    "@openobserve/openobserve-ci-base": "workspace:*"
     "@google-cloud/logging": "npm:11.2.1"
     "@google-cloud/run": "npm:3.0.0"
     "@inquirer/prompts": "npm:7.10.1"
@@ -1514,23 +1514,23 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@datadog/datadog-ci-plugin-container-app@workspace:packages/plugin-container-app":
+"@openobserve/openobserve-ci-plugin-container-app@workspace:packages/plugin-container-app":
   version: 0.0.0-use.local
-  resolution: "@datadog/datadog-ci-plugin-container-app@workspace:packages/plugin-container-app"
+  resolution: "@openobserve/openobserve-ci-plugin-container-app@workspace:packages/plugin-container-app"
   dependencies:
     "@azure/arm-appcontainers": "npm:3.0.0"
     "@azure/arm-resources": "npm:6.1.0"
     "@azure/identity": "npm:4.10.1"
-    "@datadog/datadog-ci-base": "workspace:*"
+    "@openobserve/openobserve-ci-base": "workspace:*"
     chalk: "npm:3.0.0"
   languageName: unknown
   linkType: soft
 
-"@datadog/datadog-ci-plugin-coverage@workspace:*, @datadog/datadog-ci-plugin-coverage@workspace:packages/plugin-coverage":
+"@openobserve/openobserve-ci-plugin-coverage@workspace:*, @openobserve/openobserve-ci-plugin-coverage@workspace:packages/plugin-coverage":
   version: 0.0.0-use.local
-  resolution: "@datadog/datadog-ci-plugin-coverage@workspace:packages/plugin-coverage"
+  resolution: "@openobserve/openobserve-ci-plugin-coverage@workspace:packages/plugin-coverage"
   dependencies:
-    "@datadog/datadog-ci-base": "workspace:*"
+    "@openobserve/openobserve-ci-base": "workspace:*"
     chalk: "npm:3.0.0"
     fast-xml-parser: "npm:5.7.2"
     form-data: "npm:4.0.6"
@@ -1539,41 +1539,41 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@datadog/datadog-ci-plugin-deployment@workspace:*, @datadog/datadog-ci-plugin-deployment@workspace:packages/plugin-deployment":
+"@openobserve/openobserve-ci-plugin-deployment@workspace:*, @openobserve/openobserve-ci-plugin-deployment@workspace:packages/plugin-deployment":
   version: 0.0.0-use.local
-  resolution: "@datadog/datadog-ci-plugin-deployment@workspace:packages/plugin-deployment"
+  resolution: "@openobserve/openobserve-ci-plugin-deployment@workspace:packages/plugin-deployment"
   dependencies:
-    "@datadog/datadog-ci-base": "workspace:*"
+    "@openobserve/openobserve-ci-base": "workspace:*"
     chalk: "npm:3.0.0"
     simple-git: "npm:3.36.0"
   languageName: unknown
   linkType: soft
 
-"@datadog/datadog-ci-plugin-dora@workspace:*, @datadog/datadog-ci-plugin-dora@workspace:packages/plugin-dora":
+"@openobserve/openobserve-ci-plugin-dora@workspace:*, @openobserve/openobserve-ci-plugin-dora@workspace:packages/plugin-dora":
   version: 0.0.0-use.local
-  resolution: "@datadog/datadog-ci-plugin-dora@workspace:packages/plugin-dora"
+  resolution: "@openobserve/openobserve-ci-plugin-dora@workspace:packages/plugin-dora"
   dependencies:
-    "@datadog/datadog-ci-base": "workspace:*"
+    "@openobserve/openobserve-ci-base": "workspace:*"
     chalk: "npm:3.0.0"
     simple-git: "npm:3.36.0"
   languageName: unknown
   linkType: soft
 
-"@datadog/datadog-ci-plugin-gate@workspace:*, @datadog/datadog-ci-plugin-gate@workspace:packages/plugin-gate":
+"@openobserve/openobserve-ci-plugin-gate@workspace:*, @openobserve/openobserve-ci-plugin-gate@workspace:packages/plugin-gate":
   version: 0.0.0-use.local
-  resolution: "@datadog/datadog-ci-plugin-gate@workspace:packages/plugin-gate"
+  resolution: "@openobserve/openobserve-ci-plugin-gate@workspace:packages/plugin-gate"
   dependencies:
-    "@datadog/datadog-ci-base": "workspace:*"
+    "@openobserve/openobserve-ci-base": "workspace:*"
     chalk: "npm:3.0.0"
     uuid: "npm:14.0.0"
   languageName: unknown
   linkType: soft
 
-"@datadog/datadog-ci-plugin-junit@workspace:*, @datadog/datadog-ci-plugin-junit@workspace:packages/plugin-junit":
+"@openobserve/openobserve-ci-plugin-junit@workspace:*, @openobserve/openobserve-ci-plugin-junit@workspace:packages/plugin-junit":
   version: 0.0.0-use.local
-  resolution: "@datadog/datadog-ci-plugin-junit@workspace:packages/plugin-junit"
+  resolution: "@openobserve/openobserve-ci-plugin-junit@workspace:packages/plugin-junit"
   dependencies:
-    "@datadog/datadog-ci-base": "workspace:*"
+    "@openobserve/openobserve-ci-base": "workspace:*"
     chalk: "npm:3.0.0"
     fast-xml-parser: "npm:5.7.2"
     form-data: "npm:4.0.6"
@@ -1582,9 +1582,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@datadog/datadog-ci-plugin-lambda@workspace:packages/plugin-lambda":
+"@openobserve/openobserve-ci-plugin-lambda@workspace:packages/plugin-lambda":
   version: 0.0.0-use.local
-  resolution: "@datadog/datadog-ci-plugin-lambda@workspace:packages/plugin-lambda"
+  resolution: "@openobserve/openobserve-ci-plugin-lambda@workspace:packages/plugin-lambda"
   dependencies:
     "@aws-sdk/client-cloudwatch-logs": "npm:3.1045.0"
     "@aws-sdk/client-iam": "npm:3.1045.0"
@@ -1592,7 +1592,7 @@ __metadata:
     "@aws-sdk/credential-provider-ini": "npm:3.972.38"
     "@aws-sdk/credential-providers": "npm:3.1045.0"
     "@aws-sdk/types": "npm:3.973.8"
-    "@datadog/datadog-ci-base": "workspace:*"
+    "@openobserve/openobserve-ci-base": "workspace:*"
     "@inquirer/prompts": "npm:7.10.1"
     "@smithy/property-provider": "npm:2.2.0"
     "@smithy/util-retry": "npm:2.2.0"
@@ -1625,11 +1625,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@datadog/datadog-ci-plugin-sarif@workspace:*, @datadog/datadog-ci-plugin-sarif@workspace:packages/plugin-sarif":
+"@openobserve/openobserve-ci-plugin-sarif@workspace:*, @openobserve/openobserve-ci-plugin-sarif@workspace:packages/plugin-sarif":
   version: 0.0.0-use.local
-  resolution: "@datadog/datadog-ci-plugin-sarif@workspace:packages/plugin-sarif"
+  resolution: "@openobserve/openobserve-ci-plugin-sarif@workspace:packages/plugin-sarif"
   dependencies:
-    "@datadog/datadog-ci-base": "workspace:*"
+    "@openobserve/openobserve-ci-base": "workspace:*"
     "@types/jest": "npm:29.5.3"
     ajv: "npm:8.18.0"
     ajv-formats: "npm:3.0.1"
@@ -1641,11 +1641,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@datadog/datadog-ci-plugin-sbom@workspace:*, @datadog/datadog-ci-plugin-sbom@workspace:packages/plugin-sbom":
+"@openobserve/openobserve-ci-plugin-sbom@workspace:*, @openobserve/openobserve-ci-plugin-sbom@workspace:packages/plugin-sbom":
   version: 0.0.0-use.local
-  resolution: "@datadog/datadog-ci-plugin-sbom@workspace:packages/plugin-sbom"
+  resolution: "@openobserve/openobserve-ci-plugin-sbom@workspace:packages/plugin-sbom"
   dependencies:
-    "@datadog/datadog-ci-base": "workspace:*"
+    "@openobserve/openobserve-ci-base": "workspace:*"
     "@types/jest": "npm:29.5.3"
     ajv: "npm:8.18.0"
     ajv-formats: "npm:3.0.1"
@@ -1656,24 +1656,24 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@datadog/datadog-ci-plugin-stepfunctions@workspace:packages/plugin-stepfunctions":
+"@openobserve/openobserve-ci-plugin-stepfunctions@workspace:packages/plugin-stepfunctions":
   version: 0.0.0-use.local
-  resolution: "@datadog/datadog-ci-plugin-stepfunctions@workspace:packages/plugin-stepfunctions"
+  resolution: "@openobserve/openobserve-ci-plugin-stepfunctions@workspace:packages/plugin-stepfunctions"
   dependencies:
     "@aws-sdk/client-cloudwatch-logs": "npm:3.1045.0"
     "@aws-sdk/client-iam": "npm:3.1045.0"
     "@aws-sdk/client-sfn": "npm:3.1045.0"
-    "@datadog/datadog-ci-base": "workspace:*"
+    "@openobserve/openobserve-ci-base": "workspace:*"
     aws-sdk-client-mock: "npm:4.1.0"
     deep-object-diff: "npm:1.1.9"
   languageName: unknown
   linkType: soft
 
-"@datadog/datadog-ci-plugin-synthetics@workspace:packages/plugin-synthetics":
+"@openobserve/openobserve-ci-plugin-synthetics@workspace:packages/plugin-synthetics":
   version: 0.0.0-use.local
-  resolution: "@datadog/datadog-ci-plugin-synthetics@workspace:packages/plugin-synthetics"
+  resolution: "@openobserve/openobserve-ci-plugin-synthetics@workspace:packages/plugin-synthetics"
   dependencies:
-    "@datadog/datadog-ci-base": "workspace:*"
+    "@openobserve/openobserve-ci-base": "workspace:*"
     "@types/deep-extend": "npm:0.4.31"
     "@types/set-value": "npm:4.0.3"
     "@types/ssh2": "npm:1.15.5"
@@ -1696,11 +1696,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@datadog/datadog-ci-plugin-terraform@workspace:packages/plugin-terraform":
+"@openobserve/openobserve-ci-plugin-terraform@workspace:packages/plugin-terraform":
   version: 0.0.0-use.local
-  resolution: "@datadog/datadog-ci-plugin-terraform@workspace:packages/plugin-terraform"
+  resolution: "@openobserve/openobserve-ci-plugin-terraform@workspace:packages/plugin-terraform"
   dependencies:
-    "@datadog/datadog-ci-base": "workspace:*"
+    "@openobserve/openobserve-ci-base": "workspace:*"
     "@types/jest": "npm:29.5.3"
     chalk: "npm:3.0.0"
     form-data: "npm:4.0.6"
@@ -1709,45 +1709,45 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@datadog/datadog-ci@workspace:packages/datadog-ci":
+"@openobserve/openobserve-ci@workspace:packages/openobserve-ci":
   version: 0.0.0-use.local
-  resolution: "@datadog/datadog-ci@workspace:packages/datadog-ci"
+  resolution: "@openobserve/openobserve-ci@workspace:packages/openobserve-ci"
   dependencies:
-    "@datadog/datadog-ci-base": "workspace:*"
-    "@datadog/datadog-ci-plugin-coverage": "workspace:*"
-    "@datadog/datadog-ci-plugin-deployment": "workspace:*"
-    "@datadog/datadog-ci-plugin-dora": "workspace:*"
-    "@datadog/datadog-ci-plugin-gate": "workspace:*"
-    "@datadog/datadog-ci-plugin-junit": "workspace:*"
-    "@datadog/datadog-ci-plugin-sarif": "workspace:*"
-    "@datadog/datadog-ci-plugin-sbom": "workspace:*"
+    "@openobserve/openobserve-ci-base": "workspace:*"
+    "@openobserve/openobserve-ci-plugin-coverage": "workspace:*"
+    "@openobserve/openobserve-ci-plugin-deployment": "workspace:*"
+    "@openobserve/openobserve-ci-plugin-dora": "workspace:*"
+    "@openobserve/openobserve-ci-plugin-gate": "workspace:*"
+    "@openobserve/openobserve-ci-plugin-junit": "workspace:*"
+    "@openobserve/openobserve-ci-plugin-sarif": "workspace:*"
+    "@openobserve/openobserve-ci-plugin-sbom": "workspace:*"
     "@types/jest": "npm:29.5.3"
     clipanion: "npm:3.2.1"
     typanion: "npm:3.14.0"
   bin:
-    datadog-ci: dist/bundle.js
+    openobserve-ci: dist/bundle.js
   languageName: unknown
   linkType: soft
 
-"@datadog/flagging-core@npm:0.3.3":
+"@openobserve/flagging-core@npm:0.3.3":
   version: 0.3.3
-  resolution: "@datadog/flagging-core@npm:0.3.3"
+  resolution: "@openobserve/flagging-core@npm:0.3.3"
   dependencies:
     spark-md5: "npm:^3.0.2"
   checksum: 10/6da20dc83c9150b19a5343854e4bc4e3c70182a1c0cbc27ba3f94cbe6770476cead1134e620c0c8edaacbc283893597e27fc6dd6adcf88b6846f62042dd38710
   languageName: node
   linkType: hard
 
-"@datadog/libdatadog@npm:0.9.3":
+"@openobserve/libdatadog@npm:0.9.3":
   version: 0.9.3
-  resolution: "@datadog/libdatadog@npm:0.9.3"
+  resolution: "@openobserve/libdatadog@npm:0.9.3"
   checksum: 10/d605398166d1feb1cffe4d76981db7252947173ad9ade439000cd3abbdabbd135954d26c0978e81763c9b2fae7fd5379e380064fd71fff1bbda07ac15e85c6cc
   languageName: node
   linkType: hard
 
-"@datadog/native-appsec@npm:11.0.1":
+"@openobserve/native-appsec@npm:11.0.1":
   version: 11.0.1
-  resolution: "@datadog/native-appsec@npm:11.0.1"
+  resolution: "@openobserve/native-appsec@npm:11.0.1"
   dependencies:
     node-gyp: "npm:latest"
     node-gyp-build: "npm:^3.9.0"
@@ -1755,9 +1755,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@datadog/native-iast-taint-tracking@npm:4.1.0":
+"@openobserve/native-iast-taint-tracking@npm:4.1.0":
   version: 4.1.0
-  resolution: "@datadog/native-iast-taint-tracking@npm:4.1.0"
+  resolution: "@openobserve/native-iast-taint-tracking@npm:4.1.0"
   dependencies:
     node-gyp: "npm:latest"
     node-gyp-build: "npm:^3.9.0"
@@ -1765,9 +1765,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@datadog/native-metrics@npm:3.1.1":
+"@openobserve/native-metrics@npm:3.1.1":
   version: 3.1.1
-  resolution: "@datadog/native-metrics@npm:3.1.1"
+  resolution: "@openobserve/native-metrics@npm:3.1.1"
   dependencies:
     node-addon-api: "npm:^6.1.0"
     node-gyp: "npm:latest"
@@ -1776,20 +1776,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@datadog/openfeature-node-server@npm:^1.1.1":
+"@openobserve/openfeature-node-server@npm:^1.1.1":
   version: 1.1.2
-  resolution: "@datadog/openfeature-node-server@npm:1.1.2"
+  resolution: "@openobserve/openfeature-node-server@npm:1.1.2"
   dependencies:
-    "@datadog/flagging-core": "npm:0.3.3"
+    "@openobserve/flagging-core": "npm:0.3.3"
   peerDependencies:
     "@openfeature/server-sdk": ">=1.15.1"
   checksum: 10/595d26bd890e16a0cd56282f4b3aadbea08bc870fcd541b4f1829b4da5d038103a442e1aa08dd684727661efe2067ad2118db84d22ac48f8b0e0cd3ac6e341ce
   languageName: node
   linkType: hard
 
-"@datadog/pprof@npm:5.14.1":
+"@openobserve/pprof@npm:5.14.1":
   version: 5.14.1
-  resolution: "@datadog/pprof@npm:5.14.1"
+  resolution: "@openobserve/pprof@npm:5.14.1"
   dependencies:
     node-gyp: "npm:latest"
     node-gyp-build: "npm:<4.0"
@@ -1799,9 +1799,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@datadog/wasm-js-rewriter@npm:5.0.1":
+"@openobserve/wasm-js-rewriter@npm:5.0.1":
   version: 5.0.1
-  resolution: "@datadog/wasm-js-rewriter@npm:5.0.1"
+  resolution: "@openobserve/wasm-js-rewriter@npm:5.0.1"
   dependencies:
     js-yaml: "npm:^4.1.0"
     lru-cache: "npm:^7.14.0"
@@ -5972,11 +5972,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"datadog-ci-monorepo@workspace:.":
+"openobserve-ci-monorepo@workspace:.":
   version: 0.0.0-use.local
-  resolution: "datadog-ci-monorepo@workspace:."
+  resolution: "openobserve-ci-monorepo@workspace:."
   dependencies:
-    "@datadog/datadog-api-client": "npm:1.53.0"
+    "@openobserve/datadog-api-client": "npm:1.53.0"
     "@microsoft/eslint-formatter-sarif": "npm:3.1.0"
     "@stylistic/eslint-plugin": "npm:5.3.1"
     "@types/node": "npm:20.19.37"
@@ -6029,32 +6029,32 @@ __metadata:
   version: 5.99.1
   resolution: "dd-trace@npm:5.99.1"
   dependencies:
-    "@datadog/libdatadog": "npm:0.9.3"
-    "@datadog/native-appsec": "npm:11.0.1"
-    "@datadog/native-iast-taint-tracking": "npm:4.1.0"
-    "@datadog/native-metrics": "npm:3.1.1"
-    "@datadog/openfeature-node-server": "npm:^1.1.1"
-    "@datadog/pprof": "npm:5.14.1"
-    "@datadog/wasm-js-rewriter": "npm:5.0.1"
+    "@openobserve/libdatadog": "npm:0.9.3"
+    "@openobserve/native-appsec": "npm:11.0.1"
+    "@openobserve/native-iast-taint-tracking": "npm:4.1.0"
+    "@openobserve/native-metrics": "npm:3.1.1"
+    "@openobserve/openfeature-node-server": "npm:^1.1.1"
+    "@openobserve/pprof": "npm:5.14.1"
+    "@openobserve/wasm-js-rewriter": "npm:5.0.1"
     "@opentelemetry/api": "npm:>=1.0.0 <1.10.0"
     "@opentelemetry/api-logs": "npm:<1.0.0"
     dc-polyfill: "npm:^0.1.10"
     import-in-the-middle: "npm:^3.0.1"
     oxc-parser: "npm:^0.127.0"
   dependenciesMeta:
-    "@datadog/libdatadog":
+    "@openobserve/libdatadog":
       optional: true
-    "@datadog/native-appsec":
+    "@openobserve/native-appsec":
       optional: true
-    "@datadog/native-iast-taint-tracking":
+    "@openobserve/native-iast-taint-tracking":
       optional: true
-    "@datadog/native-metrics":
+    "@openobserve/native-metrics":
       optional: true
-    "@datadog/openfeature-node-server":
+    "@openobserve/openfeature-node-server":
       optional: true
-    "@datadog/pprof":
+    "@openobserve/pprof":
       optional: true
-    "@datadog/wasm-js-rewriter":
+    "@openobserve/wasm-js-rewriter":
       optional: true
     "@opentelemetry/api":
       optional: true

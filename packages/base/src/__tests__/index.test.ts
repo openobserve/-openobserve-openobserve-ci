@@ -40,7 +40,7 @@ describe('BaseCommand --log-format', () => {
     expect(lines.map((entry) => entry.message)).toEqual(['hello', 'careful', 'boom'])
   })
 
-  it('reads the format from the DD_LOG_FORMAT environment variable', async () => {
+  it('reads the format from the OO_LOG_FORMAT environment variable', async () => {
     const {context, code} = await runCLI([], {[LOG_FORMAT_ENV_VAR]: 'json'})
 
     expect(code).toBe(0)

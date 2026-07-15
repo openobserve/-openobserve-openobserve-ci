@@ -139,8 +139,8 @@ export default defineConfig(
   globalIgnores([
     'eslint.config.mjs',
     'packages/*/dist',
-    'packages/datadog-ci/shims/injected-plugin-submodules.js',
-    'packages/datadog-ci/shims/intl-collator.js',
+    'packages/openobserve-ci/shims/injected-plugin-submodules.js',
+    'packages/openobserve-ci/shims/intl-collator.js',
     'bin/*.js',
     '.github/dependabot.yml',
     'packages/base/src/commands/flutter-symbols/__tests__/fixtures/pubspecs/invalidPubspec.yaml',
@@ -426,7 +426,7 @@ export default defineConfig(
     },
   },
   {
-    files: ['jest.config*.mjs', 'jest.setup.ts', 'bin/*.ts', 'scripts/*.mjs', 'packages/datadog-ci/shims/*.mjs'],
+    files: ['jest.config*.mjs', 'jest.setup.ts', 'bin/*.ts', 'scripts/*.mjs', 'packages/openobserve-ci/shims/*.mjs'],
     extends: [tseslint.configs.disableTypeChecked],
   },
   {

@@ -81,7 +81,7 @@ dist
 skills-lock.json
 
 # Test generated files
-packages/datadog-ci/src/commands/react-native/__tests__/fixtures/with-sources-content/main.jsbundle.map.no-sources-content
+packages/openobserve-ci/src/commands/react-native/__tests__/fixtures/with-sources-content/main.jsbundle.map.no-sources-content
 
 # ESLint reports (SARIF format)
 *.sarif
@@ -106,8 +106,8 @@ packages/datadog-ci/src/commands/react-native/__tests__/fixtures/with-sources-co
 endpoints.csv
 
 # Standalone binary built locally
-datadog-ci_linux-x64
-datadog-ci_linux-arm64
-datadog-ci_win-x64
-datadog-ci_darwin-x64
-datadog-ci_darwin-arm64
+openobserve-ci_linux-x64
+openobserve-ci_linux-arm64
+openobserve-ci_win-x64
+openobserve-ci_darwin-x64
+openobserve-ci_darwin-arm64

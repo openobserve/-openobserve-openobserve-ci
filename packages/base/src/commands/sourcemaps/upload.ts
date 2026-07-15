@@ -1,36 +1,36 @@
 import fs from 'fs'
 import {URL} from 'url'
 
-import type {ApiKeyValidator} from '@datadog/datadog-ci-base/helpers/apikey'
-import type {RepositoryData} from '@datadog/datadog-ci-base/helpers/git/format-git-sourcemaps-data'
-import type {RequestBuilder} from '@datadog/datadog-ci-base/helpers/interfaces'
-import type {MetricsLogger} from '@datadog/datadog-ci-base/helpers/metrics'
+import type {ApiKeyValidator} from '@openobserve/openobserve-ci-base/helpers/apikey'
+import type {RepositoryData} from '@openobserve/openobserve-ci-base/helpers/git/format-git-sourcemaps-data'
+import type {RequestBuilder} from '@openobserve/openobserve-ci-base/helpers/interfaces'
+import type {MetricsLogger} from '@openobserve/openobserve-ci-base/helpers/metrics'
 
 import chalk from 'chalk'
 import {Command, Option} from 'clipanion'
 import upath from 'upath'
 
-import {BaseCommand} from '@datadog/datadog-ci-base'
-import {FIPS_ENV_VAR, FIPS_IGNORE_ERROR_ENV_VAR} from '@datadog/datadog-ci-base/constants'
-import {getDatadogSite, getDatadogSiteFromEnv} from '@datadog/datadog-ci-base/helpers/api'
-import {newApiKeyValidator} from '@datadog/datadog-ci-base/helpers/apikey'
-import {getBaseSourcemapIntakeUrl} from '@datadog/datadog-ci-base/helpers/base-intake-url'
-import {doWithMaxConcurrency} from '@datadog/datadog-ci-base/helpers/concurrency'
-import {toBoolean} from '@datadog/datadog-ci-base/helpers/env'
-import {InvalidConfigurationError} from '@datadog/datadog-ci-base/helpers/errors'
-import {enableFips} from '@datadog/datadog-ci-base/helpers/fips'
+import {BaseCommand} from '@openobserve/openobserve-ci-base'
+import {FIPS_ENV_VAR, FIPS_IGNORE_ERROR_ENV_VAR} from '@openobserve/openobserve-ci-base/constants'
+import {getOpenObserveSite, getOpenObserveSiteFromEnv} from '@openobserve/openobserve-ci-base/helpers/api'
+import {newApiKeyValidator} from '@openobserve/openobserve-ci-base/helpers/apikey'
+import {getBaseSourcemapIntakeUrl} from '@openobserve/openobserve-ci-base/helpers/base-intake-url'
+import {doWithMaxConcurrency} from '@openobserve/openobserve-ci-base/helpers/concurrency'
+import {toBoolean} from '@openobserve/openobserve-ci-base/helpers/env'
+import {InvalidConfigurationError} from '@openobserve/openobserve-ci-base/helpers/errors'
+import {enableFips} from '@openobserve/openobserve-ci-base/helpers/fips'
 import {
   getRepositoryData,
   newSimpleGit,
   normalizeSources,
-} from '@datadog/datadog-ci-base/helpers/git/format-git-sourcemaps-data'
-import {globSync} from '@datadog/datadog-ci-base/helpers/glob'
-import {getMetricsLogger} from '@datadog/datadog-ci-base/helpers/metrics'
-import {datadogRoute} from '@datadog/datadog-ci-base/helpers/request/datadog-route'
-import {upload, UploadStatus} from '@datadog/datadog-ci-base/helpers/upload'
-import {getRequestBuilder, buildPath} from '@datadog/datadog-ci-base/helpers/utils'
-import * as validation from '@datadog/datadog-ci-base/helpers/validation'
-import {cliVersion} from '@datadog/datadog-ci-base/version'
+} from '@openobserve/openobserve-ci-base/helpers/git/format-git-sourcemaps-data'
+import {globSync} from '@openobserve/openobserve-ci-base/helpers/glob'
+import {getMetricsLogger} from '@openobserve/openobserve-ci-base/helpers/metrics'
+import {ooRoute} from '@openobserve/openobserve-ci-base/helpers/request/datadog-route'
+import {upload, UploadStatus} from '@openobserve/openobserve-ci-base/helpers/upload'
+import {getRequestBuilder, buildPath} from '@openobserve/openobserve-ci-base/helpers/utils'
+import * as validation from '@openobserve/openobserve-ci-base/helpers/validation'
+import {cliVersion} from '@openobserve/openobserve-ci-base/version'
 
 import {Sourcemap} from './interfaces'
 import {
@@ -54,19 +54,19 @@ export class SourcemapsUploadCommand extends BaseCommand {
 
   public static usage = Command.Usage({
     category: 'RUM',
-    description: 'Upload JavaScript sourcemaps to Datadog.',
+    description: 'Upload JavaScript sourcemaps to OpenObserve.',
     details: `
-      This command will upload all JavaScript sourcemaps and their corresponding JavaScript file to Datadog in order to un-minify front-end stack traces received by Datadog.\n
+      This command will upload all JavaScript sourcemaps and their corresponding JavaScript file to OpenObserve in order to un-minify front-end stack traces received by OpenObserve.\n
       See README for details.
     `,
     examples: [
       [
         'Upload all sourcemaps in current directory',
-        'datadog-ci sourcemaps upload . --service my-service --minified-path-prefix https://static.datadog.com --release-version 1.234',
+        'openobserve-ci sourcemaps upload . --service my-service --minified-path-prefix https://static.datadog.com --release-version 1.234',
       ],
       [
         'Upload all sourcemaps in /home/users/ci with 50 concurrent uploads',
-        'datadog-ci sourcemaps upload /home/users/ci --service my-service --minified-path-prefix https://static.datadog.com --release-version 1.234 --max-concurrency 50',
+        'openobserve-ci sourcemaps upload /home/users/ci --service my-service --minified-path-prefix https://static.datadog.com --release-version 1.234 --max-concurrency 50',
       ],
     ],
   })
@@ -89,12 +89,12 @@ export class SourcemapsUploadCommand extends BaseCommand {
   private fipsIgnoreError = Option.Boolean('--fips-ignore-error', false)
 
   private config = {
-    apiKey: process.env.DATADOG_API_KEY || process.env.DD_API_KEY,
-    commitSha: process.env.DD_GIT_COMMIT_SHA,
-    datadogSite: getDatadogSite(),
+    apiKey: process.env.OPENOBSERVE_API_KEY || process.env.OO_API_KEY,
+    commitSha: process.env.OO_GIT_COMMIT_SHA,
+    ooSite: getOpenObserveSite(),
     fips: toBoolean(process.env[FIPS_ENV_VAR]) ?? false,
     fipsIgnoreError: toBoolean(process.env[FIPS_IGNORE_ERROR_ENV_VAR]) ?? false,
-    repositoryURL: process.env.DD_GIT_REPOSITORY_URL,
+    repositoryURL: process.env.OO_GIT_REPOSITORY_URL,
   }
 
   public async execute() {
@@ -138,13 +138,13 @@ export class SourcemapsUploadCommand extends BaseCommand {
       )
     )
     const metricsLogger = getMetricsLogger({
-      datadogSite: getDatadogSiteFromEnv(),
+      ooSite: getOpenObserveSiteFromEnv(),
       defaultTags: [`version:${this.releaseVersion}`, `service:${this.service}`, `cli_version:${this.cliVersion}`],
       prefix: 'datadog.ci.sourcemaps.',
     })
     const apiKeyValidator = newApiKeyValidator({
       apiKey: this.config.apiKey,
-      datadogSite: this.config.datadogSite,
+      ooSite: this.config.ooSite,
       metricsLogger: metricsLogger.logger,
     })
     const useGit = this.disableGit === undefined || !this.disableGit
@@ -365,18 +365,18 @@ export class SourcemapsUploadCommand extends BaseCommand {
   private getRequestBuilder(): RequestBuilder {
     if (!this.config.apiKey) {
       throw new InvalidConfigurationError(
-        `Missing ${chalk.bold('DATADOG_API_KEY')} or ${chalk.bold('DD_API_KEY')} in your environment.`
+        `Missing ${chalk.bold('OPENOBSERVE_API_KEY')} or ${chalk.bold('OO_API_KEY')} in your environment.`
       )
     }
 
     return getRequestBuilder({
       apiKey: this.config.apiKey,
-      baseUrl: getBaseSourcemapIntakeUrl(this.config.datadogSite),
+      baseUrl: getBaseSourcemapIntakeUrl(this.config.ooSite),
       headers: new Map([
-        ['DD-EVP-ORIGIN', 'datadog-ci_sourcemaps'],
+        ['DD-EVP-ORIGIN', 'openobserve-ci_sourcemaps'],
         ['DD-EVP-ORIGIN-VERSION', this.cliVersion],
       ]),
-      overrideUrl: datadogRoute('/api/v2/srcmap'),
+      overrideUrl: ooRoute('/api/v2/srcmap'),
     })
   }
 

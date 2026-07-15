@@ -1,0 +1,9 @@
+# Fork-owned identity files — not rebranded by the codemod.
+LICENSE
+NOTICE
+LICENSE-3rdparty.csv
+README.md
+CHANGELOG.md
+MIGRATING.md
+.github
+scripts/openobserve

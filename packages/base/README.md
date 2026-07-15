@@ -1,4 +1,4 @@
-# @datadog/datadog-ci-base
+# @openobserve/openobserve-ci-base
 
 This package is imported by all other packages in the monorepo.
 

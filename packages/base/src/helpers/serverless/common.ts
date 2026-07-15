@@ -3,15 +3,15 @@ import {isDeepStrictEqual} from 'node:util'
 import chalk from 'chalk'
 import {diff} from 'jest-diff'
 
-import {DATADOG_SITE_US1} from '../../constants'
+import {OPENOBSERVE_SITE_US1} from '../../constants'
 
-import {getDatadogSite} from '../api'
+import {getOpenObserveSite} from '../api'
 
 import {
   HEALTH_PORT_ENV_VAR,
   LOGS_INJECTION_ENV_VAR,
   SITE_ENV_VAR,
-  DD_TRACE_ENABLED_ENV_VAR,
+  OO_TRACE_ENABLED_ENV_VAR,
   LOGS_PATH_ENV_VAR,
   ENV_VAR_REGEX,
   DEFAULT_HEALTH_CHECK_PORT,
@@ -67,22 +67,22 @@ export interface ServerlessConfigOptions {
  */
 export const getBaseEnvVars = (config: ServerlessConfigOptions): Record<string, string> => {
   const envVars: Record<string, string> = {
-    DD_API_KEY: process.env.DD_API_KEY!,
-    DD_SITE: getDatadogSite(),
-    DD_SERVICE: config.service!,
+    OO_API_KEY: process.env.OO_API_KEY!,
+    OO_SITE: getOpenObserveSite(),
+    OO_SERVICE: config.service!,
     ...parseEnvVars(config.envVars),
   }
   if (config.environment) {
-    envVars.DD_ENV = config.environment
+    envVars.OO_ENV = config.environment
   }
   if (config.version) {
-    envVars.DD_VERSION = config.version
+    envVars.OO_VERSION = config.version
   }
   if (config.logPath) {
     envVars[LOGS_PATH_ENV_VAR] = config.logPath
   }
   if (config.extraTags) {
-    envVars.DD_TAGS = config.extraTags
+    envVars.OO_TAGS = config.extraTags
   }
 
   return envVars
@@ -176,9 +176,9 @@ type FullyOptional<T> = {
 type EnvVar = {name: string; value: string}
 
 const DEFAULT_ENV_VARS_BY_NAME: Record<string, EnvVar> = byName([
-  {name: SITE_ENV_VAR, value: DATADOG_SITE_US1},
+  {name: SITE_ENV_VAR, value: OPENOBSERVE_SITE_US1},
   {name: LOGS_INJECTION_ENV_VAR, value: 'true'},
-  {name: DD_TRACE_ENABLED_ENV_VAR, value: 'true'},
+  {name: OO_TRACE_ENABLED_ENV_VAR, value: 'true'},
   {name: HEALTH_PORT_ENV_VAR, value: DEFAULT_HEALTH_CHECK_PORT.toString()},
 ])
 

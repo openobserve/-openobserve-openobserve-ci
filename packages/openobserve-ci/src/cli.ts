@@ -1,24 +1,24 @@
 #!/usr/bin/env node
 
-import type {CommandContext} from '@datadog/datadog-ci-base'
-import type {PluginSubModule} from '@datadog/datadog-ci-base/helpers/plugin'
+import type {CommandContext} from '@openobserve/openobserve-ci-base'
+import type {PluginSubModule} from '@openobserve/openobserve-ci-base/helpers/plugin'
 
-import {BaseCommand} from '@datadog/datadog-ci-base'
-import {commands as commandDeclarations} from '@datadog/datadog-ci-base/cli'
-import {Logger, LogLevel} from '@datadog/datadog-ci-base/helpers/logger'
-import {cliVersion, printVersion} from '@datadog/datadog-ci-base/version'
+import {BaseCommand} from '@openobserve/openobserve-ci-base'
+import {commands as commandDeclarations} from '@openobserve/openobserve-ci-base/cli'
+import {Logger, LogLevel} from '@openobserve/openobserve-ci-base/helpers/logger'
+import {cliVersion, printVersion} from '@openobserve/openobserve-ci-base/version'
 import {Builtins, Cli} from 'clipanion'
 
-import packageJson from '@datadog/datadog-ci/package.json'
+import packageJson from '@openobserve/openobserve-ci/package.json'
 
-export * as gitMetadata from '@datadog/datadog-ci-base/commands/git-metadata/library'
-export * as utils from '@datadog/datadog-ci-base/helpers/utils'
-export {cliVersion, printVersion} from '@datadog/datadog-ci-base/version'
+export * as gitMetadata from '@openobserve/openobserve-ci-base/commands/git-metadata/library'
+export * as utils from '@openobserve/openobserve-ci-base/helpers/utils'
+export {cliVersion, printVersion} from '@openobserve/openobserve-ci-base/version'
 
 export const BETA_COMMANDS = new Set(['deployment', 'elf-symbols'])
 
 const betaCommandsEnabled =
-  process.env.DD_BETA_COMMANDS_ENABLED === '1' || process.env.DD_BETA_COMMANDS_ENABLED === 'true'
+  process.env.OO_BETA_COMMANDS_ENABLED === '1' || process.env.OO_BETA_COMMANDS_ENABLED === 'true'
 
 // Enable sourcemaps to translate stack traces
 process.setSourceMapsEnabled(true)
@@ -32,8 +32,8 @@ process.on('uncaughtException', onError)
 process.on('unhandledRejection', onError)
 
 const cli = new Cli<CommandContext>({
-  binaryLabel: 'Datadog CI',
-  binaryName: 'datadog-ci',
+  binaryLabel: 'OpenObserve CI',
+  binaryName: 'openobserve-ci',
   binaryVersion: cliVersion,
 })
 
@@ -60,8 +60,8 @@ declare const __getInjectedPlugins:
 
 const builtinPlugins =
   typeof __getInjectedPlugins !== 'undefined'
-    ? Object.keys(__getInjectedPlugins().injectedPluginSubmodules ?? {}).map((s) => `@datadog/datadog-ci-plugin-${s}`)
-    : Object.keys(packageJson.devDependencies).filter((plugin) => plugin.startsWith('@datadog/datadog-ci-plugin-'))
+    ? Object.keys(__getInjectedPlugins().injectedPluginSubmodules ?? {}).map((s) => `@openobserve/openobserve-ci-plugin-${s}`)
+    : Object.keys(packageJson.devDependencies).filter((plugin) => plugin.startsWith('@openobserve/openobserve-ci-plugin-'))
 
 if (require.main === module) {
   const context = {
@@ -78,7 +78,7 @@ if (require.main === module) {
     // Parse error: defer to cli.run below for clipanion's error rendering.
   }
 
-  // Write the banner to stderr so it never corrupts captured stdout (e.g. `VAR=$(datadog-ci ...)`),
+  // Write the banner to stderr so it never corrupts captured stdout (e.g. `VAR=$(openobserve-ci ...)`),
   // while mirroring the resolved command's `--log-format` so it stays a JSON line in JSON mode.
   // Builtin commands (e.g. --help) and command line parse errors fall back to text format.
   const jsonOutput = command instanceof BaseCommand ? command.logger.isJsonOutput() : false

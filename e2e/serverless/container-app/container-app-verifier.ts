@@ -23,21 +23,21 @@ interface ContainerApp {
 
 const SIDECAR_NAME = 'datadog-sidecar'
 const SHARED_VOLUME_NAME = 'shared-volume'
-const DD_API_KEY_SECRET_NAME = 'dd-api-key'
+const OO_API_KEY_SECRET_NAME = 'dd-api-key'
 const EXPECTED_ENV = 'e2e'
 const REQUIRED_ENV_VARS = [
-  'DD_API_KEY',
-  'DD_SITE',
-  'DD_SERVICE',
-  'DD_ENV',
-  'DD_VERSION',
-  'DD_TRACE_ENABLED',
-  'DD_LOGS_INJECTION',
-  'DD_HEALTH_PORT',
-  'DD_TAGS',
-  'DD_APM_ENABLED',
+  'OO_API_KEY',
+  'OO_SITE',
+  'OO_SERVICE',
+  'OO_ENV',
+  'OO_VERSION',
+  'OO_TRACE_ENABLED',
+  'OO_LOGS_INJECTION',
+  'OO_HEALTH_PORT',
+  'OO_TAGS',
+  'OO_APM_ENABLED',
 ]
-const DATADOG_TAGS = ['service', 'env', 'version', 'dd_sls_ci']
+const OPENOBSERVE_TAGS = ['service', 'env', 'version', 'dd_sls_ci']
 
 const getContainerApp = (appName: string, resourceGroup: string, subscriptionId: string): ContainerApp => {
   const output = execSync(
@@ -102,18 +102,18 @@ export const verifyInstrumented = (
     for (const varName of REQUIRED_ENV_VARS) {
       expect(env[varName]).toBeDefined()
     }
-    expect(env.DD_API_KEY.secretRef).toBe(DD_API_KEY_SECRET_NAME)
-    expect(env.DD_SERVICE.value).toBe(appName)
-    expect(env.DD_ENV.value).toBe(EXPECTED_ENV)
-    expect(env.DD_VERSION.value).toBe(runId)
-    expect(env.DD_TRACE_ENABLED.value).toBe('true')
-    expect(env.DD_LOGS_INJECTION.value).toBe('true')
-    expect(env.DD_HEALTH_PORT.value).toBe('5555')
-    expect(env.DD_TAGS.value).toContain(`one_e2e_run_id:${runId}`)
-    expect(env.DD_APM_ENABLED.value).toBe('true')
+    expect(env.OO_API_KEY.secretRef).toBe(OO_API_KEY_SECRET_NAME)
+    expect(env.OO_SERVICE.value).toBe(appName)
+    expect(env.OO_ENV.value).toBe(EXPECTED_ENV)
+    expect(env.OO_VERSION.value).toBe(runId)
+    expect(env.OO_TRACE_ENABLED.value).toBe('true')
+    expect(env.OO_LOGS_INJECTION.value).toBe('true')
+    expect(env.OO_HEALTH_PORT.value).toBe('5555')
+    expect(env.OO_TAGS.value).toContain(`one_e2e_run_id:${runId}`)
+    expect(env.OO_APM_ENABLED.value).toBe('true')
   }
 
-  const apiKeySecret = secrets.find((s) => s.name === DD_API_KEY_SECRET_NAME)
+  const apiKeySecret = secrets.find((s) => s.name === OO_API_KEY_SECRET_NAME)
   expect(apiKeySecret).toBeDefined()
 
   expect(tags.service).toBe(appName)
@@ -145,14 +145,14 @@ export const verifyUninstrumented = (appName: string, resourceGroup: string, sub
 
   for (const container of containers) {
     const env = container.env || []
-    const ddVars = env.filter((e) => e.name.startsWith('DD_'))
+    const ddVars = env.filter((e) => e.name.startsWith('OO_'))
     expect(ddVars).toHaveLength(0)
   }
 
-  const apiKeySecret = secrets.find((s) => s.name === DD_API_KEY_SECRET_NAME)
+  const apiKeySecret = secrets.find((s) => s.name === OO_API_KEY_SECRET_NAME)
   expect(apiKeySecret).toBeUndefined()
 
-  for (const tag of DATADOG_TAGS) {
+  for (const tag of OPENOBSERVE_TAGS) {
     expect(Object.keys(tags)).not.toContain(tag)
   }
   expect(tags.one_e2e_created).toBeDefined()

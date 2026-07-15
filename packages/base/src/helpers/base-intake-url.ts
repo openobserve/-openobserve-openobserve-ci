@@ -1,4 +1,4 @@
 import {getIntakeUrl} from './api'
 
-export const getBaseSourcemapIntakeUrl = (datadogSite?: string) =>
-  getIntakeUrl('sourcemap-intake', {overrideEnvVar: 'DATADOG_SOURCEMAP_INTAKE_URL', site: datadogSite})
+export const getBaseSourcemapIntakeUrl = (ooSite?: string) =>
+  getIntakeUrl('sourcemap-intake', {overrideEnvVar: 'OPENOBSERVE_SOURCEMAP_INTAKE_URL', site: ooSite})

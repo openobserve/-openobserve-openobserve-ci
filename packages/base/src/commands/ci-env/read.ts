@@ -1,7 +1,7 @@
 import {Command, Option} from 'clipanion'
 import * as t from 'typanion'
 
-import {BaseCommand} from '@datadog/datadog-ci-base'
+import {BaseCommand} from '@openobserve/openobserve-ci-base'
 
 import {getCISpanTags} from '../../helpers/ci'
 import {
@@ -38,43 +38,43 @@ import {
 import {getUserCISpanTags, getUserGitSpanTags} from '../../helpers/user-provided-git'
 
 /**
- * Explicit mapping from internal tag keys to DD_* environment variable names.
+ * Explicit mapping from internal tag keys to OO_* environment variable names.
  */
 const TAG_TO_ENV_VAR: Record<string, string> = {
   // CI tags
-  [CI_JOB_ID]: 'DD_CI_JOB_ID',
-  [CI_JOB_NAME]: 'DD_CI_JOB_NAME',
-  [CI_JOB_URL]: 'DD_CI_JOB_URL',
-  [CI_NODE_LABELS]: 'DD_CI_NODE_LABELS',
-  [CI_NODE_NAME]: 'DD_CI_NODE_NAME',
-  [CI_PIPELINE_ID]: 'DD_CI_PIPELINE_ID',
-  [CI_PIPELINE_NAME]: 'DD_CI_PIPELINE_NAME',
-  [CI_PIPELINE_NUMBER]: 'DD_CI_PIPELINE_NUMBER',
-  [CI_PIPELINE_URL]: 'DD_CI_PIPELINE_URL',
-  [CI_PROVIDER_NAME]: 'DD_CI_PROVIDER_NAME',
-  [CI_STAGE_NAME]: 'DD_CI_STAGE_NAME',
-  [CI_WORKSPACE_PATH]: 'DD_CI_WORKSPACE_PATH',
-  [CI_ENV_VARS]: 'DD_CI_ENV_VARS',
+  [CI_JOB_ID]: 'OO_CI_JOB_ID',
+  [CI_JOB_NAME]: 'OO_CI_JOB_NAME',
+  [CI_JOB_URL]: 'OO_CI_JOB_URL',
+  [CI_NODE_LABELS]: 'OO_CI_NODE_LABELS',
+  [CI_NODE_NAME]: 'OO_CI_NODE_NAME',
+  [CI_PIPELINE_ID]: 'OO_CI_PIPELINE_ID',
+  [CI_PIPELINE_NAME]: 'OO_CI_PIPELINE_NAME',
+  [CI_PIPELINE_NUMBER]: 'OO_CI_PIPELINE_NUMBER',
+  [CI_PIPELINE_URL]: 'OO_CI_PIPELINE_URL',
+  [CI_PROVIDER_NAME]: 'OO_CI_PROVIDER_NAME',
+  [CI_STAGE_NAME]: 'OO_CI_STAGE_NAME',
+  [CI_WORKSPACE_PATH]: 'OO_CI_WORKSPACE_PATH',
+  [CI_ENV_VARS]: 'OO_CI_ENV_VARS',
 
   // Git tags
-  [GIT_BRANCH]: 'DD_GIT_BRANCH',
-  [GIT_COMMIT_AUTHOR_DATE]: 'DD_GIT_COMMIT_AUTHOR_DATE',
-  [GIT_COMMIT_AUTHOR_EMAIL]: 'DD_GIT_COMMIT_AUTHOR_EMAIL',
-  [GIT_COMMIT_AUTHOR_NAME]: 'DD_GIT_COMMIT_AUTHOR_NAME',
-  [GIT_COMMIT_COMMITTER_DATE]: 'DD_GIT_COMMIT_COMMITTER_DATE',
-  [GIT_COMMIT_COMMITTER_EMAIL]: 'DD_GIT_COMMIT_COMMITTER_EMAIL',
-  [GIT_COMMIT_COMMITTER_NAME]: 'DD_GIT_COMMIT_COMMITTER_NAME',
-  [GIT_COMMIT_MESSAGE]: 'DD_GIT_COMMIT_MESSAGE',
-  [GIT_HEAD_SHA]: 'DD_GIT_COMMIT_HEAD_SHA',
-  [GIT_PULL_REQUEST_BASE_BRANCH]: 'DD_GIT_PULL_REQUEST_BASE_BRANCH',
-  [GIT_PULL_REQUEST_BASE_BRANCH_HEAD_SHA]: 'DD_GIT_PULL_REQUEST_BASE_BRANCH_HEAD_SHA',
-  [GIT_PULL_REQUEST_BASE_BRANCH_SHA]: 'DD_GIT_PULL_REQUEST_BASE_BRANCH_SHA',
-  [GIT_REPOSITORY_URL]: 'DD_GIT_REPOSITORY_URL',
-  [GIT_SHA]: 'DD_GIT_COMMIT_SHA',
-  [GIT_TAG]: 'DD_GIT_TAG',
+  [GIT_BRANCH]: 'OO_GIT_BRANCH',
+  [GIT_COMMIT_AUTHOR_DATE]: 'OO_GIT_COMMIT_AUTHOR_DATE',
+  [GIT_COMMIT_AUTHOR_EMAIL]: 'OO_GIT_COMMIT_AUTHOR_EMAIL',
+  [GIT_COMMIT_AUTHOR_NAME]: 'OO_GIT_COMMIT_AUTHOR_NAME',
+  [GIT_COMMIT_COMMITTER_DATE]: 'OO_GIT_COMMIT_COMMITTER_DATE',
+  [GIT_COMMIT_COMMITTER_EMAIL]: 'OO_GIT_COMMIT_COMMITTER_EMAIL',
+  [GIT_COMMIT_COMMITTER_NAME]: 'OO_GIT_COMMIT_COMMITTER_NAME',
+  [GIT_COMMIT_MESSAGE]: 'OO_GIT_COMMIT_MESSAGE',
+  [GIT_HEAD_SHA]: 'OO_GIT_COMMIT_HEAD_SHA',
+  [GIT_PULL_REQUEST_BASE_BRANCH]: 'OO_GIT_PULL_REQUEST_BASE_BRANCH',
+  [GIT_PULL_REQUEST_BASE_BRANCH_HEAD_SHA]: 'OO_GIT_PULL_REQUEST_BASE_BRANCH_HEAD_SHA',
+  [GIT_PULL_REQUEST_BASE_BRANCH_SHA]: 'OO_GIT_PULL_REQUEST_BASE_BRANCH_SHA',
+  [GIT_REPOSITORY_URL]: 'OO_GIT_REPOSITORY_URL',
+  [GIT_SHA]: 'OO_GIT_COMMIT_SHA',
+  [GIT_TAG]: 'OO_GIT_TAG',
 
   // PR tags
-  [PR_NUMBER]: 'DD_PR_NUMBER',
+  [PR_NUMBER]: 'OO_PR_NUMBER',
 }
 
 /**
@@ -146,18 +146,18 @@ export class CiEnvReadCommand extends BaseCommand {
 
   public static usage = Command.Usage({
     category: 'CI Visibility',
-    description: 'Extract and normalize CI environment variables into `DD_CI_*` and `DD_GIT_*` format.',
+    description: 'Extract and normalize CI environment variables into `OO_CI_*` and `OO_GIT_*` format.',
     details: `
       This command reads CI-specific environment variables from various CI providers
-      and outputs them as normalized \`DD_CI_*\` and \`DD_GIT_*\` environment variables.
+      and outputs them as normalized \`OO_CI_*\` and \`OO_GIT_*\` environment variables.
       Supports bash (default), json, and tags output formats.
     `,
     examples: [
-      ['Set variables in current shell', 'eval "$(datadog-ci ci-env read)"'],
-      ['Save as .env file for Docker', 'datadog-ci ci-env read > .env'],
-      ['Use with shell scripts', 'datadog-ci ci-env read > ci.env && source ci.env'],
-      ['Get JSON output', 'datadog-ci ci-env read --format json'],
-      ['Get Datadog tags format', 'datadog-ci ci-env read --format tags'],
+      ['Set variables in current shell', 'eval "$(openobserve-ci ci-env read)"'],
+      ['Save as .env file for Docker', 'openobserve-ci ci-env read > .env'],
+      ['Use with shell scripts', 'openobserve-ci ci-env read > ci.env && source ci.env'],
+      ['Get JSON output', 'openobserve-ci ci-env read --format json'],
+      ['Get OpenObserve tags format', 'openobserve-ci ci-env read --format tags'],
     ],
   })
 

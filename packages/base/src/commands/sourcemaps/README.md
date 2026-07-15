@@ -1,58 +1,58 @@
 # Sourcemaps command
 
-Upload JavaScript sourcemaps to Datadog to un-minify your errors.
+Upload JavaScript sourcemaps to OpenObserve to un-minify your errors.
 
 ## Setup
 
-You need to have `DD_API_KEY` in your environment.
+You need to have `OO_API_KEY` in your environment.
 
 ```bash
 # Environment setup
-export DD_API_KEY="<API KEY>"
+export OO_API_KEY="<API KEY>"
 ```
 
-It is possible to configure the tool to use Datadog EU by defining the `DD_SITE` environment variable to `datadoghq.eu`. By default the requests are sent to Datadog US.
+It is possible to configure the tool to use OpenObserve EU by defining the `OO_SITE` environment variable to `datadoghq.eu`. By default the requests are sent to OpenObserve US.
 
-It is also possible to override the full URL for the intake endpoint by defining the `DATADOG_SOURCEMAP_INTAKE_URL` environment variable.
+It is also possible to override the full URL for the intake endpoint by defining the `OPENOBSERVE_SOURCEMAP_INTAKE_URL` environment variable.
 
 ## Commands
 
 ### `upload`
 
-This command will upload all JavaScript sourcemaps and their corresponding JavaScript bundles to Datadog in order to un-minify front-end stack traces received by Datadog.
+This command will upload all JavaScript sourcemaps and their corresponding JavaScript bundles to OpenObserve in order to un-minify front-end stack traces received by OpenObserve.
 
 To upload the sourcemaps in the build folder, this command should be run:
 
 ```bash
-datadog-ci sourcemaps upload ./build --service my-service --minified-path-prefix https://static.datadog.com --release-version 1.234
+openobserve-ci sourcemaps upload ./build --service my-service --minified-path-prefix https://static.datadog.com --release-version 1.234
 ```
 
 * The first positional argument is the directory in which sourcemaps are located. The CLI will look for all `.js.map` files in this folder and subfolders recursively. The corresponding JS file should be located in the same folder as the sourcemaps it applies to (for example, `common.min.js.map` and `common.min.js` should be in the same directory).
 The folder structure should match the structure of the served static files.
 
-* `--service` (required) should be set as the name of the service you're uploading sourcemaps for, and Datadog will use this service name to find the corresponding sourcemaps based on the `service` tag set on the RUM SDK.
+* `--service` (required) should be set as the name of the service you're uploading sourcemaps for, and OpenObserve will use this service name to find the corresponding sourcemaps based on the `service` tag set on the RUM SDK.
 
 * `--release-version` (required) is similar and will be used to match the `version` tag set on the RUM SDK.
 
 * `--minified-path-prefix` (required) should be a prefix common to all your JS source files, depending on the URL they are served from. The prefix can be a full URL or an absolute path.
-Example: if you're uploading `dist/file.js` to `https://example.com/static/file.js`, you can use `datadog-ci sourcemaps upload ./dist --minified-path-prefix https://example.com/static/` or `datadog-ci sourcemaps upload ./dist --minified-path-prefix /static/`.
+Example: if you're uploading `dist/file.js` to `https://example.com/static/file.js`, you can use `openobserve-ci sourcemaps upload ./dist --minified-path-prefix https://example.com/static/` or `openobserve-ci sourcemaps upload ./dist --minified-path-prefix /static/`.
 `--minified-path-prefix /` is a valid input when you upload JS at the root directory of the server.
 
 In addition, some optional parameters are available:
 
 * `--max-concurrency` (default: `20`): number of concurrent upload to the API.
-* `--disable-git` (default: false): prevents the command from invoking git in the current working directory and sending repository-related data to Datadog (such as the hash, remote URL, and paths within the repository of sources referenced in the sourcemap).
+* `--disable-git` (default: false): prevents the command from invoking git in the current working directory and sending repository-related data to OpenObserve (such as the hash, remote URL, and paths within the repository of sources referenced in the sourcemap).
 * `--quiet` (default: false): suppresses individual line output for each upload. Success and error logs are never suppressed.
 * `--dry-run` (default: `false`): it will run the command without the final step of upload. All other checks are performed.
 * `--project-path` (default: empty): the path of the project where the sourcemaps were built. This will be stripped off from sources paths referenced in the sourcemap so they can be properly matched against tracked files paths. See details in the [dedicated section](#setting-the-project-path).
-* `--repository-url` (default: empty): overrides the repository remote with a custom URL, for example, https://github.com/my-company/my-project. Can also be set via the `DD_GIT_REPOSITORY_URL` environment variable.
-* `--commit-sha` (default: empty): overrides the git commit SHA. Can also be set via the `DD_GIT_COMMIT_SHA` environment variable.
+* `--repository-url` (default: empty): overrides the repository remote with a custom URL, for example, https://github.com/my-company/my-project. Can also be set via the `OO_GIT_REPOSITORY_URL` environment variable.
+* `--commit-sha` (default: empty): overrides the git commit SHA. Can also be set via the `OO_GIT_COMMIT_SHA` environment variable.
 
 ### Link errors with your source code
 
-Errors in Datadog UI can be enriched with direct links to your repository if these requirements are met:
+Errors in OpenObserve UI can be enriched with direct links to your repository if these requirements are met:
 - `git` executable is installed
-- `datadog-ci` is run within the git repository
+- `openobserve-ci` is run within the git repository
 - `--disable-git` is not set
 
 When these requirements are met, the upload command reports Git information such as:
@@ -69,16 +69,16 @@ The repository URL is inferred
 
 The value can be overridden with `--repository-url`.
 
-Example: With a remote `git@github.com:Datadog/example.git`, links pointing to `https://github.com/Datadog/example` are generated.
-This behavior can be overridden with links to `https://gitlab.com/Datadog/example` with the flag `--repository-url=https://gitlab.com/Datadog/example`.
+Example: With a remote `git@github.com:OpenObserve/example.git`, links pointing to `https://github.com/OpenObserve/example` are generated.
+This behavior can be overridden with links to `https://gitlab.com/OpenObserve/example` with the flag `--repository-url=https://gitlab.com/OpenObserve/example`.
 
 #### Bypassing git invocations
 
-If your build environment does not have access to the `.git/` folder, you can bypass git invocations by providing both `--repository-url` and `--commit-sha` (or `DD_GIT_REPOSITORY_URL` and `DD_GIT_COMMIT_SHA`).
+If your build environment does not have access to the `.git/` folder, you can bypass git invocations by providing both `--repository-url` and `--commit-sha` (or `OO_GIT_REPOSITORY_URL` and `OO_GIT_COMMIT_SHA`).
 
 In this mode:
-- The source files are directly extracted from the `sources` field of each sourcemap, which means **untracked files may be sent to Datadog**.
-- The repository root is assumed to be the folder from which datadog-ci is run.
+- The source files are directly extracted from the `sources` field of each sourcemap, which means **untracked files may be sent to OpenObserve**.
+- The repository root is assumed to be the folder from which openobserve-ci is run.
 
 #### Setting the project path
 
@@ -90,7 +90,7 @@ For example, if your repository contains a file at `src/foo/example.js`, then:
 
 #### Supported repositories
 
-The only repository URLs supported are the ones whose host contains: `github`, `gitlab`, `bitbucket`, or `dev.azure`. This allows Datadog to create proper URLs such as:
+The only repository URLs supported are the ones whose host contains: `github`, `gitlab`, `bitbucket`, or `dev.azure`. This allows OpenObserve to create proper URLs such as:
 
 | Provider        | URL                                                                                                                                                 |
 | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -103,13 +103,13 @@ The only repository URLs supported are the ones whose host contains: `github`, `
 To verify this command works as expected, you can trigger a test run and verify it returns 0:
 
 ```bash
-export DD_API_KEY='<API key>'
-export DATADOG_APP_KEY='<application key>'
+export OO_API_KEY='<API key>'
+export OPENOBSERVE_APP_KEY='<application key>'
 
 TEMP_DIR=$(mktemp -d)
 echo '{}' > $TEMP_DIR/fake.js
 echo '{"version":3,"file":"out.js","sourceRoot":"","sources":["fake.js"],"names":["src"],"mappings":"AAgBC"}' > $TEMP_DIR/fake.js.map
-yarn launch sourcemaps upload $TEMP_DIR/ --service test_datadog-ci --release-version 0.0.1 --minified-path-prefix https://fake.website
+yarn launch sourcemaps upload $TEMP_DIR/ --service test_openobserve-ci --release-version 0.0.1 --minified-path-prefix https://fake.website
 rm -rf $TEMP_DIR
 ```
 
@@ -119,7 +119,7 @@ Successful output should look like this:
 Starting upload with concurrency 20.
 Will look for sourcemaps in /var/folders/s_/ds1hc9g54k7ct8x7p3kwsq1h0000gn/T/tmp.fqWhNgGdn6/
 Will match JS files for errors on files starting with https://fake.website
-version: 0.0.1 service: test_datadog-ci project path:
+version: 0.0.1 service: test_openobserve-ci project path:
 Uploading sourcemap /var/folders/s_/ds1hc9g54k7ct8x7p3kwsq1h0000gn/T/tmp.fqWhNgGdn6/fake.js.map for JS file available at https://fake.website/fake.js
 ✅ Uploaded 1 files in 0.68 seconds.
 ```

@@ -1,51 +1,51 @@
 ## Overview
 
-To un-minify errors, upload your React Native source maps to Datadog.
+To un-minify errors, upload your React Native source maps to OpenObserve.
 
 ## Setup
 
-You need to have `DD_API_KEY` in your environment.
+You need to have `OO_API_KEY` in your environment.
 
 ```bash
 # Environment setup
-export DD_API_KEY="<API KEY>"
+export OO_API_KEY="<API KEY>"
 ```
 
-You can configure the tool to use Datadog EU by defining the `DD_SITE` environment variable as `datadoghq.eu`. By default, the requests are sent to Datadog US.
+You can configure the tool to use OpenObserve EU by defining the `OO_SITE` environment variable as `datadoghq.eu`. By default, the requests are sent to OpenObserve US.
 
-To make these variables available, Datadog recommends setting them in an encrypted `datadog-ci.json` file at the root of your project:
+To make these variables available, OpenObserve recommends setting them in an encrypted `openobserve-ci.json` file at the root of your project:
 
 ```json
 {
   "apiKey": "<API_KEY>",
-  "datadogSite": "<SITE>"
+  "ooSite": "<SITE>"
 }
 ```
 
-To override the full URL for the intake endpoint, define the `DATADOG_SOURCEMAP_INTAKE_URL` environment variable.
+To override the full URL for the intake endpoint, define the `OPENOBSERVE_SOURCEMAP_INTAKE_URL` environment variable.
 
 ## Commands
 
 ### `upload`
 
-This command uploads your JavaScript source maps and their corresponding bundle file to Datadog in order to un-minify your application's stack traces.
+This command uploads your JavaScript source maps and their corresponding bundle file to OpenObserve in order to un-minify your application's stack traces.
 
 To upload the source maps for iOS, run this command:
 
 ```bash
-datadog-ci react-native upload --platform ios --service com.company.app --bundle ./main.jsbundle --sourcemap ./main.jsbundle.map --release-version 1.23.4 --build-version 1234
+openobserve-ci react-native upload --platform ios --service com.company.app --bundle ./main.jsbundle --sourcemap ./main.jsbundle.map --release-version 1.23.4 --build-version 1234
 ```
 
 To upload the source maps for Android, run this command:
 
 ```bash
-datadog-ci react-native upload --platform android --service com.company.app --bundle ./index.android.bundle --sourcemap ./index.android.bundle.map --release-version 1.23.4 --build-version 1234
+openobserve-ci react-native upload --platform android --service com.company.app --bundle ./index.android.bundle --sourcemap ./index.android.bundle.map --release-version 1.23.4 --build-version 1234
 ```
 
 | Parameter           | Condition | Description                                                                                                                                                                                                                                                                                                                                                     |
 | ------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--platform`        | Required  | Identifies if you are uploading iOS or Android source maps.                                                                                                                                                                                                                                                                                                     |
-| `--service`         | Required  | Set as the service name you are uploading source maps for. Datadog uses this service name to find corresponding source maps based on the `service` tag set on the RUM React Native SDK.<br>By default, the RUM React Native SDK uses your application's bundle identifier as the service.                                                                       |
+| `--service`         | Required  | Set as the service name you are uploading source maps for. OpenObserve uses this service name to find corresponding source maps based on the `service` tag set on the RUM React Native SDK.<br>By default, the RUM React Native SDK uses your application's bundle identifier as the service.                                                                       |
 | `--bundle`          | Required  | Must be set as the path to your generated JS bundle file, `main.jsbundle` for iOS and `index.android.bundle` for Android.                                                                                                                                                                                                                                       |
 | `--sourcemap`       | Required  | Must be set to the path to your generated source map file, `main.jsbundle.map` for iOS and `index.android.bundle.map` for Android.                                                                                                                                                                                                                              |
 | `--release-version` | Required  | Used to match the `version` tag set on the RUM React Native SDK. This should be the "Version" or "MARKETING_VERSION" in XCode for iOS and the "versionName" in your `android/app/build.gradle` for Android.                                                                                                                                                     |
@@ -55,18 +55,18 @@ The following optional parameters are available:
 
 | Parameter                  | Default | Description                                                                                                                                                                                                                     |
 | -------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--disable-git`            | False   | Prevents the command from invoking git in the current working directory and sending repository-related data to Datadog (such as the hash, remote URL, and paths within the repository of sources referenced in the source map). |
+| `--disable-git`            | False   | Prevents the command from invoking git in the current working directory and sending repository-related data to OpenObserve (such as the hash, remote URL, and paths within the repository of sources referenced in the source map). |
 | `--dry-run`                | False   | It runs the command without the final step of uploading. All other checks are performed.                                                                                                                                        |
 | `--repository-url`         | Empty   | Overrides the remote repository with a custom URL. For example, `https://github.com/my-company/my-project`.                                                                                                                     |
-| `--remove-sources-content` | False   | Removes the `"sourcesContent"` part of the source map files. This reduces the size of your files while retaining the unminification, but it also removes the code snippet next to the unminified error in Datadog.              |
-| `--config`                 | Empty   | The path to your `datadog-ci.json` file, if it is not at the root of your project.                                                                                                                                              |
+| `--remove-sources-content` | False   | Removes the `"sourcesContent"` part of the source map files. This reduces the size of your files while retaining the unminification, but it also removes the code snippet next to the unminified error in OpenObserve.              |
+| `--config`                 | Empty   | The path to your `openobserve-ci.json` file, if it is not at the root of your project.                                                                                                                                              |
 
 ### Link errors with your source code
 
-You can enrich errors in Datadog with context links to GitHub, GitLab, Bitbucket, and Azure DevOps if the following requirements are met:
+You can enrich errors in OpenObserve with context links to GitHub, GitLab, Bitbucket, and Azure DevOps if the following requirements are met:
 
 - You have installed the `git` executable
-- You can run `datadog-ci` in the git repository
+- You can run `openobserve-ci` in the git repository
 
 When these requirements are met, the upload command reports git information such as:
 
@@ -80,9 +80,9 @@ For example, for a sourcemap referencing `["/Users/myname/path/to/ReactNativeApp
 
 The repository URL is inferred from the remote named `origin` (if present). Otherwise, it is inferred from the first remote. The value can be overridden with `--repository-url`.
 
-For example, with a remote like `git@github.com:Datadog/example.git`, links pointing to `https://github.com/Datadog/example` are generated.
+For example, with a remote like `git@github.com:OpenObserve/example.git`, links pointing to `https://github.com/OpenObserve/example` are generated.
 
-You can override this behavior with links to `https://gitlab.com/Datadog/example` with the `--repository-url=https://gitlab.com/Datadog/example` flag.
+You can override this behavior with links to `https://gitlab.com/OpenObserve/example` with the `--repository-url=https://gitlab.com/OpenObserve/example` flag.
 
 #### Set the project path
 
@@ -94,7 +94,7 @@ If you are not running the `react-native upload` command from your React Native 
 
 The supported repository URLs are ones whose host contains `github`, `gitlab`, `bitbucket`, or `dev.azure`.
 
-This allows Datadog to create proper URLs such as:
+This allows OpenObserve to create proper URLs such as:
 
 | Provider         | URL                                                                                                                                                 |
 | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -104,12 +104,12 @@ This allows Datadog to create proper URLs such as:
 
 ### `codepush`
 
-This command uploads your JavaScript source maps and their corresponding bundle file to Datadog after an AppCenter CodePush build.
+This command uploads your JavaScript source maps and their corresponding bundle file to OpenObserve after an AppCenter CodePush build.
 
 To upload the source maps for an iOS app called "AppNameiOS" inside the "Company" organization after a build for the "Staging" deployment, run:
 
 ```bash
-datadog-ci react-native codepush --platform ios --service com.company.app --bundle ./build/main.jsbundle --sourcemap ./build/main.jsbundle.map --app Company/AppNameiOS --deployment Staging
+openobserve-ci react-native codepush --platform ios --service com.company.app --bundle ./build/main.jsbundle --sourcemap ./build/main.jsbundle.map --app Company/AppNameiOS --deployment Staging
 ```
 
 This command calls the `upload` command, setting the release version to `{releaseVersion}-codepush.{codepushLabel}`, such as `1.0.0-codepush.v4` for example.
@@ -117,7 +117,7 @@ This command calls the `upload` command, setting the release version to `{releas
 | Parameter      | Condition | Description                                                                                                                                                                                                                                                                               |
 | -------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--platform`   | Required  | Identifies if you are uploading iOS or Android source maps.                                                                                                                                                                                                                               |
-| `--service`    | Required  | Set as the service name you are uploading source maps for. Datadog uses this service name to find corresponding source maps based on the `service` tag set on the RUM React Native SDK.<br>By default, the RUM React Native SDK uses your application's bundle identifier as the service. |
+| `--service`    | Required  | Set as the service name you are uploading source maps for. OpenObserve uses this service name to find corresponding source maps based on the `service` tag set on the RUM React Native SDK.<br>By default, the RUM React Native SDK uses your application's bundle identifier as the service. |
 | `--bundle`     | Required  | Must be set as the path to your generated JS bundle file, `main.jsbundle` for iOS and `index.android.bundle` for Android.                                                                                                                                                                 |
 | `--sourcemap`  | Required  | Must be set to the path to your generated source map file, `main.jsbundle.map` for iOS and `index.android.bundle.map` for Android.                                                                                                                                                        |
 | `--app`        | Required  | The name of the target app in AppCenter. Must match the format OrganizationName/AppName.                                                                                                                                                                                                  |
@@ -127,12 +127,12 @@ The following optional parameters are available:
 
 | Parameter                  | Default | Description                                                                                                                                                                                                                                                                                                   |
 | -------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--disable-git`            | False   | Prevents the command from invoking git in the current working directory and sending repository-related data to Datadog (such as the hash, remote URL, and paths within the repository of sources referenced in the source map).                                                                               |
+| `--disable-git`            | False   | Prevents the command from invoking git in the current working directory and sending repository-related data to OpenObserve (such as the hash, remote URL, and paths within the repository of sources referenced in the source map).                                                                               |
 | `--dry-run`                | False   | It runs the command without the final step of uploading. All other checks are performed.                                                                                                                                                                                                                      |
 | `--repository-url`         | Empty   | Overrides the remote repository with a custom URL. For example, `https://github.com/my-company/my-project`.                                                                                                                                                                                                   |
 | `--build-version`          | 1       | Used to avoid overwriting your source maps by accident. Only one upload is needed for a specific `build-version` and `service` combination. Subsequent uploads are ignored until the `build-version` changes. This should not be necessary for CodePush unless you uploaded the wrong source maps by mistake. |
-| `--remove-sources-content` | False   | Removes the `"sourcesContent"` part of the source map files. This reduces the size of your files while retaining the unminification, but it also removes the code snippet next to the unminified error in Datadog.                                                                                            |
-| `--config`                 | Empty   | The path to your `datadog-ci.json` file, if it is not at the root of your project.                                                                                                                                                                                                                            |
+| `--remove-sources-content` | False   | Removes the `"sourcesContent"` part of the source map files. This reduces the size of your files while retaining the unminification, but it also removes the code snippet next to the unminified error in OpenObserve.                                                                                            |
+| `--config`                 | Empty   | The path to your `openobserve-ci.json` file, if it is not at the root of your project.                                                                                                                                                                                                                            |
 
 ### `xcode`
 
@@ -144,10 +144,10 @@ You can use the same environment variables as the `upload` command:
 
 | Environment Variable           | Description                                                                                                                                                     |
 | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `DD_API_KEY`                   | Your Datadog API key. (REQUIRED)
-| `DD_SITE`                      | Optional Datadog site (datadoghq.com, [us3, us5].datadoghq.com, datadoghq.eu, ddog-gov.com, ap1.datadoghq.com, ap2.datadoghq.com). By default, the requests are sent to Datadog US.
-| `DATADOG_SOURCEMAP_INTAKE_URL` | Optional variable to override the full URL for the intake endpoint.
-| `DATADOG_RELEASE_VERSION`      | Optional variable to override the version name for sourcemaps upload
+| `OO_API_KEY`                   | Your OpenObserve API key. (REQUIRED)
+| `OO_SITE`                      | Optional OpenObserve site (datadoghq.com, [us3, us5].datadoghq.com, datadoghq.eu, ddog-gov.com, ap1.datadoghq.com, ap2.datadoghq.com). By default, the requests are sent to OpenObserve US.
+| `OPENOBSERVE_SOURCEMAP_INTAKE_URL` | Optional variable to override the full URL for the intake endpoint.
+| `OPENOBSERVE_RELEASE_VERSION`      | Optional variable to override the version name for sourcemaps upload
 
 
 #### For React Native >= 0.69:
@@ -157,9 +157,9 @@ To ensure environment variables are well propagated in the build phase, you need
 ```bash
 #!/bin/sh
 REACT_NATIVE_XCODE="../node_modules/react-native/scripts/react-native-xcode.sh"
-DATADOG_XCODE="../node_modules/.bin/datadog-ci react-native xcode"
+OPENOBSERVE_XCODE="../node_modules/.bin/openobserve-ci react-native xcode"
 
-/bin/sh -c "$DATADOG_XCODE $REACT_NATIVE_XCODE"
+/bin/sh -c "$OPENOBSERVE_XCODE $REACT_NATIVE_XCODE"
 ```
 
 This allows the file's path to be passed as one argument to the `with-environment.sh` script in the "Bundle React Native code and images" build phase:
@@ -179,14 +179,14 @@ Change the "Bundle React Native code and images" build phase:
 
 ```bash
 set -e
-../node_modules/.bin/datadog-ci react-native xcode ../node_modules/react-native/scripts/react-native-xcode.sh
+../node_modules/.bin/openobserve-ci react-native xcode ../node_modules/react-native/scripts/react-native-xcode.sh
 ```
 
 #### Customize the command
 
 The first positional argument is the React Native bundle script.
 
-If you use another script that requires arguments, you need to put this script in a file (such as in `scripts/bundle.sh`) and provide this file path in the `datadog-ci react-native xcode` command.
+If you use another script that requires arguments, you need to put this script in a file (such as in `scripts/bundle.sh`) and provide this file path in the `openobserve-ci react-native xcode` command.
 
 | Parameter                 | Default                                                       | Description                                                                                                                                                               |
 | ------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -199,23 +199,23 @@ The following optional parameters are available:
 
 | Parameter                  | Default | Description                                                                                                                                                                                                                          |
 | -------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--disable-git`            | False   | Prevents the command from invoking git in the current working directory and from sending repository-related data to Datadog (such as the hash, remote URL, and paths within the repository of sources referenced in the source map). |
+| `--disable-git`            | False   | Prevents the command from invoking git in the current working directory and from sending repository-related data to OpenObserve (such as the hash, remote URL, and paths within the repository of sources referenced in the source map). |
 | `--repository-url`         | Empty   | Overrides the remote repository with a custom URL. For example, `https://github.com/my-company/my-project`.                                                                                                                          |
-| `--remove-sources-content` | False   | Removes the `"sourcesContent"` part of the source map files. This reduces the size of your files while retaining the unminification, but it also removes the code snippet next to the unminified error in Datadog.                   |
-| `--config`                 | Empty   | The path to your `datadog-ci.json` file, if it is not at the root of your project.                                                                                                                                                   |
+| `--remove-sources-content` | False   | Removes the `"sourcesContent"` part of the source map files. This reduces the size of your files while retaining the unminification, but it also removes the code snippet next to the unminified error in OpenObserve.                   |
+| `--config`                 | Empty   | The path to your `openobserve-ci.json` file, if it is not at the root of your project.                                                                                                                                                   |
 
 ### `inject-debug-id`
 
 The inject-debug-id command adds a debug ID to your JavaScript bundle and its sourcemap.
 
-A debug ID allows Datadog to reliably match error stack traces from your application to the correct uploaded debug symbols (sourcemaps), ensuring accurate error resolution.
+A debug ID allows OpenObserve to reliably match error stack traces from your application to the correct uploaded debug symbols (sourcemaps), ensuring accurate error resolution.
 
 #### Scan a directory
 
 To scan a directory and inject debug IDs into all bundles found:
 
 ```bash
-datadog-ci react-native inject-debug-id ./dist
+openobserve-ci react-native inject-debug-id ./dist
 ```
 
 The command looks for all files ending in `.bundle` (Android) or `.jsbundle` (iOS) in the given directory, and processes each one alongside its corresponding `.map` file (e.g. `index.android.bundle` + `index.android.bundle.map`, or `main.jsbundle` + `main.jsbundle.map`).
@@ -226,10 +226,10 @@ To target a specific bundle and sourcemap instead of scanning a directory, use t
 
 ```bash
 # iOS
-datadog-ci react-native inject-debug-id --bundle ./ios/main.jsbundle --sourcemap ./ios/main.jsbundle.map
+openobserve-ci react-native inject-debug-id --bundle ./ios/main.jsbundle --sourcemap ./ios/main.jsbundle.map
 
 # Android
-datadog-ci react-native inject-debug-id --bundle ./android/index.android.bundle --sourcemap ./android/index.android.bundle.map
+openobserve-ci react-native inject-debug-id --bundle ./android/index.android.bundle --sourcemap ./android/index.android.bundle.map
 ```
 
 If `--sourcemap` is omitted, the command looks for a sourcemap at `<bundle path>.map` automatically.
@@ -249,7 +249,7 @@ If `--sourcemap` is omitted, the command looks for a sourcemap at `<bundle path>
 To verify this command works as expected, you can trigger a test run and verify that it returns 0:
 
 ```bash
-export DD_API_KEY='<API key>'
+export OO_API_KEY='<API key>'
 
 TEMP_DIR=$(mktemp -d)
 echo '{}' > $TEMP_DIR/fake.js
@@ -262,7 +262,7 @@ A successful output should look like this:
 
 ```bash
 Starting upload.
-Upload of /var/folders/34/_7q54_lx4nl1cvkjwr3_k4lw0000gq/T/tmp.x0vecv3yFT/fake.js.map for bundle /var/folders/34/_7q54_lx4nl1cvkjwr3_k4lw0000gq/T/tmp.x0vecv3yFT/fake.js on platform ios with project path /Users/me/datadog-ci
+Upload of /var/folders/34/_7q54_lx4nl1cvkjwr3_k4lw0000gq/T/tmp.x0vecv3yFT/fake.js.map for bundle /var/folders/34/_7q54_lx4nl1cvkjwr3_k4lw0000gq/T/tmp.x0vecv3yFT/fake.js on platform ios with project path /Users/me/openobserve-ci
 version: 0.0.1 service: com.company.app
 ⚠️ No tracked files found for sources contained in /var/folders/34/_7q54_lx4nl1cvkjwr3_k4lw0000gq/T/tmp.x0vecv3yFT/fake.js.map
 Uploading sourcemap /var/folders/34/_7q54_lx4nl1cvkjwr3_k4lw0000gq/T/tmp.x0vecv3yFT/fake.js.map for JS file available at /var/folders/34/_7q54_lx4nl1cvkjwr3_k4lw0000gq/T/tmp.x0vecv3yFT/fake.js
@@ -280,7 +280,7 @@ Generate source maps for your CodePush application, then use `yarn launch react-
 
 ### `xcode`
 
-Build and link your local `datadog-ci` package by running this in the directory:
+Build and link your local `openobserve-ci` package by running this in the directory:
 
 ```bash
 yarn build
@@ -290,14 +290,14 @@ yarn link
 Run this command in your project:
 
 ```bash
-yarn link @datadog/datadog-ci
+yarn link @openobserve/openobserve-ci
 ```
 
-If running `yarn datadog-ci` in your project returns `error Command "datadog-ci" not found.`, run the following:
+If running `yarn openobserve-ci` in your project returns `error Command "openobserve-ci" not found.`, run the following:
 
 ```bash
-chmod +x /path/to/datadog-ci/dist/cli.js
-cp /path/to/datadog-ci/dist/cli.js /path/to/project/node_modules/.bin/datadog-ci
+chmod +x /path/to/openobserve-ci/dist/cli.js
+cp /path/to/openobserve-ci/dist/cli.js /path/to/project/node_modules/.bin/openobserve-ci
 ```
 
 Then, follow the usual installation steps.

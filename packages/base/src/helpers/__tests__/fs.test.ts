@@ -6,7 +6,7 @@ import upath from 'upath'
 
 import {createDirectories, deleteFolder, writeFile, zipContents} from '../fs'
 
-import {MOCK_DATADOG_API_KEY} from './testing-tools'
+import {MOCK_OPENOBSERVE_API_KEY} from './testing-tools'
 
 // Mock constants
 const MOCK_CWD = 'mock-cwd'
@@ -18,9 +18,9 @@ const MOCK_FILES = new Set([MOCK_FILE_NAME, 'file1.csv', 'file2.csv', 'file3.csv
 const MOCK_LAMBDA_CONFIG = {
   Environment: {
     Variables: {
-      DD_API_KEY: MOCK_DATADOG_API_KEY,
-      DD_SITE: 'datadoghq.com',
-      DD_LOG_LEVEL: 'debug',
+      OO_API_KEY: MOCK_OPENOBSERVE_API_KEY,
+      OO_SITE: 'datadoghq.com',
+      OO_LOG_LEVEL: 'debug',
     },
   },
   FunctionArn: 'arn:aws:lambda:us-east-1:123456789012:function:some-function',

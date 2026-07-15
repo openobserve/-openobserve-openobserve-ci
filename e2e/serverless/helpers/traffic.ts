@@ -11,7 +11,7 @@ interface TriggerTrafficOptions {
 // intermittent failures interleaved with the occasional 200, so a single success can be a fluke),
 // and it drives sustained load -- the trace/log pipeline warms up a beat after the app starts
 // serving, so the earliest requests' telemetry can be dropped, and we keep hitting the app so it
-// actually reaches Datadog.
+// actually reaches OpenObserve.
 export const triggerTraffic = async (
   url: string,
   {attempts = 12, requiredSuccesses = 3, intervalSeconds = 10}: TriggerTrafficOptions = {}

@@ -40,7 +40,7 @@ const extractRoutes = (filePath: string): {route: string; method: string}[] => {
   const lines = content.split('\n')
   const results: {route: string; method: string}[] = []
 
-  const routeRegex = /datadogRoute\('([^']+)'/g
+  const routeRegex = /ooRoute\('([^']+)'/g
   const methodRegex = /method:\s*(?:'(GET|POST|PUT|DELETE|PATCH)')/
 
   let match: RegExpExecArray | undefined

@@ -1,6 +1,6 @@
 import child_process from 'node:child_process'
 
-import {version} from '../packages/datadog-ci/package.json'
+import {version} from '../packages/openobserve-ci/package.json'
 
 const isWin = process.platform === 'win32'
 const os = isWin ? 'win' : process.platform === 'darwin' ? 'darwin' : 'linux'
@@ -8,7 +8,7 @@ const os = isWin ? 'win' : process.platform === 'darwin' ? 'darwin' : 'linux'
 const isARM = process.arch === 'arm64'
 const arch = isARM ? 'arm64' : 'x64'
 
-const STANDALONE_BINARY = `datadog-ci_${os}-${arch}`
+const STANDALONE_BINARY = `openobserve-ci_${os}-${arch}`
 const STANDALONE_BINARY_PATH =
   process.env.STANDALONE_BINARY_PATH ?? (isWin ? `.\\${STANDALONE_BINARY}.exe` : `./${STANDALONE_BINARY}`)
 
@@ -75,7 +75,7 @@ describe('standalone binary', () => {
       const result = await execBinary(['dsyms', 'upload', '--help'])
       expect(result).toStrictEqual({
         exitCode: 0,
-        stdout: expect.stringContaining('datadog-ci dsyms upload') as string,
+        stdout: expect.stringContaining('openobserve-ci dsyms upload') as string,
         stderr: '',
       })
     })
@@ -85,7 +85,7 @@ describe('standalone binary', () => {
       const result = await execBinary(['git-metadata', 'upload', '--help'])
       expect(result).toStrictEqual({
         exitCode: 0,
-        stdout: expect.stringContaining('datadog-ci git-metadata upload') as string,
+        stdout: expect.stringContaining('openobserve-ci git-metadata upload') as string,
         stderr: '',
       })
     })
@@ -95,7 +95,7 @@ describe('standalone binary', () => {
       const result = await execBinary(['junit', 'upload', '--help'])
       expect(result).toStrictEqual({
         exitCode: 0,
-        stdout: expect.stringContaining('datadog-ci junit upload') as string,
+        stdout: expect.stringContaining('openobserve-ci junit upload') as string,
         stderr: '',
       })
     })
@@ -105,7 +105,7 @@ describe('standalone binary', () => {
       const result = await execBinary(['lambda', 'instrument', '--help'])
       expect(result).toStrictEqual({
         exitCode: 0,
-        stdout: expect.stringContaining('datadog-ci lambda instrument') as string,
+        stdout: expect.stringContaining('openobserve-ci lambda instrument') as string,
         stderr: '',
       })
     })
@@ -115,7 +115,7 @@ describe('standalone binary', () => {
       const result = await execBinary(['sourcemaps', 'upload', '--help'])
       expect(result).toStrictEqual({
         exitCode: 0,
-        stdout: expect.stringContaining('datadog-ci sourcemaps upload') as string,
+        stdout: expect.stringContaining('openobserve-ci sourcemaps upload') as string,
         stderr: '',
       })
     })
@@ -125,7 +125,7 @@ describe('standalone binary', () => {
       const result = await execBinary(['stepfunctions', 'instrument', '--help'])
       expect(result).toStrictEqual({
         exitCode: 0,
-        stdout: expect.stringContaining('datadog-ci stepfunctions instrument') as string,
+        stdout: expect.stringContaining('openobserve-ci stepfunctions instrument') as string,
         stderr: '',
       })
     })
@@ -134,7 +134,7 @@ describe('standalone binary', () => {
       const result = await execBinary(['stepfunctions', 'uninstrument', '--help'])
       expect(result).toStrictEqual({
         exitCode: 0,
-        stdout: expect.stringContaining('datadog-ci stepfunctions uninstrument') as string,
+        stdout: expect.stringContaining('openobserve-ci stepfunctions uninstrument') as string,
         stderr: '',
       })
     })
@@ -144,7 +144,7 @@ describe('standalone binary', () => {
       const result = await execBinary(['synthetics', 'run-tests', '--help'])
       expect(result).toStrictEqual({
         exitCode: 0,
-        stdout: expect.stringContaining('datadog-ci synthetics run-tests') as string,
+        stdout: expect.stringContaining('openobserve-ci synthetics run-tests') as string,
         stderr: '',
       })
     })
@@ -155,7 +155,7 @@ describe('standalone binary', () => {
         exitCode: 0,
         stdout: expect.stringContaining('All plugins are already baked into the standalone binary.') as string,
         // The version banner is written to stderr on every non-`version`/`--help` invocation.
-        stderr: `datadog-ci v${version}`,
+        stderr: `openobserve-ci v${version}`,
       })
     })
   })
@@ -164,7 +164,7 @@ describe('standalone binary', () => {
       const result = await execBinary(['trace', '--help'])
       expect(result).toStrictEqual({
         exitCode: 0,
-        stdout: expect.stringContaining('datadog-ci trace') as string,
+        stdout: expect.stringContaining('openobserve-ci trace') as string,
         stderr: '',
       })
     })

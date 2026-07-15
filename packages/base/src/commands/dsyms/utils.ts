@@ -3,8 +3,8 @@ import {tmpdir} from 'os'
 
 import upath from 'upath'
 
-import {getIntakeUrl} from '@datadog/datadog-ci-base/helpers/api'
-import {buildPath, execute} from '@datadog/datadog-ci-base/helpers/utils'
+import {getIntakeUrl} from '@openobserve/openobserve-ci-base/helpers/api'
+import {buildPath, execute} from '@openobserve/openobserve-ci-base/helpers/utils'
 
 export const isZipFile = async (filepath: string) => {
   try {
@@ -49,8 +49,8 @@ export const executeLipo = async (
   newObjectPath: string
 ): Promise<{stderr: string; stdout: string}> => execute(`lipo '${objectPath}' -thin ${arch} -output '${newObjectPath}'`)
 
-export const getBaseIntakeUrl = (datadogSite?: string) =>
-  getIntakeUrl('sourcemap-intake', {overrideEnvVar: 'DATADOG_DSYM_INTAKE_URL', site: datadogSite})
+export const getBaseIntakeUrl = (ooSite?: string) =>
+  getIntakeUrl('sourcemap-intake', {overrideEnvVar: 'OPENOBSERVE_DSYM_INTAKE_URL', site: ooSite})
 
 export const pluralize = (nb: number, singular: string, plural: string) => {
   if (nb >= 2) {

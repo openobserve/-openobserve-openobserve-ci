@@ -1,7 +1,7 @@
 // Build
 import fs from 'fs'
 
-import type {DatadogCiConfig} from './config'
+import type {OpenObserveCiConfig} from './config'
 import type {SpanTag, SpanTags} from './interfaces'
 import type {BaseContext} from 'clipanion'
 
@@ -28,7 +28,7 @@ export const CI_JOB_ID = 'ci.job.id'
 export const CI_STAGE_NAME = 'ci.stage.name'
 export const CI_NODE_NAME = 'ci.node.name'
 export const CI_NODE_LABELS = 'ci.node.labels'
-export const CI_ENV_VARS = '_dd.ci.env_vars'
+export const CI_ENV_VARS = '_oo.ci.env_vars'
 
 // Git
 export const GIT_BRANCH = 'git.branch'
@@ -248,7 +248,7 @@ export const getMissingRequiredGitTags = (tags: SpanTags): string[] => {
  * @param includeCiTags - include CI tags or not
  */
 export const getSpanTags = async (
-  config: DatadogCiConfig,
+  config: OpenObserveCiConfig,
   additionalTags: string[] | undefined,
   includeCiTags: boolean,
   gitPath?: string

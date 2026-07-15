@@ -45,7 +45,7 @@ export const renderSoftWarning = (warning: string) => `${warningExclamationSignT
 export const renderFlareHeader = (platformName: string, isDryRun: boolean) => {
   const prefix = isDryRun ? `${dryRunTag} ` : ''
 
-  return chalk.bold(`\n${prefix}🐶 Generating ${platformName} flare to send your configuration to Datadog...\n`)
+  return chalk.bold(`\n${prefix}🐶 Generating ${platformName} flare to send your configuration to OpenObserve...\n`)
 }
 
 /**

@@ -14,14 +14,14 @@ import type {RequestBuilder} from '../../helpers/interfaces'
 import {LogLevel} from '../../helpers/logger'
 import type {MetricsLogger} from '../../helpers/metrics'
 import {getMetricsLogger} from '../../helpers/metrics'
-import {datadogRoute} from '../../helpers/request/datadog-route'
+import {ooRoute} from '../../helpers/request/datadog-route'
 import {UploadStatus} from '../../helpers/upload'
 import {getRequestBuilder, timedExecAsync} from '../../helpers/utils'
 import {cliVersion} from '../../version'
 
 import {BaseCommand} from '../..'
 
-import {apiHost, datadogSite, getBaseIntakeUrl} from './api'
+import {apiHost, ooSite, getBaseIntakeUrl} from './api'
 import {getCommitInfo, newSimpleGit} from './git'
 import {uploadToGitDB} from './gitdb'
 import {uploadRepository} from './library'
@@ -39,12 +39,12 @@ export class GitMetadataUploadCommand extends BaseCommand {
 
   public static usage = Command.Usage({
     category: 'Source Code Integration',
-    description: 'Report the current commit details to Datadog.',
+    description: 'Report the current commit details to OpenObserve.',
     details: `
-      This command will upload the commit details to Datadog in order to create links to your repositories inside Datadog's UI.\n
+      This command will upload the commit details to OpenObserve in order to create links to your repositories inside OpenObserve's UI.\n
       See README for details.
     `,
-    examples: [['Upload the current commit details', 'datadog-ci report-commits upload']],
+    examples: [['Upload the current commit details', 'openobserve-ci report-commits upload']],
   })
 
   private repositoryURL = Option.String('--repository-url')
@@ -59,7 +59,7 @@ export class GitMetadataUploadCommand extends BaseCommand {
   private fipsIgnoreError = Option.Boolean('--fips-ignore-error', false)
 
   private config = {
-    apiKey: process.env.DATADOG_API_KEY ?? process.env.DD_API_KEY,
+    apiKey: process.env.OPENOBSERVE_API_KEY ?? process.env.OO_API_KEY,
     fips: toBoolean(process.env[FIPS_ENV_VAR]) ?? false,
     fipsIgnoreError: toBoolean(process.env[FIPS_IGNORE_ERROR_ENV_VAR]) ?? false,
   }
@@ -84,7 +84,7 @@ export class GitMetadataUploadCommand extends BaseCommand {
     if (!this.config.apiKey) {
       this.logger.error(
         renderConfigurationError(
-          new InvalidConfigurationError(`Missing ${chalk.bold('DD_API_KEY')} in your environment`)
+          new InvalidConfigurationError(`Missing ${chalk.bold('OO_API_KEY')} in your environment`)
         )
       )
 
@@ -93,13 +93,13 @@ export class GitMetadataUploadCommand extends BaseCommand {
 
     const metricsLogger = getMetricsLogger({
       apiKey: this.config.apiKey,
-      datadogSite,
+      ooSite,
       defaultTags: [`cli_version:${this.cliVersion}`],
       prefix: 'datadog.ci.report_commits.',
     })
     const apiKeyValidator = newApiKeyValidator({
       apiKey: this.config.apiKey,
-      datadogSite,
+      ooSite,
       metricsLogger: metricsLogger.logger,
     })
 
@@ -206,10 +206,10 @@ export class GitMetadataUploadCommand extends BaseCommand {
       apiKey,
       baseUrl: getBaseIntakeUrl(),
       headers: new Map([
-        ['DD-EVP-ORIGIN', 'datadog-ci_git-metadata'],
+        ['DD-EVP-ORIGIN', 'openobserve-ci_git-metadata'],
         ['DD-EVP-ORIGIN-VERSION', this.cliVersion],
       ]),
-      overrideUrl: datadogRoute('/api/v2/srcmap'),
+      overrideUrl: ooRoute('/api/v2/srcmap'),
     })
   }
 

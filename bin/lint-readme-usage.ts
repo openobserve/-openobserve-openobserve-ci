@@ -109,7 +109,7 @@ const extractOptionsFromCommand = (
   commandClass: any,
   booleanDefaults: Map<string, string> = new Map()
 ): OptionDefinition[] => {
-  const cli = new Cli({binaryName: 'datadog-ci'})
+  const cli = new Cli({binaryName: 'openobserve-ci'})
   cli.register(commandClass)
 
   const definitions = cli.definitions()
@@ -262,8 +262,8 @@ const extractOptionsFromFile = async (
   extraBooleanDefaults?: Map<string, string>
 ): Promise<CommandFileResult> => {
   // Convert file path to import path
-  // e.g., packages/base/src/commands/lambda/instrument.ts -> @datadog/datadog-ci-base/commands/lambda/instrument
-  const importPath = filePath.replace('packages/base/src/', '@datadog/datadog-ci-base/').replace('.ts', '')
+  // e.g., packages/base/src/commands/lambda/instrument.ts -> @openobserve/openobserve-ci-base/commands/lambda/instrument
+  const importPath = filePath.replace('packages/base/src/', '@openobserve/openobserve-ci-base/').replace('.ts', '')
 
   // Read file once and extract all source-level info
   let sourceInfo: SourceInfo = {booleanDefaults: new Map(), positionals: []}

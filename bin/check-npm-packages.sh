@@ -14,7 +14,7 @@ set -euo pipefail
 
 MODE="check"
 DRY_RUN=false
-GITHUB_REPOSITORY=DataDog/datadog-ci
+GITHUB_REPOSITORY=DataDog/openobserve-ci
 
 while [[ $# -gt 0 ]]; do
 	case $1 in
@@ -56,7 +56,7 @@ echo
 
 # Get local and remote packages
 local_packages=$(yarn workspaces list --json --no-private | jq -r '.name' | sort)
-remote_packages=$(npm search 'maintainer:datadog keywords:datadog-ci' --json | jq -r '.[].name' | sort)
+remote_packages=$(npm search 'maintainer:datadog keywords:openobserve-ci' --json | jq -r '.[].name' | sort)
 
 # Find packages that exist locally but not on NPM
 missing_packages=()

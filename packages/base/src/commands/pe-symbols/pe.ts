@@ -1,8 +1,8 @@
 import fs from 'fs'
 
-import type {Reader} from '@datadog/datadog-ci-base/helpers/filereader'
+import type {Reader} from '@openobserve/openobserve-ci-base/helpers/filereader'
 
-import {FileReader} from '@datadog/datadog-ci-base/helpers/filereader'
+import {FileReader} from '@openobserve/openobserve-ci-base/helpers/filereader'
 
 import {
   CV_INFO_AGE_OFFSET,

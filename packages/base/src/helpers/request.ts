@@ -1,6 +1,6 @@
 import {PassThrough} from 'stream'
 
-import type {DatadogRoute} from './request/datadog-route'
+import type {OpenObserveRoute} from './request/datadog-route'
 import type {ThirdParty} from './request/third-party'
 import type {Readable} from 'stream'
 import type {Dispatcher} from 'undici'
@@ -20,7 +20,7 @@ export interface RequestConfig {
     | ((params: Record<string, unknown>) => string)
     | {serialize: (params: Record<string, unknown>) => string}
   timeout?: number
-  url?: DatadogRoute | ThirdParty
+  url?: OpenObserveRoute | ThirdParty
 }
 
 export interface RequestResponse<T = any> {

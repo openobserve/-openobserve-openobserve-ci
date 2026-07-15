@@ -1,4 +1,4 @@
-import type {MultipartPayload, MultipartValue} from '@datadog/datadog-ci-base/helpers/upload'
+import type {MultipartPayload, MultipartValue} from '@openobserve/openobserve-ci-base/helpers/upload'
 
 export class Sourcemap {
   public gitData?: GitData

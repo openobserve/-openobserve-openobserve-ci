@@ -9,19 +9,19 @@ import type {Writable} from 'stream'
 import FormData from 'form-data'
 import upath from 'upath'
 
-import {DATADOG_SITES} from '../../constants'
+import {OPENOBSERVE_SITES} from '../../constants'
 
-import {getDatadogSite} from '../api'
+import {getOpenObserveSite} from '../api'
 import {getBaseUrl} from '../app'
 import {deleteFolder} from '../fs'
 import {getLatestVersion} from '../get-latest-version'
 import * as helpersRenderer from '../renderer'
 import {httpRequest, isRequestError} from '../request'
-import {datadogRoute} from '../request/datadog-route'
-import {isValidDatadogSite} from '../validation'
+import {ooRoute} from '../request/datadog-route'
+import {isValidOpenObserveSite} from '../validation'
 
 /**
- * Send the zip file to Datadog support
+ * Send the zip file to OpenObserve support
  * @param zipPath
  * @param caseId
  * @param email
@@ -29,7 +29,7 @@ import {isValidDatadogSite} from '../validation'
  * @param rootFolderPath
  * @throws Error if the request fails
  */
-export const sendToDatadog = async (
+export const sendToOpenObserve = async (
   zipPath: string,
   caseId: string,
   email: string,
@@ -37,9 +37,9 @@ export const sendToDatadog = async (
   rootFolderPath: string,
   cliVersion: string
 ) => {
-  const site = getDatadogSite()
-  if (!isValidDatadogSite(site)) {
-    throw Error(`Invalid site: ${site}. Must be one of: ${DATADOG_SITES.join(', ')}`)
+  const site = getOpenObserveSite()
+  if (!isValidOpenObserveSite(site)) {
+    throw Error(`Invalid site: ${site}. Must be one of: ${OPENOBSERVE_SITES.join(', ')}`)
   }
 
   const form = new FormData()
@@ -55,7 +55,7 @@ export const sendToDatadog = async (
   try {
     await httpRequest({
       baseURL: getBaseUrl(),
-      url: datadogRoute('/api/ui/support/serverless/flare'),
+      url: ooRoute('/api/ui/support/serverless/flare'),
       method: 'POST',
       data: form,
       headers,
@@ -68,10 +68,10 @@ export const sendToDatadog = async (
       const errResponse: string = (err.response?.data.error as string) ?? ''
       const errorMessage = err.message ?? ''
 
-      let message = `Failed to send flare file to Datadog Support: ${errorMessage}. ${errResponse}\n`
+      let message = `Failed to send flare file to OpenObserve Support: ${errorMessage}. ${errResponse}\n`
       const code = err.response?.status
       // The error message doesn't say why there was an error. All it says is:
-      // "[Error] Failed to send flare file to Datadog Support: Request failed with status code 500."
+      // "[Error] Failed to send flare file to OpenObserve Support: Request failed with status code 500."
       // Therefore, we need to add an explanation to clarify when the code is 500 or 403.
       switch (code) {
         case 500:
@@ -79,7 +79,7 @@ export const sendToDatadog = async (
           break
         case 400:
         case 403:
-          message += `Is your Datadog API key correct? Please follow this doc to set your API key: 
+          message += `Is your OpenObserve API key correct? Please follow this doc to set your API key: 
 https://docs.datadoghq.com/serverless/libraries_integrations/cli/#environment-variables\n`
           break
       }
@@ -176,7 +176,7 @@ export const validateCliVersion = async (cliVersion: string, stdout: Pick<Writab
     if (latestVersion !== cliVersion) {
       stdout.write(
         helpersRenderer.renderSoftWarning(
-          `You are using an outdated version of datadog-ci (${cliVersion}). The latest version is ${latestVersion}. Please update for better support.`
+          `You are using an outdated version of openobserve-ci (${cliVersion}). The latest version is ${latestVersion}. Please update for better support.`
         )
       )
     }

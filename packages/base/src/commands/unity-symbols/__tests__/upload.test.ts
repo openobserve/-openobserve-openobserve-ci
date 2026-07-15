@@ -5,13 +5,13 @@ import type {
   MultipartPayload,
   MultipartStringValue,
   MultipartValue,
-} from '@datadog/datadog-ci-base/helpers/upload'
+} from '@openobserve/openobserve-ci-base/helpers/upload'
 
-import {DsymsUploadCommand} from '@datadog/datadog-ci-base/commands/dsyms/upload'
-import {createCommand} from '@datadog/datadog-ci-base/helpers/__tests__/testing-tools'
-import {TrackedFilesMatcher, getRepositoryData} from '@datadog/datadog-ci-base/helpers/git/format-git-sourcemaps-data'
-import {performSubCommand} from '@datadog/datadog-ci-base/helpers/utils'
-import {cliVersion} from '@datadog/datadog-ci-base/version'
+import {DsymsUploadCommand} from '@openobserve/openobserve-ci-base/commands/dsyms/upload'
+import {createCommand} from '@openobserve/openobserve-ci-base/helpers/__tests__/testing-tools'
+import {TrackedFilesMatcher, getRepositoryData} from '@openobserve/openobserve-ci-base/helpers/git/format-git-sourcemaps-data'
+import {performSubCommand} from '@openobserve/openobserve-ci-base/helpers/utils'
+import {cliVersion} from '@openobserve/openobserve-ci-base/version'
 
 import {uploadMultipartHelper} from '../helpers'
 import {
@@ -35,13 +35,13 @@ const requireObjcopy = () => {
   }
 }
 
-jest.mock('@datadog/datadog-ci-base/helpers/utils', () => ({
-  ...jest.requireActual('@datadog/datadog-ci-base/helpers/utils'),
+jest.mock('@openobserve/openobserve-ci-base/helpers/utils', () => ({
+  ...jest.requireActual('@openobserve/openobserve-ci-base/helpers/utils'),
   performSubCommand: jest.fn(),
 }))
 
-jest.mock('@datadog/datadog-ci-base/helpers/git/format-git-sourcemaps-data', () => ({
-  ...jest.requireActual('@datadog/datadog-ci-base/helpers/git/format-git-sourcemaps-data'),
+jest.mock('@openobserve/openobserve-ci-base/helpers/git/format-git-sourcemaps-data', () => ({
+  ...jest.requireActual('@openobserve/openobserve-ci-base/helpers/git/format-git-sourcemaps-data'),
   getRepositoryData: jest.fn(),
 }))
 
@@ -111,7 +111,7 @@ describe('unity-symbols upload', () => {
       expect(errorOutput).toContain(renderArgumentMissingError('symbols-location'))
     })
 
-    test('default ios symbol location is ./datadogSymbols', async () => {
+    test('default ios symbol location is ./ooSymbols', async () => {
       let captureCmd: UnitySymbolsUploadCommand
       const {exitCode} = await runCommand((cmd) => {
         cmd['ios'] = true
@@ -119,7 +119,7 @@ describe('unity-symbols upload', () => {
       })
 
       expect(exitCode).not.toBe(0)
-      expect(captureCmd!['symbolsLocation']).toBe('./datadogSymbols')
+      expect(captureCmd!['symbolsLocation']).toBe('./ooSymbols')
     })
 
     test('default android symbol location is ./unityLibrary/symbols', async () => {
@@ -145,9 +145,9 @@ describe('unity-symbols upload', () => {
       const {exitCode, context} = await runCommand((cmd) => {
         cmd['ios'] = true
         cmd['symbolsLocation'] = `${fixtureDir}/buildIdOnly`
-        cmd['configPath'] = `${fixtureDir}/config/datadog-ci.json`
+        cmd['configPath'] = `${fixtureDir}/config/openobserve-ci.json`
 
-        process.env.DATADOG_API_KEY = 'fake_api_key'
+        process.env.OPENOBSERVE_API_KEY = 'fake_api_key'
       })
       const output = context.stdout.toString().split('\n')
 

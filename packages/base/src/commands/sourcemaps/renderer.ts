@@ -2,15 +2,15 @@ import type {Sourcemap} from './interfaces'
 
 import chalk from 'chalk'
 
-import {ICONS} from '@datadog/datadog-ci-base/helpers/formatting'
-import {UploadStatus} from '@datadog/datadog-ci-base/helpers/upload'
-import {pluralize} from '@datadog/datadog-ci-base/helpers/utils'
+import {ICONS} from '@openobserve/openobserve-ci-base/helpers/formatting'
+import {UploadStatus} from '@openobserve/openobserve-ci-base/helpers/upload'
+import {pluralize} from '@openobserve/openobserve-ci-base/helpers/utils'
 
 export const renderGitWarning = (errorMessage: string) =>
   chalk.yellow(`${ICONS.WARNING} An error occurred while invoking git: ${errorMessage}
-Make sure the command is running within your git repository to fully leverage Datadog's git integration.
+Make sure the command is running within your git repository to fully leverage OpenObserve's git integration.
 To ignore this warning use the --disable-git flag.
-You can also provide both --repository-url and --commit-sha (or DD_GIT_REPOSITORY_URL and DD_GIT_COMMIT_SHA) to use an alternative algorithm that does not require git.\n`)
+You can also provide both --repository-url and --commit-sha (or OO_GIT_REPOSITORY_URL and OO_GIT_COMMIT_SHA) to use an alternative algorithm that does not require git.\n`)
 
 export const renderGitDataNotAttachedWarning = (sourcemap: string, errorMessage: string) =>
   chalk.yellow(`${ICONS.WARNING} Could not attach git data for sourcemap ${sourcemap}: ${errorMessage}\n`)

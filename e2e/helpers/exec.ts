@@ -6,10 +6,10 @@ export interface ExecResult {
   stderr: string
 }
 
-// In CI the synthetic project installs @datadog/datadog-ci from artifact
-// tarballs, so `yarn datadog-ci` works. Locally, set DATADOG_CI_COMMAND='yarn launch'
+// In CI the synthetic project installs @openobserve/openobserve-ci from artifact
+// tarballs, so `yarn openobserve-ci` works. Locally, set OPENOBSERVE_CI_COMMAND='yarn launch'
 // in e2e/.env.local (gitignored) to run from source via tsx.
-export const DATADOG_CI_COMMAND = process.env.DATADOG_CI_COMMAND ?? 'yarn datadog-ci'
+export const OPENOBSERVE_CI_COMMAND = process.env.OPENOBSERVE_CI_COMMAND ?? 'yarn openobserve-ci'
 
 export const execPromise = async (command: string, env?: Record<string, string | undefined>): Promise<ExecResult> => {
   return new Promise((resolve) => {

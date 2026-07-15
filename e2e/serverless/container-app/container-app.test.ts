@@ -1,6 +1,6 @@
 import crypto from 'node:crypto'
 
-import {DATADOG_CI_COMMAND, execPromise, execPromiseWithRetries} from '../../helpers/exec'
+import {OPENOBSERVE_CI_COMMAND, execPromise, execPromiseWithRetries} from '../../helpers/exec'
 
 import {checkTelemetryFlowing} from '../helpers/telemetry-checker'
 import {triggerTraffic} from '../helpers/traffic'
@@ -49,7 +49,7 @@ describeOrSkip('container-app', () => {
 
   it('instrument and verify', async () => {
     const result = await execPromiseWithRetries(
-      `${DATADOG_CI_COMMAND} container-app instrument` +
+      `${OPENOBSERVE_CI_COMMAND} container-app instrument` +
         ` -s "${subscriptionId}"` +
         ` -g "${resourceGroup}"` +
         ` -n "${appName}"` +
@@ -59,7 +59,7 @@ describeOrSkip('container-app', () => {
         ` --extra-tags "one_e2e_run_id:${runId}"` +
         ` --no-source-code-integration`,
       {
-        DD_API_KEY: process.env.DATADOG_API_KEY,
+        OO_API_KEY: process.env.OPENOBSERVE_API_KEY,
       }
     )
     expect(result.exitCode).toBe(0)
@@ -81,7 +81,7 @@ describeOrSkip('container-app', () => {
 
   it('instrument is idempotent', async () => {
     const result = await execPromiseWithRetries(
-      `${DATADOG_CI_COMMAND} container-app instrument` +
+      `${OPENOBSERVE_CI_COMMAND} container-app instrument` +
         ` -s "${subscriptionId}"` +
         ` -g "${resourceGroup}"` +
         ` -n "${appName}"` +
@@ -91,7 +91,7 @@ describeOrSkip('container-app', () => {
         ` --extra-tags "one_e2e_run_id:${runId}"` +
         ` --no-source-code-integration`,
       {
-        DD_API_KEY: process.env.DATADOG_API_KEY,
+        OO_API_KEY: process.env.OPENOBSERVE_API_KEY,
       }
     )
     expect(result.exitCode).toBe(0)
@@ -104,9 +104,9 @@ describeOrSkip('container-app', () => {
 
   it('uninstrument and verify', async () => {
     const result = await execPromiseWithRetries(
-      `${DATADOG_CI_COMMAND} container-app uninstrument -s "${subscriptionId}" -g "${resourceGroup}" -n "${appName}"`,
+      `${OPENOBSERVE_CI_COMMAND} container-app uninstrument -s "${subscriptionId}" -g "${resourceGroup}" -n "${appName}"`,
       {
-        DD_API_KEY: process.env.DATADOG_API_KEY,
+        OO_API_KEY: process.env.OPENOBSERVE_API_KEY,
       }
     )
     expect(result.exitCode).toBe(0)

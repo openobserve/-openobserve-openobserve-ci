@@ -2,19 +2,19 @@ import {execSync} from '../../helpers/exec'
 
 // Hard-coded because e2e tests run against built artifacts, can't import from source
 const AAS_DD_SETTING_NAMES = [
-  'DD_API_KEY',
-  'DD_SITE',
-  'DD_AAS_INSTANCE_LOGGING_ENABLED',
-  'DD_SERVICE',
-  'DD_ENV',
-  'DD_VERSION',
-  'DD_SERVERLESS_LOG_PATH',
-  'DD_DOTNET_TRACER_HOME',
-  'DD_TRACE_LOG_DIRECTORY',
+  'OO_API_KEY',
+  'OO_SITE',
+  'OO_AAS_INSTANCE_LOGGING_ENABLED',
+  'OO_SERVICE',
+  'OO_ENV',
+  'OO_VERSION',
+  'OO_SERVERLESS_LOG_PATH',
+  'OO_DOTNET_TRACER_HOME',
+  'OO_TRACE_LOG_DIRECTORY',
   'CORECLR_ENABLE_PROFILING',
   'CORECLR_PROFILER',
   'CORECLR_PROFILER_PATH',
-  'DD_TAGS',
+  'OO_TAGS',
   'WEBSITES_ENABLE_APP_SERVICE_STORAGE',
 ]
 
@@ -78,17 +78,17 @@ export const verifyLinuxInstrumented = (appName: string, rg: string, subscriptio
 
   const settings = getAppSettings(appName, rg)
   const requiredSettings = [
-    'DD_API_KEY',
-    'DD_SITE',
-    'DD_SERVICE',
-    'DD_AAS_INSTANCE_LOGGING_ENABLED',
+    'OO_API_KEY',
+    'OO_SITE',
+    'OO_SERVICE',
+    'OO_AAS_INSTANCE_LOGGING_ENABLED',
     'WEBSITES_ENABLE_APP_SERVICE_STORAGE',
   ]
   for (const name of requiredSettings) {
     expect(settings[name]).toBeDefined()
   }
   // Logs only flow when instance logging is enabled (--instance-logging).
-  expect(settings['DD_AAS_INSTANCE_LOGGING_ENABLED']).toBe('true')
+  expect(settings['OO_AAS_INSTANCE_LOGGING_ENABLED']).toBe('true')
 
   const containers = getSiteContainers(appName, rg, subscriptionId)
   const sidecar = containers.find((c) => c.name === 'datadog-sidecar')
@@ -128,13 +128,13 @@ export const verifyWindowsInstrumented = (appName: string, rg: string, subscript
   console.log(`Verifying Windows app "${appName}" is instrumented...\n`)
 
   const settings = getAppSettings(appName, rg)
-  const requiredSettings = ['DD_API_KEY', 'DD_SITE', 'DD_SERVICE', 'DD_AAS_INSTANCE_LOGGING_ENABLED']
+  const requiredSettings = ['OO_API_KEY', 'OO_SITE', 'OO_SERVICE', 'OO_AAS_INSTANCE_LOGGING_ENABLED']
   for (const name of requiredSettings) {
     expect(settings[name]).toBeDefined()
   }
 
   const extensions = getSiteExtensions(appName, rg, subscriptionId)
-  const ddExtension = extensions.find((e) => e.id.includes('Datadog.AzureAppServices.Node.Apm'))
+  const ddExtension = extensions.find((e) => e.id.includes('OpenObserve.AzureAppServices.Node.Apm'))
   expect(ddExtension).toBeDefined()
 
   const app = getWebApp(appName, rg)
@@ -154,7 +154,7 @@ export const verifyWindowsUninstrumented = (appName: string, rg: string, subscri
   }
 
   const extensions = getSiteExtensions(appName, rg, subscriptionId)
-  const ddExtensions = extensions.filter((e) => e.id.includes('Datadog.AzureAppServices.'))
+  const ddExtensions = extensions.filter((e) => e.id.includes('OpenObserve.AzureAppServices.'))
   expect(ddExtensions).toHaveLength(0)
 
   const app = getWebApp(appName, rg)

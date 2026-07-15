@@ -15,7 +15,7 @@ export interface MappingMetadata {
   pdb_age: number
   pdb_sig?: string
   filename: string
-  origin: string // will contain 'datadog-ci'
+  origin: string // will contain 'openobserve-ci'
   type: string
   overwrite: boolean
 

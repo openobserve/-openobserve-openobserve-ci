@@ -1,28 +1,28 @@
 # Release Process
 
-To release a new version of `datadog-ci`:
+To release a new version of `openobserve-ci`:
 
 1. Create a new branch for the version upgrade.
 2. Run `yarn version:all <major|minor|patch>`.
 3. Commit the change `vX.X.X` and tag it with `git tag -m vX.X.X vX.X.X`.
    - You may refer to [Semantic Versioning](https://semver.org/#summary) to determine what level to increment.
 4. Push the branch along with the tag using `git push --tags`, and create a PR.
-   - Find and open the workflow run corresponding to your tag [in this list](https://github.com/DataDog/datadog-ci/actions/workflows/publish-release.yml).
+   - Find and open the workflow run corresponding to your tag [in this list](https://github.com/DataDog/openobserve-ci/actions/workflows/publish-release.yml).
    - Copy the release notes from the draft release, and paste them in the description of your PR. This ensures the feature PRs have a link to your release PR.
    - Add the `release` label to your PR.
-   - See this [example PR](https://github.com/DataDog/datadog-ci/pull/1215).
-5. Request an approval from a datadog-ci admin.
+   - See this [example PR](https://github.com/DataDog/openobserve-ci/pull/1215).
+5. Request an approval from a openobserve-ci admin.
    - If a `oidc-setup-required ⚠️` label is added to your PR, ask an admin for assistance.
 6. Wait for your PR to be approved.
    - Once approved, retry the `pre-approval-checks` job.
-7. The `npm-publish` job should now be waiting for an approval from a datadog-ci admin.
+7. The `npm-publish` job should now be waiting for an approval from a openobserve-ci admin.
    - Ask for approval and wait for it and its downstream jobs to succeed.
 8. Once all jobs are successful, merge the PR **with the "Create a merge commit" strategy**.
    - The "Create a merge commit" strategy is required for the GitHub Release to point to an existing commit once the PR is merged.
 9. Go to the draft GitHub Release, and publish it as **latest**.
    - There should be 7 binaries available in the release's assets.
 10. **Important**: Finally, release the Docker image from GitLab.
-    - Go to the [**GitLab** pipelines](https://gitlab.ddbuild.io/DataDog/datadog-ci/-/pipelines?scope=tags&status=manual)
+    - Go to the [**GitLab** pipelines](https://gitlab.ddbuild.io/DataDog/openobserve-ci/-/pipelines?scope=tags&status=manual)
     - Find the pipeline for your tag, and start the `build` stage to run the Docker image build jobs.
     - Make sure all the jobs and downstream jobs succeed.
 
@@ -37,8 +37,8 @@ Some PRs were just merged and you want to release them, but you already started 
 
 To overwrite a release candidate:
 
-- Cancel the ["Publish package on NPM" workflow](https://github.com/DataDog/datadog-ci/actions/workflows/publish-release.yml) to make sure we don't approve it by mistake.
-- Remove the [draft GitHub Release here](https://github.com/DataDog/datadog-ci/releases).
+- Cancel the ["Publish package on NPM" workflow](https://github.com/DataDog/openobserve-ci/actions/workflows/publish-release.yml) to make sure we don't approve it by mistake.
+- Remove the [draft GitHub Release here](https://github.com/DataDog/openobserve-ci/releases).
 - Force push your PR:
   - Rebase your PR with `git rebase master` (make sure you pulled `master`).
   - Looking at `git log`, your `vX.X.X` bump commit should now be right _after_ the latest commit on `master`.

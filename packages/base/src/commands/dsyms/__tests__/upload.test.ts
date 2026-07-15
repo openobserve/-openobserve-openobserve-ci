@@ -6,10 +6,10 @@ import type {Dsym} from '../interfaces'
 import {Cli} from 'clipanion'
 import upath from 'upath'
 
-import {createMockContext, getEnvVarPlaceholders} from '@datadog/datadog-ci-base/helpers/__tests__/testing-tools'
-import * as APIKeyHelpers from '@datadog/datadog-ci-base/helpers/apikey'
-import {globSync} from '@datadog/datadog-ci-base/helpers/glob'
-import {buildPath} from '@datadog/datadog-ci-base/helpers/utils'
+import {createMockContext, getEnvVarPlaceholders} from '@openobserve/openobserve-ci-base/helpers/__tests__/testing-tools'
+import * as APIKeyHelpers from '@openobserve/openobserve-ci-base/helpers/apikey'
+import {globSync} from '@openobserve/openobserve-ci-base/helpers/glob'
+import {buildPath} from '@openobserve/openobserve-ci-base/helpers/utils'
 
 import {DsymsUploadCommand} from '../upload'
 import {createUniqueTmpDirectory, deleteDirectory} from '../utils'
@@ -357,7 +357,7 @@ describe('execute', () => {
 
   test('Should succeed with API key and site from datadog.json file', async () => {
     const {context, code} = await runCLI('src/commands/dsyms/__tests__/fixtures/', {
-      configPath: 'src/commands/dsyms/__tests__/fixtures/datadog-ci.json',
+      configPath: 'src/commands/dsyms/__tests__/fixtures/openobserve-ci.json',
     })
     const outputString = context.stdout.toString()
     const output = outputString.split('\n')
@@ -390,9 +390,9 @@ describe('execute', () => {
     const apiKeyValidatorSpy = jest.spyOn(APIKeyHelpers, 'newApiKeyValidator')
 
     const {context, code} = await runCLI('src/commands/dsyms/__tests__/fixtures/', {
-      configPath: 'src/commands/dsyms/__tests__/fixtures/datadog-ci.json',
+      configPath: 'src/commands/dsyms/__tests__/fixtures/openobserve-ci.json',
       env: {
-        DATADOG_API_KEY: 'env_API_key',
+        OPENOBSERVE_API_KEY: 'env_API_key',
       },
     })
 
@@ -402,7 +402,7 @@ describe('execute', () => {
 
     expect(apiKeyValidatorSpy).toHaveBeenCalledWith({
       apiKey: 'env_API_key',
-      datadogSite: expect.anything(),
+      ooSite: expect.anything(),
       metricsLogger: expect.anything(),
     })
     expect(output).toContain('API keys were specified both in a configuration file and in the environment.')

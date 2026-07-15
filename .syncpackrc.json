@@ -44,7 +44,7 @@
     {
       "label": "Use ^ ranges for base package dependencies (published as library, users manage their own lockfiles)",
       "packages": [
-        "@datadog/datadog-ci-base"
+        "@openobserve/openobserve-ci-base"
       ],
       "dependencyTypes": [
         "prod",

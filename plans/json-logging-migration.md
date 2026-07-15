@@ -1,4 +1,4 @@
-# Add JSON-line logging to datadog-ci (all commands)
+# Add JSON-line logging to openobserve-ci (all commands)
 
 ## Progress
 
@@ -15,10 +15,10 @@
 
 ## Context
 
-datadog-ci currently logs human-formatted, ANSI-coloured text to stdout. When the
-output is ingested by Datadog (or any log pipeline), every line — including
+openobserve-ci currently logs human-formatted, ANSI-coloured text to stdout. When the
+output is ingested by OpenObserve (or any log pipeline), every line — including
 warnings and errors — shows up as `info`, because severity is only conveyed by
-colour. [Issue #1991](https://github.com/DataDog/datadog-ci/issues/1991) asks to
+colour. [Issue #1991](https://github.com/DataDog/openobserve-ci/issues/1991) asks to
 distinguish info/warn/error.
 
 The `Logger` in `packages/base/src/helpers/logger.ts` **already supports** a
@@ -42,7 +42,7 @@ severity is carried by the `level` field, not by stream routing.
   incomplete (most commands don't honour it yet), so `--log-format` is declared
   **hidden** (not shown in `--help`). It's unhidden once coverage is broad enough.
 - **Flag name**: `--log-format` with values `text` (default) | `json`, plus env
-  var `DD_LOG_FORMAT`. Resolution order (CLI flag > env var > default) is handled
+  var `OO_LOG_FORMAT`. Resolution order (CLI flag > env var > default) is handled
   by clipanion's `Option.String({env})`. Input is validated with typanion's
   `t.isEnum(['text', 'json'] as const)`. `--json` is too broad and already used
   elsewhere for unrelated purposes:
@@ -85,7 +85,7 @@ Files:
   - Lazy shared `protected get logger()` that builds a `Logger` writing to
     `this.context.stdout` with `{jsonOutput: this.logFormat === 'json'}`. This
     getter is the single sanctioned sink that writes to the raw stream.
-- `packages/base/src/constants.ts` — `LOG_FORMAT_ENV_VAR = 'DD_LOG_FORMAT'`.
+- `packages/base/src/constants.ts` — `LOG_FORMAT_ENV_VAR = 'OO_LOG_FORMAT'`.
 - `packages/base/src/helpers/__tests__/testing-tools.ts` — `createMockContext`
   must default `env` to a defined (empty) object; clipanion's `{env}` option reads
   `context.env[...]` and would crash on `undefined`. Production is unaffected
@@ -101,7 +101,7 @@ Files:
   `plugin-coverage/upload`, `plugin-deployment/*`, `plugin-dora/deployment`,
   `plugin-gate/evaluate`, `plugin-junit/upload`, `plugin-terraform/upload`,
   `plugin-synthetics/upload-application`.
-- Tests covering: flag default, `--log-format json`, `DD_LOG_FORMAT=json`, flag
+- Tests covering: flag default, `--log-format json`, `OO_LOG_FORMAT=json`, flag
   precedence over env, and invalid value.
 
 ## PRs 2..7 — Migrate renderer/stdout-write commands (one PR per plugin)
@@ -152,7 +152,7 @@ Once all commands (incl. synthetics) honour `--log-format`:
 - Remove `hidden: true` from the `--log-format` option.
 - Enable the stream-access rule across all `tsFiles` (remove the allowlist
   scoping), with `eslint-disable` only on legitimate data-output / reporter lines.
-- README + `CONTRIBUTING.md`: document `--log-format` / `DD_LOG_FORMAT` as a
+- README + `CONTRIBUTING.md`: document `--log-format` / `OO_LOG_FORMAT` as a
   supported global option.
 
 ## Follow-up (separate) — Shared icon/emoji bank
@@ -174,7 +174,7 @@ End-to-end manual checks:
 - Run a migrated command with `yarn launch <scope> <cmd> --log-format json` and
   confirm each line is valid JSON with the correct `level` (e.g. `| jq -c .`).
   Trigger a warning/error path and confirm `level` is `warn`/`error`.
-- Confirm `DD_LOG_FORMAT=json yarn launch ...` behaves identically to the flag.
+- Confirm `OO_LOG_FORMAT=json yarn launch ...` behaves identically to the flag.
 - Confirm default (no flag) output is unchanged coloured text.
 - Synthetics PR: run `synthetics run-tests --log-format json` and confirm JSONL
   output with no spinner, and that `--jsonReport`/`--jUnit` files are still written.

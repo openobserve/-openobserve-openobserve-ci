@@ -1,23 +1,23 @@
-import type {PluginSubModule} from '@datadog/datadog-ci-base/helpers/plugin'
+import type {PluginSubModule} from '@openobserve/openobserve-ci-base/helpers/plugin'
 import type {CommandClass} from 'clipanion'
 
-import {commands as commandDeclarations, noPluginExceptions} from '@datadog/datadog-ci-base/cli'
-import {enableFips} from '@datadog/datadog-ci-base/helpers/fips'
+import {commands as commandDeclarations, noPluginExceptions} from '@openobserve/openobserve-ci-base/cli'
+import {enableFips} from '@openobserve/openobserve-ci-base/helpers/fips'
 import {Builtins, Cli} from 'clipanion'
 
 // Test all commands, including beta ones.
-process.env.DD_BETA_COMMANDS_ENABLED = '1'
+process.env.OO_BETA_COMMANDS_ENABLED = '1'
 
 import {cli, BETA_COMMANDS} from '../cli'
 
 const builtins: CommandClass[] = [Builtins.HelpCommand, Builtins.VersionCommand]
 
-jest.mock('@datadog/datadog-ci-base/helpers/fips')
+jest.mock('@openobserve/openobserve-ci-base/helpers/fips')
 
 // Prevent real network calls and expensive I/O in fips tests
-jest.mock('@datadog/datadog-ci-base/helpers/request')
+jest.mock('@openobserve/openobserve-ci-base/helpers/request')
 jest.mock('simple-git')
-jest.mock('@datadog/datadog-ci-base/helpers/metrics')
+jest.mock('@openobserve/openobserve-ci-base/helpers/metrics')
 
 const NONEXISTENT_FILE = '/nonexistent'
 
@@ -79,20 +79,20 @@ describe('cli', () => {
     mockedEnableFips.mockImplementation(() => true)
 
     // Strip API keys so commands bail out early instead of doing real work.
-    const savedApiKey = process.env.DATADOG_API_KEY
-    const savedDDApiKey = process.env.DD_API_KEY
+    const savedApiKey = process.env.OPENOBSERVE_API_KEY
+    const savedDDApiKey = process.env.OO_API_KEY
     const originalFetch = global.fetch
     beforeAll(() => {
-      delete process.env.DATADOG_API_KEY
-      delete process.env.DD_API_KEY
+      delete process.env.OPENOBSERVE_API_KEY
+      delete process.env.OO_API_KEY
       global.fetch = jest.fn().mockRejectedValue(new Error('fetch calls are not allowed in tests'))
     })
     afterAll(() => {
       if (savedApiKey !== undefined) {
-        process.env.DATADOG_API_KEY = savedApiKey
+        process.env.OPENOBSERVE_API_KEY = savedApiKey
       }
       if (savedDDApiKey !== undefined) {
-        process.env.DD_API_KEY = savedDDApiKey
+        process.env.OO_API_KEY = savedDDApiKey
       }
       global.fetch = originalFetch
     })
@@ -107,7 +107,7 @@ describe('cli', () => {
         }
 
         // Using `await import()` in Jest causes `ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING_FLAG`, so we use `require()` instead.
-        const submodule = require(`@datadog/datadog-ci-plugin-${scope}/commands/${command}`) as PluginSubModule
+        const submodule = require(`@openobserve/openobserve-ci-plugin-${scope}/commands/${command}`) as PluginSubModule
         submodule.PluginCommand.paths = submodule.PluginCommand.paths?.map((paths) => {
           pluginCommandPaths.add(paths.join(' '))
 

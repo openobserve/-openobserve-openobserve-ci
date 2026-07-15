@@ -103,17 +103,17 @@
       "BUDDY_PIPELINE_ID": "456",
       "BUDDY_PIPELINE_NAME": "Deploy to Production",
       "BUDDY_SCM_URL": "https://github.com/buddyworks/my-project.git",
-      "DD_GIT_BRANCH": "user-supplied-branch",
-      "DD_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
-      "DD_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
-      "DD_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
-      "DD_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
-      "DD_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
-      "DD_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
-      "DD_GIT_COMMIT_MESSAGE": "usersupplied-message",
-      "DD_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
-      "DD_GIT_REPOSITORY_URL": "git@github.com:DataDog/userrepo.git",
-      "DD_GIT_TAG": "user-supplied-tag"
+      "OO_GIT_BRANCH": "user-supplied-branch",
+      "OO_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
+      "OO_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
+      "OO_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
+      "OO_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
+      "OO_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
+      "OO_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
+      "OO_GIT_COMMIT_MESSAGE": "usersupplied-message",
+      "OO_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
+      "OO_GIT_REPOSITORY_URL": "git@github.com:DataDog/userrepo.git",
+      "OO_GIT_TAG": "user-supplied-tag"
     },
     {
       "ci.pipeline.id": "456/buddy-execution-id",
@@ -148,16 +148,16 @@
       "BUDDY_PIPELINE_ID": "456",
       "BUDDY_PIPELINE_NAME": "Deploy to Production",
       "BUDDY_SCM_URL": "https://github.com/buddyworks/my-project.git",
-      "DD_GIT_BRANCH": "user-supplied-branch",
-      "DD_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
-      "DD_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
-      "DD_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
-      "DD_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
-      "DD_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
-      "DD_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
-      "DD_GIT_COMMIT_MESSAGE": "usersupplied-message",
-      "DD_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
-      "DD_GIT_REPOSITORY_URL": "git@github.com:DataDog/userrepo.git"
+      "OO_GIT_BRANCH": "user-supplied-branch",
+      "OO_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
+      "OO_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
+      "OO_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
+      "OO_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
+      "OO_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
+      "OO_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
+      "OO_GIT_COMMIT_MESSAGE": "usersupplied-message",
+      "OO_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
+      "OO_GIT_REPOSITORY_URL": "git@github.com:DataDog/userrepo.git"
     },
     {
       "ci.pipeline.id": "456/buddy-execution-id",
@@ -192,7 +192,7 @@
       "BUDDY_PIPELINE_ID": "456",
       "BUDDY_PIPELINE_NAME": "Deploy to Production",
       "BUDDY_SCM_URL": "https://github.com/buddyworks/my-project",
-      "DD_TEST_CASE_NAME": "http-repository-url-no-git-suffix"
+      "OO_TEST_CASE_NAME": "http-repository-url-no-git-suffix"
     },
     {
       "ci.pipeline.id": "456/buddy-execution-id",
@@ -223,7 +223,7 @@
       "BUDDY_PIPELINE_ID": "456",
       "BUDDY_PIPELINE_NAME": "Deploy to Production",
       "BUDDY_SCM_URL": "ssh://host.xz:54321/path/to/repo/",
-      "DD_TEST_CASE_NAME": "ssh-repository-url-no-git-suffix"
+      "OO_TEST_CASE_NAME": "ssh-repository-url-no-git-suffix"
     },
     {
       "ci.pipeline.id": "456/buddy-execution-id",

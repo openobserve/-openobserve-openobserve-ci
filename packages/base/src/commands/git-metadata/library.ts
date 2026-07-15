@@ -4,7 +4,7 @@ import type {SimpleGit} from 'simple-git'
 import {newApiKeyValidator} from '../../helpers/apikey'
 import type {RequestBuilder} from '../../helpers/interfaces'
 import {Logger, LogLevel} from '../../helpers/logger'
-import {datadogRoute} from '../../helpers/request/datadog-route'
+import {ooRoute} from '../../helpers/request/datadog-route'
 import type {UploadOptions} from '../../helpers/upload'
 import {upload, UploadStatus} from '../../helpers/upload'
 import {getRequestBuilder, filterAndFormatGithubRemote} from '../../helpers/utils'
@@ -43,25 +43,25 @@ export const getGitCommitInfo = async (filterAndFormatGitRepoUrl = true): Promis
 // The current repositoryURL can be overridden by specifying the 'repositoryURL' arg.
 export const uploadGitCommitHash = async (
   apiKey: string,
-  datadogSite: string,
+  ooSite: string,
   repositoryURL?: string
 ): Promise<[string, string]> => {
   const simpleGit = await newSimpleGit()
   const payload = await getCommitInfo(simpleGit, repositoryURL)
 
   return Promise.all([
-    syncGitDB(simpleGit, apiKey, datadogSite, payload.remote),
-    uploadToSrcmapTrack(apiKey, datadogSite, payload),
+    syncGitDB(simpleGit, apiKey, ooSite, payload.remote),
+    uploadToSrcmapTrack(apiKey, ooSite, payload),
   ]).then(() => [payload.remote, payload.hash])
 }
 
-const syncGitDB = async (simpleGit: SimpleGit, apiKey: string, datadogSite: string, repositoryURL: string) => {
+const syncGitDB = async (simpleGit: SimpleGit, apiKey: string, ooSite: string, repositoryURL: string) => {
   // no-op logger
   const log = new Logger((s: string) => {}, LogLevel.INFO)
 
   const requestBuilder = getRequestBuilder({
     apiKey,
-    baseUrl: 'https://api.' + datadogSite,
+    baseUrl: 'https://api.' + ooSite,
   })
 
   await uploadToGitDB(log, requestBuilder, simpleGit, false, repositoryURL)
@@ -69,19 +69,19 @@ const syncGitDB = async (simpleGit: SimpleGit, apiKey: string, datadogSite: stri
 
 // uploadToSrcmapTrack uploads the payload with tracked files to the sourcemap intake
 // this will be deprecated in the future, as we're transitioning to GitDB
-const uploadToSrcmapTrack = async (apiKey: string, datadogSite: string, payload: CommitInfo) => {
+const uploadToSrcmapTrack = async (apiKey: string, ooSite: string, payload: CommitInfo) => {
   const apiKeyValidator = newApiKeyValidator({
     apiKey,
-    datadogSite,
+    ooSite,
   })
   const requestBuilder = getRequestBuilder({
     apiKey,
-    baseUrl: 'https://sourcemap-intake.' + datadogSite,
+    baseUrl: 'https://sourcemap-intake.' + ooSite,
     headers: new Map([
-      ['DD-EVP-ORIGIN', 'datadog-ci_sci'],
+      ['DD-EVP-ORIGIN', 'openobserve-ci_sci'],
       ['DD-EVP-ORIGIN-VERSION', cliVersion],
     ]),
-    overrideUrl: datadogRoute('/api/v2/srcmap'),
+    overrideUrl: ooRoute('/api/v2/srcmap'),
   })
 
   const status = await uploadRepository(requestBuilder, cliVersion)(payload, {

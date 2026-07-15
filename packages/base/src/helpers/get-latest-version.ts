@@ -1,4 +1,4 @@
-const REGISTRY_URL = 'https://registry.npmjs.org/@datadog/datadog-ci'
+const REGISTRY_URL = 'https://registry.npmjs.org/@openobserve/openobserve-ci'
 
 export const getLatestVersion = async (): Promise<string> => {
   const response = await fetch(REGISTRY_URL)

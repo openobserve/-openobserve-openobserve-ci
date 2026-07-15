@@ -1,6 +1,6 @@
 import {Cli} from 'clipanion'
 
-import {createMockContext} from '@datadog/datadog-ci-base/helpers/__tests__/testing-tools'
+import {createMockContext} from '@openobserve/openobserve-ci-base/helpers/__tests__/testing-tools'
 
 import {CiEnvReadCommand} from '../read'
 
@@ -48,10 +48,10 @@ describe('ci-env read', () => {
       const {context, code} = await runCLI(githubEnv)
       expect(code).toBe(0)
       const output = context.stdout.toString()
-      expect(output).toContain("DD_CI_JOB_NAME='test-job'")
-      expect(output).toContain("DD_CI_PIPELINE_ID='12345'")
-      expect(output).toContain("DD_CI_PROVIDER_NAME='github'")
-      expect(output).toContain("DD_GIT_COMMIT_SHA='abc123def456'")
+      expect(output).toContain("OO_CI_JOB_NAME='test-job'")
+      expect(output).toContain("OO_CI_PIPELINE_ID='12345'")
+      expect(output).toContain("OO_CI_PROVIDER_NAME='github'")
+      expect(output).toContain("OO_GIT_COMMIT_SHA='abc123def456'")
     })
 
     test('should output JSON format', async () => {
@@ -59,10 +59,10 @@ describe('ci-env read', () => {
       expect(code).toBe(0)
       const output = context.stdout.toString()
       const json = JSON.parse(output)
-      expect(json.DD_CI_JOB_NAME).toBe('test-job')
-      expect(json.DD_CI_PIPELINE_ID).toBe('12345')
-      expect(json.DD_CI_PROVIDER_NAME).toBe('github')
-      expect(json.DD_GIT_COMMIT_SHA).toBe('abc123def456')
+      expect(json.OO_CI_JOB_NAME).toBe('test-job')
+      expect(json.OO_CI_PIPELINE_ID).toBe('12345')
+      expect(json.OO_CI_PROVIDER_NAME).toBe('github')
+      expect(json.OO_GIT_COMMIT_SHA).toBe('abc123def456')
     })
 
     test('should output internal tags format', async () => {
@@ -83,7 +83,7 @@ describe('ci-env read', () => {
       })
       expect(code).toBe(0)
       const output = context.stdout.toString()
-      expect(output).toContain("DD_CI_PIPELINE_NAME='Test'\\''s \"Workflow\" with '\\''quotes'\\'''")
+      expect(output).toContain("OO_CI_PIPELINE_NAME='Test'\\''s \"Workflow\" with '\\''quotes'\\'''")
     })
 
     test('should handle special characters in tags format', async () => {
@@ -115,12 +115,12 @@ describe('ci-env read', () => {
       TRAVIS_BRANCH: 'main',
     }
 
-    test('should translate TRAVIS_JOB_WEB_URL to DD_CI_JOB_URL', async () => {
+    test('should translate TRAVIS_JOB_WEB_URL to OO_CI_JOB_URL', async () => {
       const {context, code} = await runCLI(travisEnv)
       expect(code).toBe(0)
       const output = context.stdout.toString()
-      expect(output).toContain("DD_CI_JOB_URL='https://travis-ci.org/DataDog/test/jobs/12345'")
-      expect(output).toContain("DD_CI_PROVIDER_NAME='travisci'")
+      expect(output).toContain("OO_CI_JOB_URL='https://travis-ci.org/DataDog/test/jobs/12345'")
+      expect(output).toContain("OO_CI_PROVIDER_NAME='travisci'")
     })
   })
 
@@ -141,9 +141,9 @@ describe('ci-env read', () => {
       const {context, code} = await runCLI(circleCIEnv)
       expect(code).toBe(0)
       const output = context.stdout.toString()
-      expect(output).toContain("DD_CI_JOB_NAME='test-job'")
-      expect(output).toContain("DD_CI_PROVIDER_NAME='circleci'")
-      expect(output).toContain("DD_GIT_COMMIT_SHA='abc123def456'")
+      expect(output).toContain("OO_CI_JOB_NAME='test-job'")
+      expect(output).toContain("OO_CI_PROVIDER_NAME='circleci'")
+      expect(output).toContain("OO_GIT_COMMIT_SHA='abc123def456'")
     })
   })
 
@@ -166,9 +166,9 @@ describe('ci-env read', () => {
       const {context, code} = await runCLI(gitlabEnv)
       expect(code).toBe(0)
       const output = context.stdout.toString()
-      expect(output).toContain("DD_CI_JOB_NAME='test-job'")
-      expect(output).toContain("DD_CI_PROVIDER_NAME='gitlab'")
-      expect(output).toContain("DD_GIT_COMMIT_SHA='abc123def456'")
+      expect(output).toContain("OO_CI_JOB_NAME='test-job'")
+      expect(output).toContain("OO_CI_PROVIDER_NAME='gitlab'")
+      expect(output).toContain("OO_GIT_COMMIT_SHA='abc123def456'")
     })
   })
 
@@ -201,7 +201,7 @@ describe('ci-env read', () => {
   })
 
   describe('User-provided environment variables', () => {
-    test('should allow DD_CI_* and DD_GIT_* variables to override detected values', async () => {
+    test('should allow OO_CI_* and OO_GIT_* variables to override detected values', async () => {
       const {context, code} = await runCLI({
         GITHUB_ACTIONS: 'true',
         GITHUB_RUN_ID: '12345',
@@ -213,32 +213,32 @@ describe('ci-env read', () => {
         GITHUB_SERVER_URL: 'https://github.com',
         GITHUB_RUN_ATTEMPT: '1',
         // User-provided overrides
-        DD_CI_JOB_NAME: 'custom-job-name',
-        DD_CI_PIPELINE_URL: 'https://custom.example.com/pipeline',
-        DD_GIT_COMMIT_SHA: 'custom-sha-override',
-        DD_GIT_BRANCH: 'custom-branch',
+        OO_CI_JOB_NAME: 'custom-job-name',
+        OO_CI_PIPELINE_URL: 'https://custom.example.com/pipeline',
+        OO_GIT_COMMIT_SHA: 'custom-sha-override',
+        OO_GIT_BRANCH: 'custom-branch',
       })
       expect(code).toBe(0)
       const output = context.stdout.toString()
-      expect(output).toContain("DD_CI_JOB_NAME='custom-job-name'")
-      expect(output).toContain("DD_CI_PIPELINE_URL='https://custom.example.com/pipeline'")
-      expect(output).toContain("DD_GIT_COMMIT_SHA='custom-sha-override'")
-      expect(output).toContain("DD_GIT_BRANCH='custom-branch'")
+      expect(output).toContain("OO_CI_JOB_NAME='custom-job-name'")
+      expect(output).toContain("OO_CI_PIPELINE_URL='https://custom.example.com/pipeline'")
+      expect(output).toContain("OO_GIT_COMMIT_SHA='custom-sha-override'")
+      expect(output).toContain("OO_GIT_BRANCH='custom-branch'")
     })
 
     test('should work with only user-provided variables (no CI detection)', async () => {
       const {context, code} = await runCLI({
-        DD_CI_PROVIDER_NAME: 'custom',
-        DD_CI_PIPELINE_ID: 'custom-pipeline-123',
-        DD_GIT_COMMIT_SHA: 'abc123',
-        DD_GIT_BRANCH: 'main',
+        OO_CI_PROVIDER_NAME: 'custom',
+        OO_CI_PIPELINE_ID: 'custom-pipeline-123',
+        OO_GIT_COMMIT_SHA: 'abc123',
+        OO_GIT_BRANCH: 'main',
       })
       expect(code).toBe(0)
       const output = context.stdout.toString()
-      expect(output).toContain("DD_CI_PROVIDER_NAME='custom'")
-      expect(output).toContain("DD_CI_PIPELINE_ID='custom-pipeline-123'")
-      expect(output).toContain("DD_GIT_COMMIT_SHA='abc123'")
-      expect(output).toContain("DD_GIT_BRANCH='main'")
+      expect(output).toContain("OO_CI_PROVIDER_NAME='custom'")
+      expect(output).toContain("OO_CI_PIPELINE_ID='custom-pipeline-123'")
+      expect(output).toContain("OO_GIT_COMMIT_SHA='abc123'")
+      expect(output).toContain("OO_GIT_BRANCH='main'")
     })
   })
 })

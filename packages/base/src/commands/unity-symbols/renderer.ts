@@ -1,8 +1,8 @@
 import chalk from 'chalk'
 
-import {ICONS} from '@datadog/datadog-ci-base/helpers/formatting'
-import {UploadStatus} from '@datadog/datadog-ci-base/helpers/upload'
-import {pluralize} from '@datadog/datadog-ci-base/helpers/utils'
+import {ICONS} from '@openobserve/openobserve-ci-base/helpers/formatting'
+import {UploadStatus} from '@openobserve/openobserve-ci-base/helpers/upload'
+import {pluralize} from '@openobserve/openobserve-ci-base/helpers/utils'
 
 export interface UploadInfo {
   fileType: string
@@ -83,7 +83,7 @@ export const renderMissingBuildId = (path: string) =>
 
 export const renderGitWarning = (errorMessage: string) =>
   chalk.yellow(`${ICONS.WARNING} An error occurred while invoking git: ${errorMessage}
-Make sure the command is running within your git repository to fully leverage Datadog's git integration.
+Make sure the command is running within your git repository to fully leverage OpenObserve's git integration.
 To ignore this warning use the --disable-git flag.\n`)
 
 export const renderArgumentMissingError = (argumentName: string) =>

@@ -4,11 +4,11 @@ import {existsSync, readFileSync, statSync, unlinkSync, writeFileSync} from 'fs'
 
 import {Cli, Command, Option} from 'clipanion'
 
-import {BaseCommand} from '@datadog/datadog-ci-base'
-import {FIPS_ENV_VAR, FIPS_IGNORE_ERROR_ENV_VAR} from '@datadog/datadog-ci-base/constants'
-import {toBoolean} from '@datadog/datadog-ci-base/helpers/env'
-import {enableFips} from '@datadog/datadog-ci-base/helpers/fips'
-import {parsePlist} from '@datadog/datadog-ci-base/helpers/plist'
+import {BaseCommand} from '@openobserve/openobserve-ci-base'
+import {FIPS_ENV_VAR, FIPS_IGNORE_ERROR_ENV_VAR} from '@openobserve/openobserve-ci-base/constants'
+import {toBoolean} from '@openobserve/openobserve-ci-base/helpers/env'
+import {enableFips} from '@openobserve/openobserve-ci-base/helpers/fips'
+import {parsePlist} from '@openobserve/openobserve-ci-base/helpers/plist'
 
 import {ReactNativeUploadCommand} from './upload'
 import {getReactNativeVersion} from './utils'
@@ -25,14 +25,14 @@ const getReactNativePath = () => {
     // We need to remove the trailing "/index.js" at the end of the path
     return indexFilePath.split('/').slice(0, -1).join('/')
   } catch (error) {
-    // When the command is ran from XCode with `../node_modules/.bin/datadog-ci react-native xcode`
+    // When the command is ran from XCode with `../node_modules/.bin/openobserve-ci react-native xcode`
     if (existsSync('../node_modules/react-native/package.json')) {
       return '../node_modules/react-native'
     }
 
     // Used for internal testing purposes only
-    if (process.env.DATADOG_CI_REACT_NATIVE_PATH) {
-      return process.env.DATADOG_CI_REACT_NATIVE_PATH
+    if (process.env.OPENOBSERVE_CI_REACT_NATIVE_PATH) {
+      return process.env.OPENOBSERVE_CI_REACT_NATIVE_PATH
     }
 
     // When the command is ran from XCode with yarn react-native xcode` (legacy)
@@ -41,29 +41,29 @@ const getReactNativePath = () => {
 }
 
 /**
- * Because jest cannot mock require.resolve, datadogReactNativePath cannot
+ * Because jest cannot mock require.resolve, ooReactNativePath cannot
  * be unit tested. If you make any change to it, make sure to test
  * it with a real project.
  */
-const getDatadogReactNativePath = () => {
+const getOpenObserveReactNativePath = () => {
   try {
-    const packageJsonPath = require.resolve('@datadog/mobile-react-native/package.json')
+    const packageJsonPath = require.resolve('@openobserve/mobile-react-native/package.json')
 
     // We need to remove the trailing "/package.json" at the end of the path
     return packageJsonPath.split('/').slice(0, -1).join('/')
   } catch (error) {
-    // When the command is ran from XCode with `../node_modules/.bin/datadog-ci react-native xcode`
-    if (existsSync('../node_modules/@datadog/mobile-react-native/package.json')) {
-      return '../node_modules/@datadog/mobile-react-native'
+    // When the command is ran from XCode with `../node_modules/.bin/openobserve-ci react-native xcode`
+    if (existsSync('../node_modules/@openobserve/mobile-react-native/package.json')) {
+      return '../node_modules/@openobserve/mobile-react-native'
     }
 
     // Used for internal testing purposes only
-    if (process.env.DATADOG_REACT_NATIVE_PATH) {
-      return process.env.DATADOG_REACT_NATIVE_PATH
+    if (process.env.OPENOBSERVE_REACT_NATIVE_PATH) {
+      return process.env.OPENOBSERVE_REACT_NATIVE_PATH
     }
 
     // When the command is ran from XCode with yarn react-native xcode` (legacy)
-    return 'node_modules/@datadog/mobile-react-native'
+    return 'node_modules/@openobserve/mobile-react-native'
   }
 }
 
@@ -72,15 +72,15 @@ export class ReactNativeXcodeCommand extends BaseCommand {
 
   public static usage = Command.Usage({
     category: 'RUM',
-    description: 'Bundle React Native code and images in XCode and send sourcemaps to Datadog.',
+    description: 'Bundle React Native code and images in XCode and send sourcemaps to OpenObserve.',
     details: `
-      This command will bundle the react native code and images and then upload React Native sourcemaps and their corresponding JavaScript bundle to Datadog in order to un-minify front-end stack traces received by Datadog.\n
+      This command will bundle the react native code and images and then upload React Native sourcemaps and their corresponding JavaScript bundle to OpenObserve in order to un-minify front-end stack traces received by OpenObserve.\n
       See README for details.
     `,
     examples: [
       [
         'Usage as XCode build phase for RN < 0.69',
-        'set -e\nexport SOURCEMAP_FILE=./build/main.jsbundle.map\nexport NODE_BINARY=node\n# Replace /opt/homebrew/bin/node (resp. /opt/homebrew/bin/yarn) by the value of $(command -v node) (resp. $(command -v yarn))\n/opt/homebrew/bin/node /opt/homebrew/bin/yarn datadog-ci react-native xcode node_modules/react-native/scripts/react-native-xcode.sh\n',
+        'set -e\nexport SOURCEMAP_FILE=./build/main.jsbundle.map\nexport NODE_BINARY=node\n# Replace /opt/homebrew/bin/node (resp. /opt/homebrew/bin/yarn) by the value of $(command -v node) (resp. $(command -v yarn))\n/opt/homebrew/bin/node /opt/homebrew/bin/yarn openobserve-ci react-native xcode node_modules/react-native/scripts/react-native-xcode.sh\n',
       ],
       [
         'Usage as XCode build phase for RN >= 0.69',
@@ -118,16 +118,16 @@ export class ReactNativeXcodeCommand extends BaseCommand {
   private get reactNativePath() {
     if (!this._reactNativePath) {
       this._reactNativePath = getReactNativePath()
-      this.verifyFolderPath(this._reactNativePath, 'DATADOG_CI_REACT_NATIVE_PATH')
+      this.verifyFolderPath(this._reactNativePath, 'OPENOBSERVE_CI_REACT_NATIVE_PATH')
     }
 
     return this._reactNativePath
   }
 
-  private get datadogReactNativePath() {
+  private get ooReactNativePath() {
     if (!this._datadogReactNativePath) {
-      this._datadogReactNativePath = getDatadogReactNativePath()
-      this.verifyFolderPath(this._datadogReactNativePath, 'DATADOG_REACT_NATIVE_PATH')
+      this._datadogReactNativePath = getOpenObserveReactNativePath()
+      this.verifyFolderPath(this._datadogReactNativePath, 'OPENOBSERVE_REACT_NATIVE_PATH')
     }
 
     return this._datadogReactNativePath
@@ -152,7 +152,7 @@ export class ReactNativeXcodeCommand extends BaseCommand {
 
     if (!this.service) {
       this.context.stderr.write(
-        'Environment variable PRODUCT_BUNDLE_IDENTIFIER is missing for Datadog sourcemaps upload.\n'
+        'Environment variable PRODUCT_BUNDLE_IDENTIFIER is missing for OpenObserve sourcemaps upload.\n'
       )
       this.context.stderr.write('Check that a Bundle Identifier is set for your target in XCode.\n')
       this.context.stderr.write('You can also specify the service as the SERVICE_NAME_IOS environment variable.\n')
@@ -164,7 +164,7 @@ export class ReactNativeXcodeCommand extends BaseCommand {
     }
 
     if (!process.env.CONFIGURATION) {
-      this.context.stderr.write('Environment variable CONFIGURATION is missing for Datadog sourcemaps upload.\n')
+      this.context.stderr.write('Environment variable CONFIGURATION is missing for OpenObserve sourcemaps upload.\n')
       this.context.stderr.write(
         'If you are not running this script from XCode, you can force the sourcemaps upload with a --force argument.\n'
       )
@@ -237,12 +237,12 @@ export class ReactNativeXcodeCommand extends BaseCommand {
 
         // Copy debug ID from the bundle to the sourcemaps location
         if (!this.copyDebugIdFromBundle(bundleLocation, sourcemapsLocation)) {
-          // Try to copy debug ID from the temporary file generated by Datadog Metro Plugin as a fallback
+          // Try to copy debug ID from the temporary file generated by OpenObserve Metro Plugin as a fallback
           this.copyDebugIdFromTempFile(sourcemapsLocation)
         }
       }
     } catch (error) {
-      this.context.stderr.write(`Error running bundle script from datadog-ci xcode.\n${String(error)}`)
+      this.context.stderr.write(`Error running bundle script from openobserve-ci xcode.\n${String(error)}`)
 
       return 1
     }
@@ -319,7 +319,7 @@ export class ReactNativeXcodeCommand extends BaseCommand {
    * This is used when the debug ID is not found in the bundle file.
    */
   private copyDebugIdFromTempFile = (sourcemapsLocation: string): boolean => {
-    const debugIdFilePath = `${this.datadogReactNativePath}/.tmp/debug_id`
+    const debugIdFilePath = `${this.ooReactNativePath}/.tmp/debug_id`
 
     if (!existsSync(debugIdFilePath)) {
       this.context.stderr.write(`\nDebug ID temporary file not found in ${debugIdFilePath}. Skipping copy.\n`)
@@ -375,7 +375,7 @@ export class ReactNativeXcodeCommand extends BaseCommand {
         if (sourcemap.debugId !== debugId) {
           this.context.stderr.write(
             `\nWARNING: The existing debugId (${sourcemap.debugId}) does not match the resolved debugId (${debugId}).
-            \nThis should never occur, please open an issue at https://github.com/DataDog/datadog-ci/issues/new?template=BUG_REPORT.yml`
+            \nThis should never occur, please open an issue at https://github.com/DataDog/openobserve-ci/issues/new?template=BUG_REPORT.yml`
           )
         }
 
@@ -418,7 +418,7 @@ export class ReactNativeXcodeCommand extends BaseCommand {
     })
 
     if (status !== 0) {
-      throw new Error(`error ${signal} while running datadog-ci xcode.`)
+      throw new Error(`error ${signal} while running openobserve-ci xcode.`)
     }
   }
 
@@ -440,14 +440,14 @@ export class ReactNativeXcodeCommand extends BaseCommand {
   private composeHermesSourcemaps = async (sourcemapsLocation: string) => {
     if (!process.env.UNLOCALIZED_RESOURCES_FOLDER_PATH) {
       this.context.stderr.write(
-        'Environment variable UNLOCALIZED_RESOURCES_FOLDER_PATH is missing for Datadog sourcemaps composition.\n'
+        'Environment variable UNLOCALIZED_RESOURCES_FOLDER_PATH is missing for OpenObserve sourcemaps composition.\n'
       )
       this.context.stderr.write(
         'If you are not running this script from XCode, set it to the subfolder containing the hbc sourcemap.\n'
       )
 
       throw new Error(
-        'Environment variable UNLOCALIZED_RESOURCES_FOLDER_PATH is missing for Datadog sourcemaps composition.'
+        'Environment variable UNLOCALIZED_RESOURCES_FOLDER_PATH is missing for OpenObserve sourcemaps composition.'
       )
     }
 
@@ -482,7 +482,7 @@ export class ReactNativeXcodeCommand extends BaseCommand {
     })
 
     if (status !== 0) {
-      throw new Error(`error ${signal} while running datadog-ci xcode.`)
+      throw new Error(`error ${signal} while running openobserve-ci xcode.`)
     }
   }
 
@@ -530,8 +530,8 @@ export class ReactNativeXcodeCommand extends BaseCommand {
   }
 
   private getReleaseVersion = (): string | null => {
-    if (process.env.DATADOG_RELEASE_VERSION) {
-      return process.env.DATADOG_RELEASE_VERSION
+    if (process.env.OPENOBSERVE_RELEASE_VERSION) {
+      return process.env.OPENOBSERVE_RELEASE_VERSION
     }
 
     try {

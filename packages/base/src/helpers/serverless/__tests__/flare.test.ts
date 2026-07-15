@@ -21,7 +21,7 @@ jest.mock('../../get-latest-version', () => ({
 }))
 
 import {CI_SITE_ENV_VAR, FLARE_PROJECT_FILES, SITE_ENV_VAR} from '../constants'
-import {getProjectFiles, sendToDatadog, validateCliVersion, validateFilePath, validateStartEndFlags} from '../flare'
+import {getProjectFiles, sendToOpenObserve, validateCliVersion, validateFilePath, validateStartEndFlags} from '../flare'
 import * as flareModule from '../flare'
 
 // Mocks
@@ -32,7 +32,7 @@ fs.createReadStream = jest.fn().mockReturnValue('test data')
 jest.mock('jszip')
 
 describe('flare', () => {
-  describe('sendToDatadog', () => {
+  describe('sendToOpenObserve', () => {
     const MOCK_ZIP_PATH = '/path/to/zip'
     const MOCK_CASE_ID = 'case1234'
     const MOCK_EMAIL = 'test@example.com'
@@ -53,7 +53,7 @@ describe('flare', () => {
     })
 
     it('should send data to the correct endpoint', async () => {
-      await sendToDatadog(
+      await sendToOpenObserve(
         MOCK_ZIP_PATH,
         MOCK_CASE_ID,
         MOCK_EMAIL,
@@ -77,7 +77,7 @@ describe('flare', () => {
       delete process.env[CI_SITE_ENV_VAR]
       process.env[SITE_ENV_VAR] = 'us3.datadoghq.com'
 
-      await sendToDatadog(
+      await sendToOpenObserve(
         MOCK_ZIP_PATH,
         MOCK_CASE_ID,
         MOCK_EMAIL,
@@ -98,15 +98,15 @@ describe('flare', () => {
       process.env[CI_SITE_ENV_VAR] = 'datad0ge.com'
 
       await expect(
-        sendToDatadog(MOCK_ZIP_PATH, MOCK_CASE_ID, MOCK_EMAIL, MOCK_API_KEY, MOCK_ROOT_FOLDER_PATH, MOCK_CLI_VERSION)
+        sendToOpenObserve(MOCK_ZIP_PATH, MOCK_CASE_ID, MOCK_EMAIL, MOCK_API_KEY, MOCK_ROOT_FOLDER_PATH, MOCK_CLI_VERSION)
       ).rejects.toThrow('Invalid site: datad0ge.com. Must be one of:')
     })
 
-    it('should not throw if the site is invalid and DD_CI_BYPASS_SITE_VALIDATION is set', async () => {
-      process.env['DD_CI_BYPASS_SITE_VALIDATION'] = 'true'
+    it('should not throw if the site is invalid and OO_CI_BYPASS_SITE_VALIDATION is set', async () => {
+      process.env['OO_CI_BYPASS_SITE_VALIDATION'] = 'true'
       process.env[CI_SITE_ENV_VAR] = 'datad0ge.com'
 
-      await sendToDatadog(
+      await sendToOpenObserve(
         MOCK_ZIP_PATH,
         MOCK_CASE_ID,
         MOCK_EMAIL,
@@ -129,7 +129,7 @@ describe('flare', () => {
         new RequestError(error.message, {}, {data: {error: 'Server error'}, status: 0, statusText: ''})
       )
 
-      const fn = sendToDatadog(
+      const fn = sendToOpenObserve(
         MOCK_ZIP_PATH,
         MOCK_CASE_ID,
         MOCK_EMAIL,
@@ -137,7 +137,7 @@ describe('flare', () => {
         MOCK_ROOT_FOLDER_PATH,
         MOCK_CLI_VERSION
       )
-      await expect(fn).rejects.toThrow(`Failed to send flare file to Datadog Support: ${error.message}. Server error\n`)
+      await expect(fn).rejects.toThrow(`Failed to send flare file to OpenObserve Support: ${error.message}. Server error\n`)
     })
 
     it('prints correct warning when post fail with error 500', async () => {
@@ -145,7 +145,7 @@ describe('flare', () => {
         new RequestError('Some error', {}, {data: {error: 'Server error'}, status: 500, statusText: ''})
       )
 
-      const fn = sendToDatadog(
+      const fn = sendToOpenObserve(
         MOCK_ZIP_PATH,
         MOCK_CASE_ID,
         MOCK_EMAIL,
@@ -154,7 +154,7 @@ describe('flare', () => {
         MOCK_CLI_VERSION
       )
       await expect(fn).rejects.toThrow(
-        `Failed to send flare file to Datadog Support: Some error. Server error\nAre your case ID and email correct?\n`
+        `Failed to send flare file to OpenObserve Support: Some error. Server error\nAre your case ID and email correct?\n`
       )
     })
 
@@ -163,7 +163,7 @@ describe('flare', () => {
         new RequestError('Some error', {}, {data: {error: 'Another error'}, status: 403, statusText: ''})
       )
 
-      const fn = sendToDatadog(
+      const fn = sendToOpenObserve(
         MOCK_ZIP_PATH,
         MOCK_CASE_ID,
         MOCK_EMAIL,
@@ -172,7 +172,7 @@ describe('flare', () => {
         MOCK_CLI_VERSION
       )
       await expect(fn).rejects.toThrow(
-        `Failed to send flare file to Datadog Support: Some error. Another error\nIs your Datadog API key correct? Please follow this doc to set your API key: \nhttps://docs.datadoghq.com/serverless/libraries_integrations/cli/#environment-variables\n`
+        `Failed to send flare file to OpenObserve Support: Some error. Another error\nIs your OpenObserve API key correct? Please follow this doc to set your API key: \nhttps://docs.datadoghq.com/serverless/libraries_integrations/cli/#environment-variables\n`
       )
     })
   })
@@ -310,7 +310,7 @@ describe('flare', () => {
       getLatestVersion.mockResolvedValue('1.1.0')
       await validateCliVersion('1.0.0', stdout)
       expect(stdout.write).toHaveBeenCalledWith(
-        '[!] You are using an outdated version of datadog-ci (1.0.0). The latest version is 1.1.0. Please update for better support.\n'
+        '[!] You are using an outdated version of openobserve-ci (1.0.0). The latest version is 1.1.0. Please update for better support.\n'
       )
     })
 

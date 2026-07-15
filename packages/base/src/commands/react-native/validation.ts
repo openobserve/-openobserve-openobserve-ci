@@ -1,6 +1,6 @@
 import type {RNSourcemap} from './interfaces'
 
-import {checkFile} from '@datadog/datadog-ci-base/helpers/validation'
+import {checkFile} from '@openobserve/openobserve-ci-base/helpers/validation'
 
 export class InvalidPayload extends Error {
   public reason: string

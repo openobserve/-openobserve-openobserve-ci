@@ -4,9 +4,9 @@ import chalk from 'chalk'
 
 import {InvalidConfigurationError} from './errors'
 import {httpRequest, isRequestError} from './request'
-import {datadogRoute} from './request/datadog-route'
+import {ooRoute} from './request/datadog-route'
 
-/** ApiKeyValidator is an helper interface to interpret Datadog error responses and possibly check the
+/** ApiKeyValidator is an helper interface to interpret OpenObserve error responses and possibly check the
  * validity of the api key.
  */
 export interface ApiKeyValidator {
@@ -16,31 +16,31 @@ export interface ApiKeyValidator {
 
 export interface ApiKeyValidatorParams {
   apiKey: string | undefined
-  datadogSite: string
+  ooSite: string
   metricsLogger?: BufferedMetricsLogger
 }
 
 export const newApiKeyValidator = (params: ApiKeyValidatorParams): ApiKeyValidator =>
-  new ApiKeyValidatorImplem(params.apiKey, params.datadogSite, params.metricsLogger)
+  new ApiKeyValidatorImplem(params.apiKey, params.ooSite, params.metricsLogger)
 
-/** ApiKeyValidator is an helper class to interpret Datadog error responses and possibly check the
+/** ApiKeyValidator is an helper class to interpret OpenObserve error responses and possibly check the
  * validity of the api key.
  */
 class ApiKeyValidatorImplem {
   public apiKey: string | undefined
-  public datadogSite: string
+  public ooSite: string
 
   private isValid?: boolean
   private metricsLogger?: BufferedMetricsLogger
 
-  constructor(apiKey: string | undefined, datadogSite: string, metricsLogger?: BufferedMetricsLogger) {
+  constructor(apiKey: string | undefined, ooSite: string, metricsLogger?: BufferedMetricsLogger) {
     this.apiKey = apiKey
-    this.datadogSite = datadogSite
+    this.ooSite = ooSite
     this.metricsLogger = metricsLogger
   }
 
   /** Check if an API key is valid, based on the HTTP error and defaulting to verify the API key
-   * through Datadog's API for ambiguous cases.
+   * through OpenObserve's API for ambiguous cases.
    * An exception is raised when the API key is invalid.
    * Callers should catch the exception to display it nicely.
    */
@@ -53,15 +53,15 @@ class ApiKeyValidatorImplem {
         this.metricsLogger.increment('invalid_auth', 1)
       }
       throw new InvalidConfigurationError(
-        `Neither ${chalk.red.bold('DATADOG_API_KEY')} nor ${chalk.red.bold(
-          'DD_API_KEY'
-        )} contains a valid API key for Datadog site ${this.datadogSite}`
+        `Neither ${chalk.red.bold('OPENOBSERVE_API_KEY')} nor ${chalk.red.bold(
+          'OO_API_KEY'
+        )} contains a valid API key for OpenObserve site ${this.ooSite}`
       )
     }
   }
 
   /**
-   * Check if the API key is valid by making a request to the Datadog validate API.
+   * Check if the API key is valid by making a request to the OpenObserve validate API.
    * @returns `true` if the API key is valid, `false` otherwise.
    */
   public async validateApiKey(): Promise<boolean> {
@@ -75,8 +75,8 @@ class ApiKeyValidatorImplem {
           'DD-API-KEY': this.apiKey,
         },
         method: 'GET',
-        baseURL: `https://api.${this.datadogSite}`,
-        url: datadogRoute('/api/v1/validate'),
+        baseURL: `https://api.${this.ooSite}`,
+        url: ooRoute('/api/v1/validate'),
       })
 
       return response.data.valid

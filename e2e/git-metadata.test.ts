@@ -1,10 +1,10 @@
-import {DATADOG_CI_COMMAND, execPromise} from './helpers/exec'
+import {OPENOBSERVE_CI_COMMAND, execPromise} from './helpers/exec'
 
 describe('git-metadata', () => {
   it('uploads without errors', async () => {
-    const result = await execPromise(`${DATADOG_CI_COMMAND} git-metadata upload`, {
-      DD_API_KEY: process.env.DD_API_KEY,
-      DATADOG_API_KEY: undefined,
+    const result = await execPromise(`${OPENOBSERVE_CI_COMMAND} git-metadata upload`, {
+      OO_API_KEY: process.env.OO_API_KEY,
+      OPENOBSERVE_API_KEY: undefined,
     })
 
     const output = `${result.stdout}\n${result.stderr}`

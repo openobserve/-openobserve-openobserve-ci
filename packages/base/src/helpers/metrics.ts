@@ -1,7 +1,7 @@
 import metrics from 'datadog-metrics'
 import {ProxyAgent} from 'proxy-agent'
 
-import {getDatadogSite} from './api'
+import {getOpenObserveSite} from './api'
 
 export interface MetricsLogger {
   logger: metrics.BufferedMetricsLogger
@@ -10,13 +10,13 @@ export interface MetricsLogger {
 
 export interface MetricsLoggerOptions {
   apiKey?: string
-  datadogSite?: string
+  ooSite?: string
   defaultTags?: string[]
   prefix: string
 }
 
 export const getMetricsLogger = (opts: MetricsLoggerOptions): MetricsLogger => {
-  const apiUrl = 'api.' + getDatadogSite(opts.datadogSite)
+  const apiUrl = 'api.' + getOpenObserveSite(opts.ooSite)
 
   const metricsOpts = {
     // ProxyAgent will retrieve proxy agent from env vars when relevant

@@ -1,7 +1,7 @@
 import chalk from 'chalk'
 import upath from 'upath'
 
-import {createCommand, makeRunCLI} from '@datadog/datadog-ci-base/helpers/__tests__/testing-tools'
+import {createCommand, makeRunCLI} from '@openobserve/openobserve-ci-base/helpers/__tests__/testing-tools'
 
 import {Sourcemap} from '../interfaces'
 import {SourcemapsUploadCommand} from '../upload'
@@ -119,7 +119,7 @@ describe('upload', () => {
       const command = createCommand(SourcemapsUploadCommand)
 
       expect(command['getRequestBuilder'].bind(command)).toThrow(
-        `Missing ${chalk.bold('DATADOG_API_KEY')} or ${chalk.bold('DD_API_KEY')} in your environment.`
+        `Missing ${chalk.bold('OPENOBSERVE_API_KEY')} or ${chalk.bold('OO_API_KEY')} in your environment.`
       )
     })
   })
@@ -137,7 +137,7 @@ describe('upload', () => {
           ''
         )
       )
-      // The command will fetch git metadatas for the current datadog-ci repository.
+      // The command will fetch git metadatas for the current openobserve-ci repository.
       // The `empty.min.js.map` contains no files, therefore no file payload should be set.
       await command['addRepositoryDataToPayloads'](sourcemaps)
       expect(sourcemaps[0].gitData).toBeDefined()
@@ -158,7 +158,7 @@ describe('upload', () => {
           ''
         )
       )
-      // The command will fetch git metadatas for the current datadog-ci repository.
+      // The command will fetch git metadatas for the current openobserve-ci repository.
       // The `common.min.js.map` contains the "git.test.ts" filename which matches a tracked filename,
       // therefore a file payload should be set.
       // Removing the "git.test.ts" file will break this test.
@@ -200,8 +200,8 @@ describe('upload', () => {
       const savedEnv = process.env
       process.env = {
         ...savedEnv,
-        DD_GIT_REPOSITORY_URL: 'https://github.com/my-org/my-repo',
-        DD_GIT_COMMIT_SHA: 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+        OO_GIT_REPOSITORY_URL: 'https://github.com/my-org/my-repo',
+        OO_GIT_COMMIT_SHA: 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
       }
       const command = createCommand(SourcemapsUploadCommand, {stdout: {write}})
       const sourcemaps = new Array<Sourcemap>(

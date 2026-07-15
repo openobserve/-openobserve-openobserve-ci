@@ -3,8 +3,8 @@ import type {CompressedDsym, Dsym, DWARF} from './interfaces'
 import chalk from 'chalk'
 import upath from 'upath'
 
-import {ICONS} from '@datadog/datadog-ci-base/helpers/formatting'
-import {UploadStatus} from '@datadog/datadog-ci-base/helpers/upload'
+import {ICONS} from '@openobserve/openobserve-ci-base/helpers/formatting'
+import {UploadStatus} from '@openobserve/openobserve-ci-base/helpers/upload'
 
 import {pluralize} from './utils'
 

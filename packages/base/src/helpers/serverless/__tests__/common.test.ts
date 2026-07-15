@@ -4,7 +4,7 @@ import {
   generateConfigDiff,
   parseEnvVars,
   sortedEqual,
-} from '@datadog/datadog-ci-base/helpers/serverless/common'
+} from '@openobserve/openobserve-ci-base/helpers/serverless/common'
 
 describe('generateConfigDiff', () => {
   test('should generate correct diffs for various config changes', () => {
@@ -193,7 +193,7 @@ describe('createInstrumentedTemplate', () => {
         {
           name: 'datadog-sidecar',
           image: 'index.docker.io/datadog/serverless-init:latest',
-          env: [{name: 'DD_SERVICE', value: 'app'}],
+          env: [{name: 'OO_SERVICE', value: 'app'}],
           resources: {
             cpu: 0.5,
             memory: '1Gi',
@@ -225,7 +225,7 @@ describe('createInstrumentedTemplate', () => {
         volumeMountNameKey: 'volumeName',
       },
       {
-        DD_SERVICE: {name: 'DD_SERVICE', value: 'app'},
+        OO_SERVICE: {name: 'OO_SERVICE', value: 'app'},
       }
     )
 

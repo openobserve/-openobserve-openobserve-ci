@@ -25,7 +25,7 @@ describe('gitdb', () => {
   const secondTemporaryPackFile = `${tmpdir}/1000-cc424c261da5e261b76d982d5d361a023556e2aa.pack`
 
   beforeAll(() => {
-    process.env.DD_API_KEY = 'api-key'
+    process.env.OO_API_KEY = 'api-key'
     jest.spyOn(global.Math, 'random').mockReturnValue(0.1)
   })
 
@@ -43,7 +43,7 @@ describe('gitdb', () => {
   })
 
   afterAll(() => {
-    delete process.env.DD_API_KEY
+    delete process.env.OO_API_KEY
     jest.spyOn(global.Math, 'random').mockRestore()
   })
 
@@ -311,7 +311,7 @@ describe('gitdb', () => {
       getRemotes: [
         {
           input: undefined,
-          output: [{name: 'origin', refs: {push: 'https://github.com/DataDog/datadog-ci'}}],
+          output: [{name: 'origin', refs: {push: 'https://github.com/DataDog/openobserve-ci'}}],
         },
       ],
       log: [
@@ -345,7 +345,7 @@ describe('gitdb', () => {
             url: '/api/v2/git/repository/search_commits',
             data: {
               meta: {
-                repository_url: 'https://github.com/DataDog/datadog-ci',
+                repository_url: 'https://github.com/DataDog/openobserve-ci',
               },
               data: [
                 {
@@ -409,7 +409,7 @@ describe('gitdb', () => {
       getRemotes: [
         {
           input: undefined,
-          output: [{name: 'origin', refs: {push: 'https://github.com/DataDog/datadog-ci'}}],
+          output: [{name: 'origin', refs: {push: 'https://github.com/DataDog/openobserve-ci'}}],
         },
       ],
       log: [
@@ -443,7 +443,7 @@ describe('gitdb', () => {
             url: '/api/v2/git/repository/search_commits',
             data: {
               meta: {
-                repository_url: 'https://github.com/DataDog/datadog-ci',
+                repository_url: 'https://github.com/DataDog/openobserve-ci',
               },
               data: [
                 {
@@ -478,7 +478,7 @@ describe('gitdb', () => {
       getRemotes: [
         {
           input: undefined,
-          output: [{name: 'origin', refs: {push: 'https://github.com/DataDog/datadog-ci'}}],
+          output: [{name: 'origin', refs: {push: 'https://github.com/DataDog/openobserve-ci'}}],
         },
       ],
       log: [
@@ -507,7 +507,7 @@ describe('gitdb', () => {
             url: '/api/v2/git/repository/search_commits',
             data: {
               meta: {
-                repository_url: 'https://github.com/DataDog/datadog-ci',
+                repository_url: 'https://github.com/DataDog/openobserve-ci',
               },
               data: [
                 {
@@ -542,7 +542,7 @@ describe('gitdb', () => {
       getRemotes: [
         {
           input: undefined,
-          output: [{name: 'origin', refs: {push: 'https://github.com/DataDog/datadog-ci'}}],
+          output: [{name: 'origin', refs: {push: 'https://github.com/DataDog/openobserve-ci'}}],
         },
       ],
       log: [
@@ -570,7 +570,7 @@ describe('gitdb', () => {
             url: '/api/v2/git/repository/search_commits',
             data: {
               meta: {
-                repository_url: 'https://github.com/DataDog/datadog-ci',
+                repository_url: 'https://github.com/DataDog/openobserve-ci',
               },
               data: [
                 {
@@ -657,7 +657,7 @@ describe('gitdb', () => {
       getRemotes: [
         {
           input: undefined,
-          output: [{name: 'origin', refs: {push: 'https://github.com/DataDog/datadog-ci'}}],
+          output: [{name: 'origin', refs: {push: 'https://github.com/DataDog/openobserve-ci'}}],
         },
       ],
       log: [
@@ -691,7 +691,7 @@ describe('gitdb', () => {
             url: '/api/v2/git/repository/search_commits',
             data: {
               meta: {
-                repository_url: 'https://github.com/DataDog/datadog-ci',
+                repository_url: 'https://github.com/DataDog/openobserve-ci',
               },
               data: [
                 {
@@ -775,7 +775,7 @@ describe('gitdb', () => {
       getRemotes: [
         {
           input: undefined,
-          output: [{name: 'origin', refs: {push: 'https://github.com/DataDog/datadog-ci'}}],
+          output: [{name: 'origin', refs: {push: 'https://github.com/DataDog/openobserve-ci'}}],
         },
       ],
       log: [
@@ -809,7 +809,7 @@ describe('gitdb', () => {
             url: '/api/v2/git/repository/search_commits',
             data: {
               meta: {
-                repository_url: 'https://github.com/DataDog/datadog-ci',
+                repository_url: 'https://github.com/DataDog/openobserve-ci',
               },
               data: [
                 {
@@ -844,7 +844,7 @@ describe('gitdb', () => {
       getRemotes: [
         {
           input: undefined,
-          output: [{name: 'origin', refs: {push: 'https://github.com/DataDog/datadog-ci'}}],
+          output: [{name: 'origin', refs: {push: 'https://github.com/DataDog/openobserve-ci'}}],
         },
       ],
       log: [
@@ -890,7 +890,7 @@ describe('gitdb', () => {
             url: '/api/v2/git/repository/search_commits',
             data: {
               meta: {
-                repository_url: 'https://github.com/DataDog/datadog-ci',
+                repository_url: 'https://github.com/DataDog/openobserve-ci',
               },
               data: [
                 {
@@ -1030,7 +1030,7 @@ describe('gitdb', () => {
       getRemotes: [
         {
           input: undefined,
-          output: [{name: 'origin', refs: {push: 'https://github.com/DataDog/datadog-ci'}}],
+          output: [{name: 'origin', refs: {push: 'https://github.com/DataDog/openobserve-ci'}}],
         },
       ],
       log: [
@@ -1076,7 +1076,7 @@ describe('gitdb', () => {
             url: '/api/v2/git/repository/search_commits',
             data: {
               meta: {
-                repository_url: 'https://github.com/DataDog/datadog-ci',
+                repository_url: 'https://github.com/DataDog/openobserve-ci',
               },
               data: [
                 {
@@ -1127,7 +1127,7 @@ describe('gitdb', () => {
       getRemotes: [
         {
           input: undefined,
-          output: [{name: 'origin', refs: {push: 'https://github.com/DataDog/datadog-ci'}}],
+          output: [{name: 'origin', refs: {push: 'https://github.com/DataDog/openobserve-ci'}}],
         },
       ],
       log: [
@@ -1173,7 +1173,7 @@ describe('gitdb', () => {
             url: '/api/v2/git/repository/search_commits',
             data: {
               meta: {
-                repository_url: 'https://github.com/DataDog/datadog-ci',
+                repository_url: 'https://github.com/DataDog/openobserve-ci',
               },
               data: [
                 {
@@ -1194,7 +1194,7 @@ describe('gitdb', () => {
             url: '/api/v2/git/repository/search_commits',
             data: {
               meta: {
-                repository_url: 'https://github.com/DataDog/datadog-ci',
+                repository_url: 'https://github.com/DataDog/openobserve-ci',
               },
               data: [
                 {
@@ -1245,7 +1245,7 @@ describe('gitdb', () => {
       getRemotes: [
         {
           input: undefined,
-          output: [{name: 'origin', refs: {push: 'https://github.com/DataDog/datadog-ci'}}],
+          output: [{name: 'origin', refs: {push: 'https://github.com/DataDog/openobserve-ci'}}],
         },
       ],
       log: [
@@ -1273,7 +1273,7 @@ describe('gitdb', () => {
             url: '/api/v2/git/repository/search_commits',
             data: {
               meta: {
-                repository_url: 'https://github.com/DataDog/datadog-ci',
+                repository_url: 'https://github.com/DataDog/openobserve-ci',
               },
               data: [
                 {
@@ -1294,7 +1294,7 @@ describe('gitdb', () => {
             url: '/api/v2/git/repository/search_commits',
             data: {
               meta: {
-                repository_url: 'https://github.com/DataDog/datadog-ci',
+                repository_url: 'https://github.com/DataDog/openobserve-ci',
               },
               data: [
                 {
@@ -1315,7 +1315,7 @@ describe('gitdb', () => {
             url: '/api/v2/git/repository/search_commits',
             data: {
               meta: {
-                repository_url: 'https://github.com/DataDog/datadog-ci',
+                repository_url: 'https://github.com/DataDog/openobserve-ci',
               },
               data: [
                 {
@@ -1350,7 +1350,7 @@ describe('gitdb', () => {
       getRemotes: [
         {
           input: undefined,
-          output: [{name: 'origin', refs: {push: 'https://github.com/DataDog/datadog-ci'}}],
+          output: [{name: 'origin', refs: {push: 'https://github.com/DataDog/openobserve-ci'}}],
         },
       ],
       log: [
@@ -1378,7 +1378,7 @@ describe('gitdb', () => {
             url: '/api/v2/git/repository/search_commits',
             data: {
               meta: {
-                repository_url: 'https://github.com/DataDog/datadog-ci',
+                repository_url: 'https://github.com/DataDog/openobserve-ci',
               },
               data: [
                 {
@@ -1424,7 +1424,7 @@ describe('gitdb', () => {
       getRemotes: [
         {
           input: undefined,
-          output: [{name: 'origin', refs: {push: 'https://github.com/DataDog/datadog-ci'}}],
+          output: [{name: 'origin', refs: {push: 'https://github.com/DataDog/openobserve-ci'}}],
         },
       ],
       log: [
@@ -1452,7 +1452,7 @@ describe('gitdb', () => {
             url: '/api/v2/git/repository/search_commits',
             data: {
               meta: {
-                repository_url: 'https://github.com/DataDog/datadog-ci',
+                repository_url: 'https://github.com/DataDog/openobserve-ci',
               },
               data: [
                 {

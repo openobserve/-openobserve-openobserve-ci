@@ -1,6 +1,6 @@
 {
   "plugins": {
-    "@datadog/datadog-ci-plugin-lambda": {
+    "@openobserve/openobserve-ci-plugin-lambda": {
       "bundle": {
         "extraBundlePatterns": [
           "./src/functions/*.ts"

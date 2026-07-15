@@ -4,7 +4,7 @@ import {promisify} from 'util'
 
 import type {RequestBuilder, SpanTag, SpanTags} from './interfaces'
 import type {RequestConfig} from './request'
-import type {DatadogRoute} from './request/datadog-route'
+import type {OpenObserveRoute} from './request/datadog-route'
 import type {BaseContext, CommandClass} from 'clipanion'
 
 import {Cli} from 'clipanion'
@@ -13,7 +13,7 @@ import {ProxyAgent} from 'proxy-agent'
 
 import {getProxyDispatcher, httpRequest} from './request'
 
-export const DEFAULT_CONFIG_PATHS = ['datadog-ci.json']
+export const DEFAULT_CONFIG_PATHS = ['openobserve-ci.json']
 
 export const pick = <T extends Record<any, any>, K extends keyof T>(base: T, keys: K[]) => {
   const definedKeys = keys.filter((key) => !!base[key])
@@ -146,7 +146,7 @@ export interface RequestOptions {
   appKey?: string
   baseUrl: string
   headers?: Map<string, string>
-  overrideUrl?: DatadogRoute
+  overrideUrl?: OpenObserveRoute
   proxyOpts?: ProxyConfiguration
 }
 

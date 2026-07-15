@@ -1,21 +1,21 @@
-import type {RequestBuilder} from '@datadog/datadog-ci-base/helpers/interfaces'
-import type {MultipartPayload, UploadOptions} from '@datadog/datadog-ci-base/helpers/upload'
+import type {RequestBuilder} from '@openobserve/openobserve-ci-base/helpers/interfaces'
+import type {MultipartPayload, UploadOptions} from '@openobserve/openobserve-ci-base/helpers/upload'
 
-import {getBaseSourcemapIntakeUrl} from '@datadog/datadog-ci-base/helpers/base-intake-url'
-import {upload} from '@datadog/datadog-ci-base/helpers/upload'
-import {getRequestBuilder} from '@datadog/datadog-ci-base/helpers/utils'
+import {getBaseSourcemapIntakeUrl} from '@openobserve/openobserve-ci-base/helpers/base-intake-url'
+import {upload} from '@openobserve/openobserve-ci-base/helpers/upload'
+import {getRequestBuilder} from '@openobserve/openobserve-ci-base/helpers/utils'
 
-import {datadogRoute} from '../../helpers/request/datadog-route'
+import {ooRoute} from '../../helpers/request/datadog-route'
 
 export const getPERequestBuilder = (apiKey: string, cliVersion: string, site: string) =>
   getRequestBuilder({
     apiKey,
     baseUrl: getBaseSourcemapIntakeUrl(site),
     headers: new Map([
-      ['DD-EVP-ORIGIN', 'datadog-ci_pe-symbols'],
+      ['DD-EVP-ORIGIN', 'openobserve-ci_pe-symbols'],
       ['DD-EVP-ORIGIN-VERSION', cliVersion],
     ]),
-    overrideUrl: datadogRoute('/api/v2/srcmap'),
+    overrideUrl: ooRoute('/api/v2/srcmap'),
   })
 
 // TODO: this is an exact duplicate of elf-symbols --> should we share the implementation in a more shared helper.ts file?

@@ -1,25 +1,25 @@
 // Environment variables for Lambda and Cloud Run
-export const API_KEY_ENV_VAR = 'DD_API_KEY'
-export const CI_API_KEY_ENV_VAR = 'DATADOG_API_KEY'
-export const CI_SITE_ENV_VAR = 'DATADOG_SITE'
-export const SITE_ENV_VAR = 'DD_SITE'
-export const LOGS_INJECTION_ENV_VAR = 'DD_LOGS_INJECTION'
-export const LOGS_PATH_ENV_VAR = 'DD_SERVERLESS_LOG_PATH'
-export const HEALTH_PORT_ENV_VAR = 'DD_HEALTH_PORT'
-export const DD_LOG_LEVEL_ENV_VAR = 'DD_LOG_LEVEL'
-export const DD_TRACE_ENABLED_ENV_VAR = 'DD_TRACE_ENABLED'
-export const DD_LLMOBS_ENABLED_ENV_VAR = 'DD_LLMOBS_ENABLED'
-export const DD_LLMOBS_ML_APP_ENV_VAR = 'DD_LLMOBS_ML_APP'
-export const DD_LLMOBS_AGENTLESS_ENABLED_ENV_VAR = 'DD_LLMOBS_AGENTLESS_ENABLED'
-export const DD_TAGS_ENV_VAR = 'DD_TAGS'
-export const DD_SOURCE_ENV_VAR = 'DD_SOURCE' // Tagging env vars
+export const API_KEY_ENV_VAR = 'OO_API_KEY'
+export const CI_API_KEY_ENV_VAR = 'OPENOBSERVE_API_KEY'
+export const CI_SITE_ENV_VAR = 'OPENOBSERVE_SITE'
+export const SITE_ENV_VAR = 'OO_SITE'
+export const LOGS_INJECTION_ENV_VAR = 'OO_LOGS_INJECTION'
+export const LOGS_PATH_ENV_VAR = 'OO_SERVERLESS_LOG_PATH'
+export const HEALTH_PORT_ENV_VAR = 'OO_HEALTH_PORT'
+export const OO_LOG_LEVEL_ENV_VAR = 'OO_LOG_LEVEL'
+export const OO_TRACE_ENABLED_ENV_VAR = 'OO_TRACE_ENABLED'
+export const OO_LLMOBS_ENABLED_ENV_VAR = 'OO_LLMOBS_ENABLED'
+export const OO_LLMOBS_ML_APP_ENV_VAR = 'OO_LLMOBS_ML_APP'
+export const OO_LLMOBS_AGENTLESS_ENABLED_ENV_VAR = 'OO_LLMOBS_AGENTLESS_ENABLED'
+export const OO_TAGS_ENV_VAR = 'OO_TAGS'
+export const OO_SOURCE_ENV_VAR = 'OO_SOURCE' // Tagging env vars
 
-export const SERVICE_ENV_VAR = 'DD_SERVICE'
-export const ENVIRONMENT_ENV_VAR = 'DD_ENV'
-export const VERSION_ENV_VAR = 'DD_VERSION'
+export const SERVICE_ENV_VAR = 'OO_SERVICE'
+export const ENVIRONMENT_ENV_VAR = 'OO_ENV'
+export const VERSION_ENV_VAR = 'OO_VERSION'
 
 /*
- * DD_TAGS Regular Expression
+ * OO_TAGS Regular Expression
  * This RegExp ensures that the --extra-tags string
  * matches a list of <key>:<value> separated by commas
  * such as layer:api,team:intake
@@ -27,7 +27,7 @@ export const VERSION_ENV_VAR = 'DD_VERSION'
 export const EXTRA_TAGS_REG_EXP = /^(([a-zA-Z]+)[\w\-/.]*:[^,]+)+((,)([a-zA-Z]+)[\w\-/.]*:[^,]+)*$/g
 
 // Flare constants
-export const FLARE_OUTPUT_DIRECTORY = '.datadog-ci'
+export const FLARE_OUTPUT_DIRECTORY = '.openobserve-ci'
 export const LOGS_DIRECTORY = 'logs'
 export const PROJECT_FILES_DIRECTORY = 'project_files'
 export const ADDITIONAL_FILES_DIRECTORY = 'additional_files'
@@ -35,7 +35,7 @@ export const INSIGHTS_FILE_NAME = 'INSIGHTS.md'
 
 // Project files to search for in Flare
 export const FLARE_PROJECT_FILES = [
-  // Datadog CloudFormation Template
+  // OpenObserve CloudFormation Template
   'datadog-cloudfomation-macro.yaml',
   'datadog-cloudfomation-macro.yml',
   'datadog-cloudformation-macro.json',

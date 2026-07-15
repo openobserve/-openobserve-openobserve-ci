@@ -17,7 +17,7 @@
       "TF_BUILD": "True"
     },
     {
-      "_dd.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
+      "_oo.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
       "ci.job.id": "azure-pipelines-job-id",
       "ci.job.url": "https://azure-pipelines-server-uri.com/azure-pipelines-project-id/_build/results?buildId=azure-pipelines-build-id&view=logs&j=azure-pipelines-job-id&t=azure-pipelines-task-id",
       "ci.pipeline.id": "azure-pipelines-build-id",
@@ -53,7 +53,7 @@
       "TF_BUILD": "True"
     },
     {
-      "_dd.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
+      "_oo.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
       "ci.job.id": "azure-pipelines-job-id",
       "ci.job.url": "https://azure-pipelines-server-uri.com/azure-pipelines-project-id/_build/results?buildId=azure-pipelines-build-id&view=logs&j=azure-pipelines-job-id&t=azure-pipelines-task-id",
       "ci.pipeline.id": "azure-pipelines-build-id",
@@ -88,7 +88,7 @@
       "TF_BUILD": "True"
     },
     {
-      "_dd.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
+      "_oo.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
       "ci.job.id": "azure-pipelines-job-id",
       "ci.job.url": "https://azure-pipelines-server-uri.com/azure-pipelines-project-id/_build/results?buildId=azure-pipelines-build-id&view=logs&j=azure-pipelines-job-id&t=azure-pipelines-task-id",
       "ci.pipeline.id": "azure-pipelines-build-id",
@@ -125,7 +125,7 @@
       "USERPROFILE": "/not-my-home"
     },
     {
-      "_dd.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
+      "_oo.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
       "ci.job.id": "azure-pipelines-job-id",
       "ci.job.url": "https://azure-pipelines-server-uri.com/azure-pipelines-project-id/_build/results?buildId=azure-pipelines-build-id&view=logs&j=azure-pipelines-job-id&t=azure-pipelines-task-id",
       "ci.pipeline.id": "azure-pipelines-build-id",
@@ -162,7 +162,7 @@
       "USERPROFILE": "/not-my-home"
     },
     {
-      "_dd.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
+      "_oo.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
       "ci.job.id": "azure-pipelines-job-id",
       "ci.job.url": "https://azure-pipelines-server-uri.com/azure-pipelines-project-id/_build/results?buildId=azure-pipelines-build-id&view=logs&j=azure-pipelines-job-id&t=azure-pipelines-task-id",
       "ci.pipeline.id": "azure-pipelines-build-id",
@@ -199,7 +199,7 @@
       "USERPROFILE": "/not-my-home"
     },
     {
-      "_dd.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
+      "_oo.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
       "ci.job.id": "azure-pipelines-job-id",
       "ci.job.url": "https://azure-pipelines-server-uri.com/azure-pipelines-project-id/_build/results?buildId=azure-pipelines-build-id&view=logs&j=azure-pipelines-job-id&t=azure-pipelines-task-id",
       "ci.pipeline.id": "azure-pipelines-build-id",
@@ -236,7 +236,7 @@
       "USERPROFILE": "/not-my-home"
     },
     {
-      "_dd.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
+      "_oo.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
       "ci.job.id": "azure-pipelines-job-id",
       "ci.job.url": "https://azure-pipelines-server-uri.com/azure-pipelines-project-id/_build/results?buildId=azure-pipelines-build-id&view=logs&j=azure-pipelines-job-id&t=azure-pipelines-task-id",
       "ci.pipeline.id": "azure-pipelines-build-id",
@@ -273,7 +273,7 @@
       "USERPROFILE": "/not-my-home"
     },
     {
-      "_dd.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
+      "_oo.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
       "ci.job.id": "azure-pipelines-job-id",
       "ci.job.url": "https://azure-pipelines-server-uri.com/azure-pipelines-project-id/_build/results?buildId=azure-pipelines-build-id&view=logs&j=azure-pipelines-job-id&t=azure-pipelines-task-id",
       "ci.pipeline.id": "azure-pipelines-build-id",
@@ -308,7 +308,7 @@
       "TF_BUILD": "True"
     },
     {
-      "_dd.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
+      "_oo.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
       "ci.job.id": "azure-pipelines-job-id",
       "ci.job.url": "https://azure-pipelines-server-uri.com/azure-pipelines-project-id/_build/results?buildId=azure-pipelines-build-id&view=logs&j=azure-pipelines-job-id&t=azure-pipelines-task-id",
       "ci.pipeline.id": "azure-pipelines-build-id",
@@ -343,7 +343,7 @@
       "TF_BUILD": "True"
     },
     {
-      "_dd.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
+      "_oo.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
       "ci.job.id": "azure-pipelines-job-id",
       "ci.job.url": "https://azure-pipelines-server-uri.com/azure-pipelines-project-id/_build/results?buildId=azure-pipelines-build-id&view=logs&j=azure-pipelines-job-id&t=azure-pipelines-task-id",
       "ci.pipeline.id": "azure-pipelines-build-id",
@@ -378,7 +378,7 @@
       "TF_BUILD": "True"
     },
     {
-      "_dd.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
+      "_oo.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
       "ci.job.id": "azure-pipelines-job-id",
       "ci.job.url": "https://azure-pipelines-server-uri.com/azure-pipelines-project-id/_build/results?buildId=azure-pipelines-build-id&view=logs&j=azure-pipelines-job-id&t=azure-pipelines-task-id",
       "ci.pipeline.id": "azure-pipelines-build-id",
@@ -413,7 +413,7 @@
       "TF_BUILD": "True"
     },
     {
-      "_dd.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
+      "_oo.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
       "ci.job.id": "azure-pipelines-job-id",
       "ci.job.url": "https://azure-pipelines-server-uri.com/azure-pipelines-project-id/_build/results?buildId=azure-pipelines-build-id&view=logs&j=azure-pipelines-job-id&t=azure-pipelines-task-id",
       "ci.pipeline.id": "azure-pipelines-build-id",
@@ -448,7 +448,7 @@
       "TF_BUILD": "True"
     },
     {
-      "_dd.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
+      "_oo.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
       "ci.job.id": "azure-pipelines-job-id",
       "ci.job.url": "https://azure-pipelines-server-uri.com/azure-pipelines-project-id/_build/results?buildId=azure-pipelines-build-id&view=logs&j=azure-pipelines-job-id&t=azure-pipelines-task-id",
       "ci.pipeline.id": "azure-pipelines-build-id",
@@ -485,7 +485,7 @@
       "TF_BUILD": "True"
     },
     {
-      "_dd.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
+      "_oo.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
       "ci.job.id": "azure-pipelines-job-id",
       "ci.job.url": "https://azure-pipelines-server-uri.com/azure-pipelines-project-id/_build/results?buildId=azure-pipelines-build-id&view=logs&j=azure-pipelines-job-id&t=azure-pipelines-task-id",
       "ci.pipeline.id": "azure-pipelines-build-id",
@@ -523,7 +523,7 @@
       "TF_BUILD": "True"
     },
     {
-      "_dd.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
+      "_oo.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
       "ci.job.id": "azure-pipelines-job-id",
       "ci.job.url": "https://azure-pipelines-server-uri.com/azure-pipelines-project-id/_build/results?buildId=azure-pipelines-build-id&view=logs&j=azure-pipelines-job-id&t=azure-pipelines-task-id",
       "ci.pipeline.id": "azure-pipelines-build-id",
@@ -562,7 +562,7 @@
       "TF_BUILD": "True"
     },
     {
-      "_dd.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
+      "_oo.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
       "ci.job.id": "azure-pipelines-job-id",
       "ci.job.name": "azure-pipelines-job-name",
       "ci.job.url": "https://azure-pipelines-server-uri.com/azure-pipelines-project-id/_build/results?buildId=azure-pipelines-build-id&view=logs&j=azure-pipelines-job-id&t=azure-pipelines-task-id",
@@ -587,16 +587,16 @@
       "BUILD_REQUESTEDFOREMAIL": "azure-pipelines-commit-author-email@datadoghq.com",
       "BUILD_REQUESTEDFORID": "azure-pipelines-commit-author",
       "BUILD_SOURCEVERSIONMESSAGE": "azure-pipelines-commit-message",
-      "DD_GIT_BRANCH": "user-supplied-branch",
-      "DD_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
-      "DD_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
-      "DD_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
-      "DD_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
-      "DD_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
-      "DD_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
-      "DD_GIT_COMMIT_MESSAGE": "usersupplied-message",
-      "DD_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
-      "DD_GIT_REPOSITORY_URL": "git@github.com:DataDog/userrepo.git",
+      "OO_GIT_BRANCH": "user-supplied-branch",
+      "OO_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
+      "OO_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
+      "OO_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
+      "OO_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
+      "OO_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
+      "OO_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
+      "OO_GIT_COMMIT_MESSAGE": "usersupplied-message",
+      "OO_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
+      "OO_GIT_REPOSITORY_URL": "git@github.com:DataDog/userrepo.git",
       "SYSTEM_JOBID": "azure-pipelines-job-id",
       "SYSTEM_TASKINSTANCEID": "azure-pipelines-task-id",
       "SYSTEM_TEAMFOUNDATIONSERVERURI": "https://azure-pipelines-server-uri.com/",
@@ -604,7 +604,7 @@
       "TF_BUILD": "True"
     },
     {
-      "_dd.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
+      "_oo.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
       "ci.job.id": "azure-pipelines-job-id",
       "ci.job.url": "https://azure-pipelines-server-uri.com/azure-pipelines-project-id/_build/results?buildId=azure-pipelines-build-id&view=logs&j=azure-pipelines-job-id&t=azure-pipelines-task-id",
       "ci.pipeline.id": "azure-pipelines-build-id",
@@ -631,16 +631,16 @@
       "BUILD_REQUESTEDFOREMAIL": "azure-pipelines-commit-author-email@datadoghq.com",
       "BUILD_REQUESTEDFORID": "azure-pipelines-commit-author",
       "BUILD_SOURCEVERSIONMESSAGE": "azure-pipelines-commit-message",
-      "DD_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
-      "DD_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
-      "DD_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
-      "DD_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
-      "DD_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
-      "DD_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
-      "DD_GIT_COMMIT_MESSAGE": "usersupplied-message",
-      "DD_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
-      "DD_GIT_REPOSITORY_URL": "git@github.com:DataDog/userrepo.git",
-      "DD_GIT_TAG": "0.0.2",
+      "OO_GIT_COMMIT_AUTHOR_DATE": "usersupplied-authordate",
+      "OO_GIT_COMMIT_AUTHOR_EMAIL": "usersupplied-authoremail",
+      "OO_GIT_COMMIT_AUTHOR_NAME": "usersupplied-authorname",
+      "OO_GIT_COMMIT_COMMITTER_DATE": "usersupplied-comitterdate",
+      "OO_GIT_COMMIT_COMMITTER_EMAIL": "usersupplied-comitteremail",
+      "OO_GIT_COMMIT_COMMITTER_NAME": "usersupplied-comittername",
+      "OO_GIT_COMMIT_MESSAGE": "usersupplied-message",
+      "OO_GIT_COMMIT_SHA": "b9f0fb3fdbb94c9d24b2c75b49663122a529e123",
+      "OO_GIT_REPOSITORY_URL": "git@github.com:DataDog/userrepo.git",
+      "OO_GIT_TAG": "0.0.2",
       "SYSTEM_JOBID": "azure-pipelines-job-id",
       "SYSTEM_TASKINSTANCEID": "azure-pipelines-task-id",
       "SYSTEM_TEAMFOUNDATIONSERVERURI": "https://azure-pipelines-server-uri.com/",
@@ -648,7 +648,7 @@
       "TF_BUILD": "True"
     },
     {
-      "_dd.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
+      "_oo.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
       "ci.job.id": "azure-pipelines-job-id",
       "ci.job.url": "https://azure-pipelines-server-uri.com/azure-pipelines-project-id/_build/results?buildId=azure-pipelines-build-id&view=logs&j=azure-pipelines-job-id&t=azure-pipelines-task-id",
       "ci.pipeline.id": "azure-pipelines-build-id",
@@ -676,7 +676,7 @@
       "BUILD_REQUESTEDFOREMAIL": "azure-pipelines-commit-author-email@datadoghq.com",
       "BUILD_REQUESTEDFORID": "azure-pipelines-commit-author",
       "BUILD_SOURCEVERSIONMESSAGE": "azure-pipelines-commit-message",
-      "DD_TEST_CASE_NAME": "http-repository-url-no-git-suffix",
+      "OO_TEST_CASE_NAME": "http-repository-url-no-git-suffix",
       "SYSTEM_JOBID": "azure-pipelines-job-id",
       "SYSTEM_TASKINSTANCEID": "azure-pipelines-task-id",
       "SYSTEM_TEAMFOUNDATIONSERVERURI": "https://azure-pipelines-server-uri.com/",
@@ -684,7 +684,7 @@
       "TF_BUILD": "True"
     },
     {
-      "_dd.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
+      "_oo.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
       "ci.job.id": "azure-pipelines-job-id",
       "ci.job.url": "https://azure-pipelines-server-uri.com/azure-pipelines-project-id/_build/results?buildId=azure-pipelines-build-id&view=logs&j=azure-pipelines-job-id&t=azure-pipelines-task-id",
       "ci.pipeline.id": "azure-pipelines-build-id",
@@ -706,7 +706,7 @@
       "BUILD_REQUESTEDFOREMAIL": "azure-pipelines-commit-author-email@datadoghq.com",
       "BUILD_REQUESTEDFORID": "azure-pipelines-commit-author",
       "BUILD_SOURCEVERSIONMESSAGE": "azure-pipelines-commit-message",
-      "DD_TEST_CASE_NAME": "ssh-repository-url-no-git-suffix",
+      "OO_TEST_CASE_NAME": "ssh-repository-url-no-git-suffix",
       "SYSTEM_JOBID": "azure-pipelines-job-id",
       "SYSTEM_TASKINSTANCEID": "azure-pipelines-task-id",
       "SYSTEM_TEAMFOUNDATIONSERVERURI": "https://azure-pipelines-server-uri.com/",
@@ -714,7 +714,7 @@
       "TF_BUILD": "True"
     },
     {
-      "_dd.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
+      "_oo.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
       "ci.job.id": "azure-pipelines-job-id",
       "ci.job.url": "https://azure-pipelines-server-uri.com/azure-pipelines-project-id/_build/results?buildId=azure-pipelines-build-id&view=logs&j=azure-pipelines-job-id&t=azure-pipelines-task-id",
       "ci.pipeline.id": "azure-pipelines-build-id",
@@ -743,7 +743,7 @@
       "TF_BUILD": "True"
     },
     {
-      "_dd.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
+      "_oo.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
       "ci.job.id": "azure-pipelines-job-id",
       "ci.job.url": "https://azure-pipelines-server-uri.com/azure-pipelines-project-id/_build/results?buildId=azure-pipelines-build-id&view=logs&j=azure-pipelines-job-id&t=azure-pipelines-task-id",
       "ci.pipeline.id": "azure-pipelines-build-id",
@@ -772,7 +772,7 @@
       "TF_BUILD": "True"
     },
     {
-      "_dd.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
+      "_oo.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
       "ci.job.id": "azure-pipelines-job-id",
       "ci.job.url": "https://azure-pipelines-server-uri.com/azure-pipelines-project-id/_build/results?buildId=azure-pipelines-build-id&view=logs&j=azure-pipelines-job-id&t=azure-pipelines-task-id",
       "ci.pipeline.id": "azure-pipelines-build-id",
@@ -801,7 +801,7 @@
       "TF_BUILD": "True"
     },
     {
-      "_dd.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
+      "_oo.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
       "ci.job.id": "azure-pipelines-job-id",
       "ci.job.url": "https://azure-pipelines-server-uri.com/azure-pipelines-project-id/_build/results?buildId=azure-pipelines-build-id&view=logs&j=azure-pipelines-job-id&t=azure-pipelines-task-id",
       "ci.pipeline.id": "azure-pipelines-build-id",
@@ -830,7 +830,7 @@
       "TF_BUILD": "True"
     },
     {
-      "_dd.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
+      "_oo.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
       "ci.job.id": "azure-pipelines-job-id",
       "ci.job.url": "https://azure-pipelines-server-uri.com/azure-pipelines-project-id/_build/results?buildId=azure-pipelines-build-id&view=logs&j=azure-pipelines-job-id&t=azure-pipelines-task-id",
       "ci.pipeline.id": "azure-pipelines-build-id",
@@ -859,7 +859,7 @@
       "TF_BUILD": "True"
     },
     {
-      "_dd.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
+      "_oo.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
       "ci.job.id": "azure-pipelines-job-id",
       "ci.job.url": "https://azure-pipelines-server-uri.com/azure-pipelines-project-id/_build/results?buildId=azure-pipelines-build-id&view=logs&j=azure-pipelines-job-id&t=azure-pipelines-task-id",
       "ci.pipeline.id": "azure-pipelines-build-id",
@@ -888,7 +888,7 @@
       "TF_BUILD": "True"
     },
     {
-      "_dd.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
+      "_oo.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
       "ci.job.id": "azure-pipelines-job-id",
       "ci.job.url": "https://azure-pipelines-server-uri.com/azure-pipelines-project-id/_build/results?buildId=azure-pipelines-build-id&view=logs&j=azure-pipelines-job-id&t=azure-pipelines-task-id",
       "ci.pipeline.id": "azure-pipelines-build-id",
@@ -917,7 +917,7 @@
       "TF_BUILD": "True"
     },
     {
-      "_dd.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
+      "_oo.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
       "ci.job.id": "azure-pipelines-job-id",
       "ci.job.url": "https://azure-pipelines-server-uri.com/azure-pipelines-project-id/_build/results?buildId=azure-pipelines-build-id&view=logs&j=azure-pipelines-job-id&t=azure-pipelines-task-id",
       "ci.pipeline.id": "azure-pipelines-build-id",
@@ -946,7 +946,7 @@
       "TF_BUILD": "True"
     },
     {
-      "_dd.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
+      "_oo.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
       "ci.job.id": "azure-pipelines-job-id",
       "ci.job.url": "https://azure-pipelines-server-uri.com/azure-pipelines-project-id/_build/results?buildId=azure-pipelines-build-id&view=logs&j=azure-pipelines-job-id&t=azure-pipelines-task-id",
       "ci.pipeline.id": "azure-pipelines-build-id",
@@ -976,7 +976,7 @@
       "TF_BUILD": "True"
     },
     {
-      "_dd.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
+      "_oo.ci.env_vars": "{\"SYSTEM_TEAMPROJECTID\":\"azure-pipelines-project-id\",\"BUILD_BUILDID\":\"azure-pipelines-build-id\",\"SYSTEM_JOBID\":\"azure-pipelines-job-id\"}",
       "ci.job.id": "azure-pipelines-job-id",
       "ci.job.url": "https://azure-pipelines-server-uri.com/azure-pipelines-project-id/_build/results?buildId=azure-pipelines-build-id&view=logs&j=azure-pipelines-job-id&t=azure-pipelines-task-id",
       "ci.pipeline.id": "azure-pipelines-build-id",

@@ -1,19 +1,19 @@
 {
-  "name": "@datadog/datadog-ci-base",
+  "name": "@openobserve/openobserve-ci-base",
   "version": "5.21.1",
-  "description": "Base package for Datadog CI",
+  "description": "Base package for OpenObserve CI",
   "license": "Apache-2.0",
   "keywords": [
     "datadog",
-    "datadog-ci"
+    "openobserve-ci"
   ],
-  "homepage": "https://github.com/DataDog/datadog-ci/tree/master/packages/base",
+  "homepage": "https://github.com/DataDog/openobserve-ci/tree/master/packages/base",
   "bugs": {
-    "url": "https://github.com/DataDog/datadog-ci/issues"
+    "url": "https://github.com/DataDog/openobserve-ci/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/DataDog/datadog-ci.git",
+    "url": "https://github.com/DataDog/openobserve-ci.git",
     "directory": "packages/base"
   },
   "main": "dist/index.js",

@@ -1,30 +1,30 @@
 import {promises} from 'fs'
 
 import type {Dsym, DWARF} from './interfaces'
-import type {ApiKeyValidator} from '@datadog/datadog-ci-base/helpers/apikey'
-import type {RequestBuilder} from '@datadog/datadog-ci-base/helpers/interfaces'
-import type {MetricsLogger} from '@datadog/datadog-ci-base/helpers/metrics'
+import type {ApiKeyValidator} from '@openobserve/openobserve-ci-base/helpers/apikey'
+import type {RequestBuilder} from '@openobserve/openobserve-ci-base/helpers/interfaces'
+import type {MetricsLogger} from '@openobserve/openobserve-ci-base/helpers/metrics'
 
 import chalk from 'chalk'
 import {Command, Option} from 'clipanion'
 import upath from 'upath'
 
-import {BaseCommand} from '@datadog/datadog-ci-base'
-import {FIPS_ENV_VAR, FIPS_IGNORE_ERROR_ENV_VAR} from '@datadog/datadog-ci-base/constants'
-import {getDatadogSiteFromEnv} from '@datadog/datadog-ci-base/helpers/api'
-import {newApiKeyValidator} from '@datadog/datadog-ci-base/helpers/apikey'
-import {doWithMaxConcurrency} from '@datadog/datadog-ci-base/helpers/concurrency'
-import {toBoolean} from '@datadog/datadog-ci-base/helpers/env'
-import {InvalidConfigurationError} from '@datadog/datadog-ci-base/helpers/errors'
-import {enableFips} from '@datadog/datadog-ci-base/helpers/fips'
-import {globSync} from '@datadog/datadog-ci-base/helpers/glob'
-import {getMetricsLogger} from '@datadog/datadog-ci-base/helpers/metrics'
-import {datadogRoute} from '@datadog/datadog-ci-base/helpers/request/datadog-route'
-import {upload, UploadStatus} from '@datadog/datadog-ci-base/helpers/upload'
-import {buildPath, getRequestBuilder, resolveConfigFromFileAndEnvironment} from '@datadog/datadog-ci-base/helpers/utils'
-import * as validation from '@datadog/datadog-ci-base/helpers/validation'
-import {checkAPIKeyOverride} from '@datadog/datadog-ci-base/helpers/validation'
-import {cliVersion} from '@datadog/datadog-ci-base/version'
+import {BaseCommand} from '@openobserve/openobserve-ci-base'
+import {FIPS_ENV_VAR, FIPS_IGNORE_ERROR_ENV_VAR} from '@openobserve/openobserve-ci-base/constants'
+import {getOpenObserveSiteFromEnv} from '@openobserve/openobserve-ci-base/helpers/api'
+import {newApiKeyValidator} from '@openobserve/openobserve-ci-base/helpers/apikey'
+import {doWithMaxConcurrency} from '@openobserve/openobserve-ci-base/helpers/concurrency'
+import {toBoolean} from '@openobserve/openobserve-ci-base/helpers/env'
+import {InvalidConfigurationError} from '@openobserve/openobserve-ci-base/helpers/errors'
+import {enableFips} from '@openobserve/openobserve-ci-base/helpers/fips'
+import {globSync} from '@openobserve/openobserve-ci-base/helpers/glob'
+import {getMetricsLogger} from '@openobserve/openobserve-ci-base/helpers/metrics'
+import {ooRoute} from '@openobserve/openobserve-ci-base/helpers/request/datadog-route'
+import {upload, UploadStatus} from '@openobserve/openobserve-ci-base/helpers/upload'
+import {buildPath, getRequestBuilder, resolveConfigFromFileAndEnvironment} from '@openobserve/openobserve-ci-base/helpers/utils'
+import * as validation from '@openobserve/openobserve-ci-base/helpers/validation'
+import {checkAPIKeyOverride} from '@openobserve/openobserve-ci-base/helpers/validation'
+import {cliVersion} from '@openobserve/openobserve-ci-base/version'
 
 import {CompressedDsym} from './interfaces'
 import {
@@ -54,16 +54,16 @@ export class DsymsUploadCommand extends BaseCommand {
 
   public static usage = Command.Usage({
     category: 'RUM',
-    description: 'Upload dSYM files to Datadog.',
+    description: 'Upload dSYM files to OpenObserve.',
     details: `
-      This command will upload all dSYM files to Datadog in order to symbolicate crash reports received by Datadog.\n
+      This command will upload all dSYM files to OpenObserve in order to symbolicate crash reports received by OpenObserve.\n
       See README for details.
     `,
     examples: [
-      ['Upload all dSYM files in Derived Data path', 'datadog-ci dsyms upload ~/Library/Developer/Xcode/DerivedData'],
+      ['Upload all dSYM files in Derived Data path', 'openobserve-ci dsyms upload ~/Library/Developer/Xcode/DerivedData'],
       [
         'Upload all dSYM files in a zip file (this is usually the case if your app has Bitcode enabled)',
-        'datadog-ci dsyms upload /path/to/folder/my_file.zip',
+        'openobserve-ci dsyms upload /path/to/folder/my_file.zip',
       ],
     ],
   })
@@ -83,7 +83,7 @@ export class DsymsUploadCommand extends BaseCommand {
   } as const
 
   private config: Record<string, string> = {
-    datadogSite: 'datadoghq.com',
+    ooSite: 'datadoghq.com',
   }
 
   public async execute() {
@@ -131,15 +131,15 @@ export class DsymsUploadCommand extends BaseCommand {
     this.config = await resolveConfigFromFileAndEnvironment(
       this.config,
       {
-        apiKey: process.env.DATADOG_API_KEY || process.env.DD_API_KEY,
-        datadogSite: getDatadogSiteFromEnv(),
+        apiKey: process.env.OPENOBSERVE_API_KEY || process.env.OO_API_KEY,
+        ooSite: getOpenObserveSiteFromEnv(),
       },
       {
         configPath: this.configPath,
-        defaultConfigPaths: ['datadog-ci.json', '../datadog-ci.json'],
+        defaultConfigPaths: ['openobserve-ci.json', '../openobserve-ci.json'],
         configFromFileCallback: (configFromFile: any) => {
           checkAPIKeyOverride(
-            process.env.DATADOG_API_KEY || process.env.DD_API_KEY,
+            process.env.OPENOBSERVE_API_KEY || process.env.OO_API_KEY,
             configFromFile.apiKey,
             this.context.stdout
           )
@@ -151,14 +151,14 @@ export class DsymsUploadCommand extends BaseCommand {
   private createServices() {
     const metricsLogger = getMetricsLogger({
       apiKey: this.config.apiKey,
-      datadogSite: this.config.datadogSite,
+      ooSite: this.config.ooSite,
       defaultTags: [`cli_version:${this.cliVersion}`],
       prefix: 'datadog.ci.dsyms.',
     })
 
     const apiKeyValidator = newApiKeyValidator({
       apiKey: this.config.apiKey,
-      datadogSite: this.config.datadogSite,
+      ooSite: this.config.ooSite,
       metricsLogger: metricsLogger.logger,
     })
 
@@ -170,8 +170,8 @@ export class DsymsUploadCommand extends BaseCommand {
     metricsLogger: MetricsLogger,
     apiKeyValidator: ApiKeyValidator
   ) {
-    const intermediateDirectory = buildPath(tmpDirectory, 'datadog-ci', 'dsyms', 'intermediate')
-    const uploadDirectory = buildPath(tmpDirectory, 'datadog-ci', 'dsyms', 'upload')
+    const intermediateDirectory = buildPath(tmpDirectory, 'openobserve-ci', 'dsyms', 'intermediate')
+    const uploadDirectory = buildPath(tmpDirectory, 'openobserve-ci', 'dsyms', 'upload')
 
     this.context.stdout.write(renderCommandDetail(intermediateDirectory, uploadDirectory))
 
@@ -333,18 +333,18 @@ export class DsymsUploadCommand extends BaseCommand {
   private createRequestBuilder(): RequestBuilder {
     if (!this.config.apiKey) {
       throw new InvalidConfigurationError(
-        `Missing ${chalk.bold('DATADOG_API_KEY')} or ${chalk.bold('DD_API_KEY')} in your environment.`
+        `Missing ${chalk.bold('OPENOBSERVE_API_KEY')} or ${chalk.bold('OO_API_KEY')} in your environment.`
       )
     }
 
     return getRequestBuilder({
       apiKey: this.config.apiKey,
-      baseUrl: getBaseIntakeUrl(this.config.datadogSite),
+      baseUrl: getBaseIntakeUrl(this.config.ooSite),
       headers: new Map([
-        ['DD-EVP-ORIGIN', 'datadog-ci_dsyms'],
+        ['DD-EVP-ORIGIN', 'openobserve-ci_dsyms'],
         ['DD-EVP-ORIGIN-VERSION', this.cliVersion],
       ]),
-      overrideUrl: datadogRoute('/api/v2/srcmap'),
+      overrideUrl: ooRoute('/api/v2/srcmap'),
     })
   }
 

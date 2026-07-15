@@ -3,8 +3,8 @@ import fs from 'fs'
 
 import type {ExecException} from 'child_process'
 
-import {createReadFunctions, FileReader} from '@datadog/datadog-ci-base/helpers/filereader'
-import {execute} from '@datadog/datadog-ci-base/helpers/utils'
+import {createReadFunctions, FileReader} from '@openobserve/openobserve-ci-base/helpers/filereader'
+import {execute} from '@openobserve/openobserve-ci-base/helpers/utils'
 
 import {
   MACHINE_TYPES_DESCRIPTION,

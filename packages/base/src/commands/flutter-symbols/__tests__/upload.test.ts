@@ -1,10 +1,10 @@
-import type {MultipartFileValue, MultipartPayload, MultipartStringValue} from '@datadog/datadog-ci-base/helpers/upload'
+import type {MultipartFileValue, MultipartPayload, MultipartStringValue} from '@openobserve/openobserve-ci-base/helpers/upload'
 
-import {DsymsUploadCommand} from '@datadog/datadog-ci-base/commands/dsyms/upload'
-import {createCommand} from '@datadog/datadog-ci-base/helpers/__tests__/testing-tools'
-import {TrackedFilesMatcher, getRepositoryData} from '@datadog/datadog-ci-base/helpers/git/format-git-sourcemaps-data'
-import {performSubCommand} from '@datadog/datadog-ci-base/helpers/utils'
-import {cliVersion} from '@datadog/datadog-ci-base/version'
+import {DsymsUploadCommand} from '@openobserve/openobserve-ci-base/commands/dsyms/upload'
+import {createCommand} from '@openobserve/openobserve-ci-base/helpers/__tests__/testing-tools'
+import {TrackedFilesMatcher, getRepositoryData} from '@openobserve/openobserve-ci-base/helpers/git/format-git-sourcemaps-data'
+import {performSubCommand} from '@openobserve/openobserve-ci-base/helpers/utils'
+import {cliVersion} from '@openobserve/openobserve-ci-base/version'
 
 import {SourcemapsUploadCommand} from '../../sourcemaps/upload'
 
@@ -22,13 +22,13 @@ import {
 } from '../renderer'
 import {FlutterSymbolsUploadCommand} from '../upload'
 
-jest.mock('@datadog/datadog-ci-base/helpers/utils', () => ({
-  ...jest.requireActual('@datadog/datadog-ci-base/helpers/utils'),
+jest.mock('@openobserve/openobserve-ci-base/helpers/utils', () => ({
+  ...jest.requireActual('@openobserve/openobserve-ci-base/helpers/utils'),
   performSubCommand: jest.fn(),
 }))
 
-jest.mock('@datadog/datadog-ci-base/helpers/git/format-git-sourcemaps-data', () => ({
-  ...jest.requireActual('@datadog/datadog-ci-base/helpers/git/format-git-sourcemaps-data'),
+jest.mock('@openobserve/openobserve-ci-base/helpers/git/format-git-sourcemaps-data', () => ({
+  ...jest.requireActual('@openobserve/openobserve-ci-base/helpers/git/format-git-sourcemaps-data'),
   getRepositoryData: jest.fn(),
 }))
 
@@ -72,11 +72,11 @@ describe('flutter-symbol upload', () => {
 
     test('uses API Key from env over config from JSON file', async () => {
       const {exitCode, context} = await runCommand((cmd) => {
-        cmd['configPath'] = 'src/commands/flutter-symbols/__tests__/fixtures/config/datadog-ci.json'
+        cmd['configPath'] = 'src/commands/flutter-symbols/__tests__/fixtures/config/openobserve-ci.json'
         cmd['serviceName'] = 'fake.service'
         cmd['version'] = '1.0.0+114'
 
-        process.env.DATADOG_API_KEY = 'fake_api_key'
+        process.env.OPENOBSERVE_API_KEY = 'fake_api_key'
       })
       const output = context.stdout.toString().split('\n')
 

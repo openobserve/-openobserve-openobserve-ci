@@ -11,11 +11,11 @@ jest.mock('../request', () => ({
 }))
 
 import * as requestModule from '../request'
-import {datadogRoute} from '../request/datadog-route'
+import {ooRoute} from '../request/datadog-route'
 import * as ciUtils from '../utils'
 import {formatBytes, isFile, maskString} from '../utils'
 
-import {MOCK_DATADOG_API_KEY} from './testing-tools'
+import {MOCK_OPENOBSERVE_API_KEY} from './testing-tools'
 
 describe('utils', () => {
   beforeEach(() => {
@@ -156,7 +156,7 @@ describe('utils', () => {
         apiKey: 'apiKey',
         appKey: 'applicationKey',
         baseUrl: 'http://fake-base.url/',
-        overrideUrl: datadogRoute('/api/v2/srcmap'),
+        overrideUrl: ooRoute('/api/v2/srcmap'),
       })
       await request({})
       expect(capturedConfig!.url).toStrictEqual('/api/v2/srcmap')
@@ -171,7 +171,7 @@ describe('utils', () => {
           ['HEADER1', 'value1'],
           ['HEADER2', 'value2'],
         ]),
-        overrideUrl: datadogRoute('/api/v2/srcmap'),
+        overrideUrl: ooRoute('/api/v2/srcmap'),
       })
       await request({})
       expect(capturedConfig!.headers).toStrictEqual({
@@ -223,7 +223,7 @@ describe('utils', () => {
   // Integration tests for proxy configuration using real HTTP servers.
   // Note: undici's ProxyAgent only proxies HTTPS connections (via CONNECT tunnel).
   // Plain HTTP requests always connect directly to the target, which is correct behaviour
-  // since all production Datadog API calls are HTTPS. These tests verify:
+  // since all production OpenObserve API calls are HTTPS. These tests verify:
   //   1. Direct HTTP connections work correctly (target is reachable)
   //   2. The proxy dispatcher is configured and passed through correctly (via unit tests above)
   describe('Proxy configuration', () => {
@@ -280,7 +280,7 @@ describe('utils', () => {
           apiKey: 'abc',
           baseUrl: `http://localhost:${targetServer.port}`,
         })
-        await requestBuilder({method: 'GET', url: datadogRoute('/api/v2/git/repository/packfile')})
+        await requestBuilder({method: 'GET', url: ooRoute('/api/v2/git/repository/packfile')})
         expect(targetServer.spy.mock.calls.length).toBe(1)
       } finally {
         await targetServer.close()
@@ -363,7 +363,7 @@ describe('utils', () => {
     })
 
     it('should mask API keys correctly', () => {
-      expect(maskString(MOCK_DATADOG_API_KEY)).toEqual('02**********33bd')
+      expect(maskString(MOCK_OPENOBSERVE_API_KEY)).toEqual('02**********33bd')
     })
   })
 

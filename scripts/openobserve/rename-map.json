@@ -1,0 +1,93 @@
+{
+  "comment": "Identity rebrand for the openobserve-ci fork (fork of DataDog/datadog-ci, stripped to symbol-upload commands). TypeScript monorepo: the 'namespace' is the npm scope @datadog/*, not Java-style package dirs, so this is content-heavy with one pathRename (the published-bin package dir) + fileRenames. PHASE A = identity only. The FUNCTIONAL Datadog intake (datadoghq.com hosts, DD_SITE/DD_API_KEY auth against Datadog's sourcemap API) is NOT rewritten here — Phase B repoints uploads to OpenObserve /api/{org}/sourcemaps (patches/, real adapter). Reuses the Android fork rebrand.mjs. Run to fixpoint with --check.",
+  "pathRenames": [
+    {
+      "from": "packages/datadog-ci",
+      "to": "packages/openobserve-ci",
+      "why": "the published-bin package directory -> packages/openobserve-ci"
+    }
+  ],
+  "fileRenames": [
+    {
+      "token": "datadog-ci",
+      "to": "openobserve-ci",
+      "why": "files whose basename carries the tool name (datadog-ci.ts, .datadog-ci.json fixtures)"
+    },
+    {
+      "token": "Datadog",
+      "to": "OpenObserve",
+      "why": "class-name files (DatadogCiConfig.ts, ...) after content rules rename the symbol inside"
+    }
+  ],
+  "rules": [
+    {
+      "literal": "@datadog/datadog-ci-base",
+      "to": "@openobserve/openobserve-ci-base",
+      "why": "the core package name imported across the monorepo (318 refs). Most-specific first."
+    },
+    {
+      "literal": "@datadog/datadog-ci-plugin-",
+      "to": "@openobserve/openobserve-ci-plugin-",
+      "why": "de-brand residual references to the removed plugin packages (in tooling/tests/docs) so no @datadog token survives"
+    },
+    {
+      "literal": "@datadog/datadog-ci",
+      "to": "@openobserve/openobserve-ci",
+      "why": "the main published package name"
+    },
+    {
+      "literal": "@datadog/",
+      "to": "@openobserve/",
+      "why": "any remaining @datadog scoped package"
+    },
+    {
+      "literal": "datadog-ci-monorepo",
+      "to": "openobserve-ci-monorepo",
+      "why": "root package name"
+    },
+    {
+      "literal": "datadog-ci",
+      "to": "openobserve-ci",
+      "why": "the bin name + bare tool references + .datadog-ci.json config file (after all @datadog/datadog-ci* rules so those win first)"
+    },
+    {
+      "regex": "Datadog([A-Z][A-Za-z0-9]*)",
+      "to": "OpenObserve$1",
+      "why": "type/class names + mid-word compounds (DatadogCiConfig, getDatadogSite)"
+    },
+    {
+      "literal": "Datadog",
+      "to": "OpenObserve",
+      "why": "catch-all for remaining mixed-case Datadog substring (prose, user-agent, product name). After the compound rule."
+    },
+    {
+      "literal": "DATADOG",
+      "to": "OPENOBSERVE",
+      "why": "SCREAMING_CASE constants incl. mid-word"
+    },
+    {
+      "regex": "\\bDD_",
+      "to": "OO_",
+      "why": "env-var NAME prefixes (DD_API_KEY, DD_SITE, DD_SUBDOMAIN, ...). \\b guards ADD_/ODD_. VALUES/auth behavior are Phase B."
+    },
+    {
+      "regex": "\\bdatadog([A-Z][A-Za-z0-9]*)",
+      "to": "oo$1",
+      "why": "lowercase camelCase identifiers. Word-boundary guarded so it never matches datadoghq/ x-datadog wire strings."
+    },
+    {
+      "regex": "\\b_dd\\b",
+      "to": "_oo",
+      "why": "internal telemetry namespace field"
+    }
+  ],
+  "intentionallyNotRebranded": {
+    "comment": "PHASE B — functional Datadog->OpenObserve intake adapter (patches/), not a string swap.",
+    "items": [
+      "datadoghq.com / datadoghq.eu / DD_SITE host VALUES (291 refs): the upload host + the base-intake-url helper. Phase B replaces the site->host logic with an OpenObserve endpoint config.",
+      "the Datadog sourcemap/dsym intake API shape + auth (DD_API_KEY): Phase B adapts uploads to OpenObserve /api/{org}/sourcemaps with the org token (doc 06 §2/§4).",
+      "dangling references to the removed plugin packages in bin/ tooling, e2e, and docs: cleaned during build-verify (yarn install + tsc surfaces them); not identity-critical.",
+      "keep-ours identity files (README, LICENSE/NOTICE, .github) + CHANGELOG reset."
+    ]
+  }
+}

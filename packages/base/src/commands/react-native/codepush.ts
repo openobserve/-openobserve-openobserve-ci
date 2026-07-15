@@ -4,10 +4,10 @@ import type {RNPlatform} from './interfaces'
 
 import {Cli, Command, Option} from 'clipanion'
 
-import {BaseCommand} from '@datadog/datadog-ci-base'
-import {FIPS_ENV_VAR, FIPS_IGNORE_ERROR_ENV_VAR} from '@datadog/datadog-ci-base/constants'
-import {toBoolean} from '@datadog/datadog-ci-base/helpers/env'
-import {enableFips} from '@datadog/datadog-ci-base/helpers/fips'
+import {BaseCommand} from '@openobserve/openobserve-ci-base'
+import {FIPS_ENV_VAR, FIPS_IGNORE_ERROR_ENV_VAR} from '@openobserve/openobserve-ci-base/constants'
+import {toBoolean} from '@openobserve/openobserve-ci-base/helpers/env'
+import {enableFips} from '@openobserve/openobserve-ci-base/helpers/fips'
 
 import {CodepushHistoryCommandError, CodepushHistoryParseError, NoCodepushReleaseError} from './errors'
 import {RN_SUPPORTED_PLATFORMS} from './interfaces'
@@ -19,19 +19,19 @@ export class ReactNativeCodepushCommand extends BaseCommand {
 
   public static usage = Command.Usage({
     category: 'RUM',
-    description: 'Upload your React Native Codepush bundle and sourcemaps to Datadog.',
+    description: 'Upload your React Native Codepush bundle and sourcemaps to OpenObserve.',
     details: `
-      This command will upload React Native Codepush sourcemaps and their corresponding JavaScript bundle to Datadog in order to un-minify front-end stack traces received by Datadog.\n
+      This command will upload React Native Codepush sourcemaps and their corresponding JavaScript bundle to OpenObserve in order to un-minify front-end stack traces received by OpenObserve.\n
       See README for details.
     `,
     examples: [
       [
         'Upload ios staging sourcemaps for Company/AppNameiOS',
-        'datadog-ci react-native codepush --platform ios --service com.company.app --bundle ./build/main.jsbundle --sourcemap ./build/main.jsbundle.map --app Company/AppNameiOS --deployment Staging',
+        'openobserve-ci react-native codepush --platform ios --service com.company.app --bundle ./build/main.jsbundle --sourcemap ./build/main.jsbundle.map --app Company/AppNameiOS --deployment Staging',
       ],
       [
         'Upload android production sourcemaps for Company/AppNameAndroid',
-        'datadog-ci react-native codepush --platform android --service com.company.app --bundle ./build/index.android.bundle --sourcemap ./build/index.android.bundle.map --app Company/AppNameAndroid --deployment Production',
+        'openobserve-ci react-native codepush --platform android --service com.company.app --bundle ./build/index.android.bundle --sourcemap ./build/index.android.bundle.map --app Company/AppNameAndroid --deployment Production',
       ],
     ],
   })

@@ -12,9 +12,9 @@ export class PluginCheckCommand extends BaseCommand {
     category: 'Plugins',
     description: 'Check and troubleshoot the installation of a plugin.',
     examples: [
-      ['Check the plugin by passing its package name', 'datadog-ci plugin check @datadog/datadog-ci-plugin-synthetics'],
-      ['Check the plugin by passing its scope', 'datadog-ci plugin check synthetics'],
-      ['Check the plugin by passing its scope and one of its commands', 'datadog-ci plugin check synthetics run-tests'],
+      ['Check the plugin by passing its package name', 'openobserve-ci plugin check @openobserve/openobserve-ci-plugin-synthetics'],
+      ['Check the plugin by passing its scope', 'openobserve-ci plugin check synthetics'],
+      ['Check the plugin by passing its scope and one of its commands', 'openobserve-ci plugin check synthetics run-tests'],
     ],
   })
 

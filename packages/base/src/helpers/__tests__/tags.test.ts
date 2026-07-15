@@ -1,4 +1,4 @@
-import type {DatadogCiConfig} from '../config'
+import type {OpenObserveCiConfig} from '../config'
 import type {SpanTags} from '../interfaces'
 import type {BaseContext} from 'clipanion'
 
@@ -176,15 +176,15 @@ describe('getSpanTags', () => {
     process.env.GITHUB_RUN_ID = ''
   })
 
-  test('should parse DD_TAGS and DD_ENV environment variables', async () => {
-    process.env.DD_TAGS = 'key1:https://google.com,key2:value2'
-    process.env.DD_ENV = 'ci'
+  test('should parse OO_TAGS and OO_ENV environment variables', async () => {
+    process.env.OO_TAGS = 'key1:https://google.com,key2:value2'
+    process.env.OO_ENV = 'ci'
 
     const spanTags: SpanTags = await getSpanTags(
       {
         apiKey: undefined,
-        env: process.env.DD_ENV,
-        envVarTags: process.env.DD_TAGS,
+        env: process.env.OO_ENV,
+        envVarTags: process.env.OO_TAGS,
       },
       undefined,
       true
@@ -213,7 +213,7 @@ describe('getSpanTags', () => {
   })
 
   test('should prioritized git context accordingly', async () => {
-    const config: DatadogCiConfig = {
+    const config: OpenObserveCiConfig = {
       apiKey: undefined,
       env: undefined,
       envVarTags: undefined,
@@ -221,7 +221,7 @@ describe('getSpanTags', () => {
 
     // Define CI env variables
     process.env.GITHUB_ACTIONS = 'true'
-    process.env.GITHUB_REPOSITORY = 'git@github.com:DataDog/datadog-ci'
+    process.env.GITHUB_REPOSITORY = 'git@github.com:DataDog/openobserve-ci'
     process.env.GITHUB_HEAD_REF = 'prod'
     process.env.GITHUB_SHA = 'commitSHA'
     process.env.GITHUB_RUN_ID = '17'
@@ -243,7 +243,7 @@ describe('getSpanTags', () => {
     // By default, the 'git' tags reported are the CI env variables
     let spanTags: SpanTags = await getSpanTags(config, [], true)
     expect(spanTags['ci.pipeline.id']).toEqual('17')
-    expect(spanTags['git.repository_url']).toContain('DataDog/datadog-ci')
+    expect(spanTags['git.repository_url']).toContain('DataDog/openobserve-ci')
     expect(spanTags['git.branch']).toEqual('prod')
     expect(spanTags['git.commit.sha']).toEqual('commitSHA')
 
@@ -257,10 +257,10 @@ describe('getSpanTags', () => {
       'git.commit.sha': 'mockSHA',
     })
 
-    // Configuring DD_GIT* overrides
-    process.env.DD_GIT_REPOSITORY_URL = 'https://www.github.com/datadog/not-so-safe-repository'
-    process.env.DD_GIT_BRANCH = 'staging'
-    process.env.DD_GIT_COMMIT_SHA = 'override'
+    // Configuring OO_GIT* overrides
+    process.env.OO_GIT_REPOSITORY_URL = 'https://www.github.com/datadog/not-so-safe-repository'
+    process.env.OO_GIT_BRANCH = 'staging'
+    process.env.OO_GIT_COMMIT_SHA = 'override'
 
     // git tags are coming from overrides
     spanTags = await getSpanTags(config, [], true, 'path/to/mockedSimpleGit')
@@ -283,12 +283,12 @@ describe('sarif and sbom upload required git tags', () => {
   // Reset all env vars before each test
   beforeEach(() => {
     // User defined env vars
-    process.env.DD_GIT_BRANCH = ''
-    process.env.DD_GIT_COMMIT_SHA = ''
-    process.env.DD_GIT_COMMIT_AUTHOR_EMAIL = ''
-    process.env.DD_GIT_COMMIT_AUTHOR_NAME = ''
-    process.env.DD_GIT_COMMIT_COMMITTER_EMAIL = ''
-    process.env.DD_GIT_COMMIT_COMMITTER_NAME = ''
+    process.env.OO_GIT_BRANCH = ''
+    process.env.OO_GIT_COMMIT_SHA = ''
+    process.env.OO_GIT_COMMIT_AUTHOR_EMAIL = ''
+    process.env.OO_GIT_COMMIT_AUTHOR_NAME = ''
+    process.env.OO_GIT_COMMIT_COMMITTER_EMAIL = ''
+    process.env.OO_GIT_COMMIT_COMMITTER_NAME = ''
     // CI defined env vars - needed for tests to pass in the CI
     process.env.GITHUB_SHA = ''
     process.env.GITHUB_HEAD_REF = ''
@@ -329,13 +329,13 @@ describe('sarif and sbom upload required git tags', () => {
       show: throwError,
     }))
 
-    process.env.DD_GIT_REPOSITORY_URL = 'https://www.github.com/datadog/safe-repository'
-    process.env.DD_GIT_BRANCH = 'main'
-    process.env.DD_GIT_COMMIT_SHA = 'commitSHA'
-    process.env.DD_GIT_COMMIT_AUTHOR_EMAIL = 'authorEmail'
-    process.env.DD_GIT_COMMIT_AUTHOR_NAME = 'authorName'
-    process.env.DD_GIT_COMMIT_COMMITTER_EMAIL = 'committerEmail'
-    process.env.DD_GIT_COMMIT_COMMITTER_NAME = 'committerName'
+    process.env.OO_GIT_REPOSITORY_URL = 'https://www.github.com/datadog/safe-repository'
+    process.env.OO_GIT_BRANCH = 'main'
+    process.env.OO_GIT_COMMIT_SHA = 'commitSHA'
+    process.env.OO_GIT_COMMIT_AUTHOR_EMAIL = 'authorEmail'
+    process.env.OO_GIT_COMMIT_AUTHOR_NAME = 'authorName'
+    process.env.OO_GIT_COMMIT_COMMITTER_EMAIL = 'committerEmail'
+    process.env.OO_GIT_COMMIT_COMMITTER_NAME = 'committerName'
 
     const spanTags: SpanTags = await getSpanTags(
       {
@@ -358,13 +358,13 @@ describe('sarif and sbom upload required git tags', () => {
       show: throwError,
     }))
 
-    process.env.DD_GIT_REPOSITORY_URL = 'https://www.github.com/datadog/safe-repository'
-    process.env.DD_GIT_BRANCH = 'main'
-    // missing DD_GIT_COMMIT_SHA
-    process.env.DD_GIT_COMMIT_AUTHOR_EMAIL = 'authorEmail'
-    process.env.DD_GIT_COMMIT_AUTHOR_NAME = 'authorName'
-    process.env.DD_GIT_COMMIT_COMMITTER_EMAIL = 'committerEmail'
-    process.env.DD_GIT_COMMIT_COMMITTER_NAME = 'committerName'
+    process.env.OO_GIT_REPOSITORY_URL = 'https://www.github.com/datadog/safe-repository'
+    process.env.OO_GIT_BRANCH = 'main'
+    // missing OO_GIT_COMMIT_SHA
+    process.env.OO_GIT_COMMIT_AUTHOR_EMAIL = 'authorEmail'
+    process.env.OO_GIT_COMMIT_AUTHOR_NAME = 'authorName'
+    process.env.OO_GIT_COMMIT_COMMITTER_EMAIL = 'committerEmail'
+    process.env.OO_GIT_COMMIT_COMMITTER_NAME = 'committerName'
 
     const spanTags: SpanTags = await getSpanTags(
       {
@@ -420,7 +420,7 @@ describe('sarif and sbom upload required git tags', () => {
       },
     }))
 
-    process.env.DD_GIT_BRANCH = '    '
+    process.env.OO_GIT_BRANCH = '    '
 
     const spanTags: SpanTags = await getSpanTags(
       {

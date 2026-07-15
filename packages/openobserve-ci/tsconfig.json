@@ -6,7 +6,7 @@
     "outDir": "./dist"
   },
   "include": ["src", "**/json-schema/**/*.json"],
-  // Only plugins that are dependencies of `@datadog/datadog-ci` are listed here.
+  // Only plugins that are dependencies of `@openobserve/openobserve-ci` are listed here.
   "references": [
     {"path": "../base"},
     {"path": "../plugin-coverage"},

@@ -94,7 +94,7 @@ const buildInjectedPluginSubmodulesSource = (pluginCommandsByScope) => {
 }
 
 export const createPluginInjections = ({pluginCommandsByScope}) => {
-  const virtualModuleId = 'virtual:datadog-ci-injected-plugin'
+  const virtualModuleId = 'virtual:openobserve-ci-injected-plugin'
   const pluginLoaderPath = normalizePath(path.join(REPO_ROOT, 'packages', 'base', 'dist', 'helpers', 'plugin.js'))
 
   return [

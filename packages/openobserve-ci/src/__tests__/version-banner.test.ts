@@ -4,17 +4,17 @@ import {cliVersion} from '../cli'
 
 // Integration-style guard for the bug class this addresses: the auto version banner
 // must never land on stdout, or it corrupts captured/piped output like
-// `VAR=$(datadog-ci trace -- cmd)`. The banner is emitted in cli.ts under
+// `VAR=$(openobserve-ci trace -- cmd)`. The banner is emitted in cli.ts under
 // `require.main === module`, which in-process `cli.run()` tests don't exercise — so we
 // spawn the real entry point and read stdout/stderr as separate streams (no shell, to
 // avoid redirection quirks like zsh MULTIOS duplicating a stream).
 
 // Derived from `__dirname` (handles both path separators) to avoid a `path`/`upath` import.
-const REPO_ROOT = __dirname.replace(/[\\/]packages[\\/]datadog-ci[\\/]src[\\/]__tests__$/, '')
-const CLI_ENTRY = 'packages/datadog-ci/src/cli.ts' // resolved relative to REPO_ROOT (the spawn cwd)
+const REPO_ROOT = __dirname.replace(/[\\/]packages[\\/]openobserve-ci[\\/]src[\\/]__tests__$/, '')
+const CLI_ENTRY = 'packages/openobserve-ci/src/cli.ts' // resolved relative to REPO_ROOT (the spawn cwd)
 const TSX_CLI = require.resolve('tsx/cli')
 
-const BANNER = /datadog-ci v\d/
+const BANNER = /openobserve-ci v\d/
 
 const runCli = (args: string[], extraEnv: Record<string, string> = {}) => {
   const result = spawnSync(process.execPath, [TSX_CLI, '--conditions=development', CLI_ENTRY, ...args], {
@@ -47,7 +47,7 @@ describe('version banner (cli entry point)', () => {
   test('mirrors --log-format json: banner is a JSON line on stderr, still not on stdout', () => {
     const {stdout, stderr} = runCli(['trace', '--dry-run', '--log-format', 'json', '--', 'echo', 'hi'])
 
-    expect(stderr).toContain(JSON.stringify({level: 'info', message: `datadog-ci v${cliVersion}`}))
+    expect(stderr).toContain(JSON.stringify({level: 'info', message: `openobserve-ci v${cliVersion}`}))
     expect(stdout).not.toMatch(BANNER)
   })
 
@@ -68,8 +68,8 @@ describe('version banner (cli entry point)', () => {
     expect(stderr).not.toMatch(BANNER)
   })
 
-  test('DD_CI_SKIP_VERSION_BANNER suppresses the banner on both streams', () => {
-    const {stdout, stderr} = runCli(['this-command-does-not-exist'], {DD_CI_SKIP_VERSION_BANNER: '1'})
+  test('OO_CI_SKIP_VERSION_BANNER suppresses the banner on both streams', () => {
+    const {stdout, stderr} = runCli(['this-command-does-not-exist'], {OO_CI_SKIP_VERSION_BANNER: '1'})
 
     expect(stdout).not.toMatch(BANNER)
     expect(stderr).not.toMatch(BANNER)

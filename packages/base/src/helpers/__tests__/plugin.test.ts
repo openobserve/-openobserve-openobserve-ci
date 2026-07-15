@@ -25,7 +25,7 @@ jest.mock('../../version', () => ({
 
 const mockBundledPluginExecute = jest.fn()
 
-jest.mock('@datadog/datadog-ci-plugin-synthetics', () => ({
+jest.mock('@openobserve/openobserve-ci-plugin-synthetics', () => ({
   commands: {
     'run-tests': {
       PluginCommand: class {
@@ -37,11 +37,11 @@ jest.mock('@datadog/datadog-ci-plugin-synthetics', () => ({
   },
 }))
 
-jest.mock('@datadog/datadog-ci-base/package.json', () => ({
+jest.mock('@openobserve/openobserve-ci-base/package.json', () => ({
   peerDependencies: {
-    '@datadog/datadog-ci-plugin-test': '1.0.0',
-    '@datadog/datadog-ci-plugin-another': '1.0.0',
-    '@datadog/datadog-ci-plugin-synthetics': '1.0.0',
+    '@openobserve/openobserve-ci-plugin-test': '1.0.0',
+    '@openobserve/openobserve-ci-plugin-another': '1.0.0',
+    '@openobserve/openobserve-ci-plugin-synthetics': '1.0.0',
   },
 }))
 
@@ -53,9 +53,9 @@ describe('listAllPlugins', () => {
   test('returns array of peer dependency keys', () => {
     const plugins = listAllPlugins()
     expect(plugins).toEqual([
-      '@datadog/datadog-ci-plugin-test',
-      '@datadog/datadog-ci-plugin-another',
-      '@datadog/datadog-ci-plugin-synthetics',
+      '@openobserve/openobserve-ci-plugin-test',
+      '@openobserve/openobserve-ci-plugin-another',
+      '@openobserve/openobserve-ci-plugin-synthetics',
     ])
   })
 })
@@ -90,10 +90,10 @@ describe('checkPlugin', () => {
 
     const result = await checkPlugin('synthetics')
     expect(result).toBe(true)
-    expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining('@datadog/datadog-ci-plugin-synthetics'))
+    expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining('@openobserve/openobserve-ci-plugin-synthetics'))
     expect(
       consoleLogSpy.mock.calls.filter(
-        ([message]) => typeof message === 'string' && message.includes('@datadog/datadog-ci-plugin-synthetics v')
+        ([message]) => typeof message === 'string' && message.includes('@openobserve/openobserve-ci-plugin-synthetics v')
       )
     ).toHaveLength(1)
 
@@ -102,11 +102,11 @@ describe('checkPlugin', () => {
 })
 
 describe('executePluginCommand', () => {
-  const module = require('@datadog/datadog-ci-plugin-synthetics/commands/run-tests')
+  const module = require('@openobserve/openobserve-ci-plugin-synthetics/commands/run-tests')
   const SyntheticsRunTestsPluginCommand = module.PluginCommand.prototype
 
   test('executes plugin command successfully', async () => {
-    // Mock the plugin command's `execute` method, but not the `@datadog/datadog-ci-base/commands/synthetics/run-tests` one.
+    // Mock the plugin command's `execute` method, but not the `@openobserve/openobserve-ci-base/commands/synthetics/run-tests` one.
     jest.spyOn(SyntheticsRunTestsPluginCommand, 'execute').mockResolvedValue(0)
     const command = createCommand(SyntheticsRunTestsCommand)
     const result = await executePluginCommand(command)
@@ -136,7 +136,7 @@ describe('executePluginCommand', () => {
     const result = await executePluginCommand(command)
 
     expect(result).toBe(0)
-    expect(userAgent).toMatch(/^datadog-ci\/1\.0\.0 \(node .+; os .+; arch .+\) datadog-ci-plugin-synthetics\/.+$/)
+    expect(userAgent).toMatch(/^openobserve-ci\/1\.0\.0 \(node .+; os .+; arch .+\) openobserve-ci-plugin-synthetics\/.+$/)
   })
 
   test('prints plugin version once during command execution', async () => {
@@ -149,7 +149,7 @@ describe('executePluginCommand', () => {
     expect(result).toBe(0)
     expect(
       consoleLogSpy.mock.calls.filter(
-        ([message]) => typeof message === 'string' && message.includes('@datadog/datadog-ci-plugin-synthetics v')
+        ([message]) => typeof message === 'string' && message.includes('@openobserve/openobserve-ci-plugin-synthetics v')
       )
     ).toHaveLength(1)
 
@@ -185,7 +185,7 @@ describe('installPlugin', () => {
 
     const result = await installPlugin('test')
     expect(result).toBe(true)
-    expect(mockInstallPackage).toHaveBeenCalledWith(['@datadog/datadog-ci-plugin-test@1.0.0'], {
+    expect(mockInstallPackage).toHaveBeenCalledWith(['@openobserve/openobserve-ci-plugin-test@1.0.0'], {
       silent: true,
       dev: true,
     })
@@ -222,7 +222,7 @@ describe('installPlugin', () => {
     mockImportInstallPkg.mockResolvedValue({installPackage: mockInstallPackage})
 
     await installPlugin('test')
-    expect(mockInstallPackage).toHaveBeenCalledWith(['@datadog/datadog-ci-plugin-test@1.0.2'], {
+    expect(mockInstallPackage).toHaveBeenCalledWith(['@openobserve/openobserve-ci-plugin-test@1.0.2'], {
       silent: true,
       dev: true,
     })
@@ -239,8 +239,8 @@ describe('installPlugin', () => {
 
     mockImportInstallPkg.mockResolvedValue({installPackage: mockInstallPackage})
 
-    await installPlugin('@datadog/datadog-ci-plugin-test')
-    expect(mockInstallPackage).toHaveBeenCalledWith(['@datadog/datadog-ci-plugin-test@1.0.0'], {
+    await installPlugin('@openobserve/openobserve-ci-plugin-test')
+    expect(mockInstallPackage).toHaveBeenCalledWith(['@openobserve/openobserve-ci-plugin-test@1.0.0'], {
       silent: true,
       dev: true,
     })
@@ -254,7 +254,7 @@ describe('installPlugin', () => {
 })
 
 describe('VERSION_OVERRIDE_REGEX', () => {
-  test.each(['1.0.0', '0.0.1', '10.20.30', 'file:./artifacts/@datadog-datadog-ci-base-20.tgz'])(
+  test.each(['1.0.0', '0.0.1', '10.20.30', 'file:./artifacts/@datadog-openobserve-ci-base-20.tgz'])(
     'accepts valid value: %s',
     (value) => {
       expect(VERSION_OVERRIDE_REGEX.test(value)).toBe(true)

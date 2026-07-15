@@ -1,6 +1,6 @@
 # Create Plugin
 
-Scaffold a new datadog-ci plugin end-to-end. Walk the user through each step, confirming the scope name and whether the plugin should be built-in or separately installable.
+Scaffold a new openobserve-ci plugin end-to-end. Walk the user through each step, confirming the scope name and whether the plugin should be built-in or separately installable.
 
 ## Workflow
 
@@ -9,7 +9,7 @@ Scaffold a new datadog-ci plugin end-to-end. Walk the user through each step, co
 2. **Run `yarn plugin:create <scope>`** to scaffold `packages/plugin-<scope>/`.
 
 3. **Create the base command** in `packages/base/src/commands/<scope>/<command>.ts`:
-   - Extend `BaseCommand` from `@datadog/datadog-ci-base`
+   - Extend `BaseCommand` from `@openobserve/openobserve-ci-base`
    - Use `Command.Usage()` for description
    - Use `Option.*` from clipanion for arguments/flags
    - `execute()` should call `return executePluginCommand(this)`

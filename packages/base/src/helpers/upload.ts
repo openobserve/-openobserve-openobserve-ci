@@ -6,10 +6,10 @@ import type {RequestBuilder} from './interfaces'
 
 import FormData from 'form-data'
 
-import {datadogRoute} from './request/datadog-route'
+import {ooRoute} from './request/datadog-route'
 import {retryRequest} from './retry'
 
-/** Multipart payload destined to be sent to Datadog's API
+/** Multipart payload destined to be sent to OpenObserve's API
  */
 export interface MultipartPayload {
   content: Map<string, MultipartValue>
@@ -63,7 +63,7 @@ export enum UploadStatus {
   Skipped,
 }
 
-/** Upload a MultipartPayload to Datadog's API using the provided RequestBuilder.
+/** Upload a MultipartPayload to OpenObserve's API using the provided RequestBuilder.
  * This handles retries as well as logging information about upload if a logger is provided in
  * the options
  */
@@ -123,6 +123,6 @@ const uploadMultipart = async (request: RequestBuilder, payload: MultipartPayloa
     data,
     headers,
     method: 'POST',
-    url: datadogRoute('/v1/input'),
+    url: ooRoute('/v1/input'),
   })
 }

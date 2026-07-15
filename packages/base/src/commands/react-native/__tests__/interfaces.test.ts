@@ -1,9 +1,9 @@
 import fs from 'fs/promises'
 
-import type {CommandContext} from '@datadog/datadog-ci-base'
-import type {MultipartFileValue} from '@datadog/datadog-ci-base/helpers/upload'
+import type {CommandContext} from '@openobserve/openobserve-ci-base'
+import type {MultipartFileValue} from '@openobserve/openobserve-ci-base/helpers/upload'
 
-import {createMockContext} from '@datadog/datadog-ci-base/helpers/__tests__/testing-tools'
+import {createMockContext} from '@openobserve/openobserve-ci-base/helpers/__tests__/testing-tools'
 
 import {RNSourcemap} from '../interfaces'
 
@@ -32,7 +32,7 @@ describe('interfaces', () => {
 
       const fileContent = await fs.readFile(sourcemapFilePath, 'utf8')
 
-      expect(fileContent).toContain('"sources":["Users/me/datadog-ci/src/commands/sourcemaps/__tests__/git.test.ts"]')
+      expect(fileContent).toContain('"sources":["Users/me/openobserve-ci/src/commands/sourcemaps/__tests__/git.test.ts"]')
       expect(fileContent).not.toContain('"sourcesContent"')
     })
   })

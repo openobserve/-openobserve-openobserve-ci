@@ -1,35 +1,35 @@
 import fs from 'fs'
 
 import type {MappingMetadata} from './interfaces'
-import type {RepositoryData} from '@datadog/datadog-ci-base/helpers/git/format-git-sourcemaps-data'
-import type {MetricsLogger} from '@datadog/datadog-ci-base/helpers/metrics'
-import type {MultipartValue} from '@datadog/datadog-ci-base/helpers/upload'
+import type {RepositoryData} from '@openobserve/openobserve-ci-base/helpers/git/format-git-sourcemaps-data'
+import type {MetricsLogger} from '@openobserve/openobserve-ci-base/helpers/metrics'
+import type {MultipartValue} from '@openobserve/openobserve-ci-base/helpers/upload'
 
 import {Command, Option} from 'clipanion'
 import upath from 'upath'
 
-import {BaseCommand} from '@datadog/datadog-ci-base'
-import {DsymsUploadCommand} from '@datadog/datadog-ci-base/commands/dsyms/upload'
-import {createUniqueTmpDirectory} from '@datadog/datadog-ci-base/commands/dsyms/utils'
-import {FIPS_ENV_VAR, FIPS_IGNORE_ERROR_ENV_VAR} from '@datadog/datadog-ci-base/constants'
-import {getDatadogSiteFromEnv} from '@datadog/datadog-ci-base/helpers/api'
-import {newApiKeyValidator} from '@datadog/datadog-ci-base/helpers/apikey'
-import {doWithMaxConcurrency} from '@datadog/datadog-ci-base/helpers/concurrency'
-import {toBoolean} from '@datadog/datadog-ci-base/helpers/env'
-import {enableFips} from '@datadog/datadog-ci-base/helpers/fips'
-import {getRepositoryData, newSimpleGit} from '@datadog/datadog-ci-base/helpers/git/format-git-sourcemaps-data'
-import {globSync} from '@datadog/datadog-ci-base/helpers/glob'
-import {getMetricsLogger} from '@datadog/datadog-ci-base/helpers/metrics'
-import {UploadStatus} from '@datadog/datadog-ci-base/helpers/upload'
+import {BaseCommand} from '@openobserve/openobserve-ci-base'
+import {DsymsUploadCommand} from '@openobserve/openobserve-ci-base/commands/dsyms/upload'
+import {createUniqueTmpDirectory} from '@openobserve/openobserve-ci-base/commands/dsyms/utils'
+import {FIPS_ENV_VAR, FIPS_IGNORE_ERROR_ENV_VAR} from '@openobserve/openobserve-ci-base/constants'
+import {getOpenObserveSiteFromEnv} from '@openobserve/openobserve-ci-base/helpers/api'
+import {newApiKeyValidator} from '@openobserve/openobserve-ci-base/helpers/apikey'
+import {doWithMaxConcurrency} from '@openobserve/openobserve-ci-base/helpers/concurrency'
+import {toBoolean} from '@openobserve/openobserve-ci-base/helpers/env'
+import {enableFips} from '@openobserve/openobserve-ci-base/helpers/fips'
+import {getRepositoryData, newSimpleGit} from '@openobserve/openobserve-ci-base/helpers/git/format-git-sourcemaps-data'
+import {globSync} from '@openobserve/openobserve-ci-base/helpers/glob'
+import {getMetricsLogger} from '@openobserve/openobserve-ci-base/helpers/metrics'
+import {UploadStatus} from '@openobserve/openobserve-ci-base/helpers/upload'
 import {
   DEFAULT_CONFIG_PATHS,
   buildPath,
   performSubCommand,
   resolveConfigFromFileAndEnvironment,
-} from '@datadog/datadog-ci-base/helpers/utils'
-import * as validation from '@datadog/datadog-ci-base/helpers/validation'
-import {checkAPIKeyOverride} from '@datadog/datadog-ci-base/helpers/validation'
-import {cliVersion} from '@datadog/datadog-ci-base/version'
+} from '@openobserve/openobserve-ci-base/helpers/utils'
+import * as validation from '@openobserve/openobserve-ci-base/helpers/validation'
+import {checkAPIKeyOverride} from '@openobserve/openobserve-ci-base/helpers/validation'
+import {cliVersion} from '@openobserve/openobserve-ci-base/version'
 
 import * as elf from '../elf-symbols/elf'
 
@@ -62,12 +62,12 @@ export class UnitySymbolsUploadCommand extends BaseCommand {
 
   public static usage = Command.Usage({
     category: 'RUM',
-    description: 'Upload Unity symbol files to Datadog.',
+    description: 'Upload Unity symbol files to OpenObserve.',
     details: `
             This command will upload all iOS symbol files for Unity applications in order to symbolicate errors and
-            crash reports received by Datadog. This includes uploading dSYMs and IL2CPP mapping files.
+            crash reports received by OpenObserve. This includes uploading dSYMs and IL2CPP mapping files.
         `,
-    examples: [['Upload all symbol files from the default location', 'datadog-ci unity-symbols upload']],
+    examples: [['Upload all symbol files from the default location', 'openobserve-ci unity-symbols upload']],
   })
 
   private disableGit = Option.Boolean('--disable-git', false)
@@ -83,7 +83,7 @@ export class UnitySymbolsUploadCommand extends BaseCommand {
   private buildId?: string
   private cliVersion = cliVersion
   private config: Record<string, string> = {
-    datadogSite: 'datadoghq.com',
+    ooSite: 'datadoghq.com',
   }
   private gitData?: RepositoryData
 
@@ -108,15 +108,15 @@ export class UnitySymbolsUploadCommand extends BaseCommand {
     this.config = await resolveConfigFromFileAndEnvironment(
       this.config,
       {
-        apiKey: process.env.DATADOG_API_KEY || process.env.DD_API_KEY,
-        datadogSite: getDatadogSiteFromEnv(),
+        apiKey: process.env.OPENOBSERVE_API_KEY || process.env.OO_API_KEY,
+        ooSite: getOpenObserveSiteFromEnv(),
       },
       {
         configPath: this.configPath,
         defaultConfigPaths: DEFAULT_CONFIG_PATHS,
         configFromFileCallback: (configFromFile: any) => {
           checkAPIKeyOverride(
-            process.env.DATADOG_API_KEY || process.env.DD_API_KEY,
+            process.env.OPENOBSERVE_API_KEY || process.env.OO_API_KEY,
             configFromFile.apiKey,
             this.context.stdout
           )
@@ -155,7 +155,7 @@ export class UnitySymbolsUploadCommand extends BaseCommand {
   private getApiKeyValidator(metricsLogger: MetricsLogger) {
     return newApiKeyValidator({
       apiKey: this.config.apiKey,
-      datadogSite: this.config.datadogSite,
+      ooSite: this.config.ooSite,
       metricsLogger: metricsLogger.logger,
     })
   }
@@ -204,7 +204,7 @@ export class UnitySymbolsUploadCommand extends BaseCommand {
   private getMetricsLogger(tags: string[]) {
     const metricsLogger = getMetricsLogger({
       apiKey: this.config.apiKey,
-      datadogSite: this.config.datadogSite,
+      ooSite: this.config.ooSite,
       defaultTags: [`cli_version:${this.cliVersion}`, 'platform:unity', ...tags],
       prefix: 'datadog.ci.symbols.upload.',
     })
@@ -255,7 +255,7 @@ export class UnitySymbolsUploadCommand extends BaseCommand {
 
     const tmpDirectory = await createUniqueTmpDirectory()
 
-    const requestBuilder = getUnityRequestBuilder(this.config.apiKey, this.cliVersion, this.config.datadogSite)
+    const requestBuilder = getUnityRequestBuilder(this.config.apiKey, this.cliVersion, this.config.ooSite)
     try {
       const results = await doWithMaxConcurrency(this.maxConcurrency, soFiles, async (soFileName) => {
         const elfMetadata = await elf.getElfFileMetadata(soFileName)
@@ -339,7 +339,7 @@ export class UnitySymbolsUploadCommand extends BaseCommand {
     const metricsLogger = this.getMetricsLogger(['platform:unity'])
     const apiKeyValidator = this.getApiKeyValidator(metricsLogger)
 
-    const requestBuilder = getUnityRequestBuilder(this.config.apiKey, this.cliVersion, this.config.datadogSite)
+    const requestBuilder = getUnityRequestBuilder(this.config.apiKey, this.cliVersion, this.config.ooSite)
     if (this.dryRun) {
       this.context.stdout.write(`[DRYRUN] ${renderUpload('IL2CPP Mapping File', il2cppMappingPath)}`)
 
@@ -411,7 +411,7 @@ export class UnitySymbolsUploadCommand extends BaseCommand {
 
     if (this.symbolsLocation === undefined) {
       if (this.ios) {
-        this.symbolsLocation = './datadogSymbols'
+        this.symbolsLocation = './ooSymbols'
       } else if (this.android) {
         this.symbolsLocation = './unityLibrary/symbols'
       }

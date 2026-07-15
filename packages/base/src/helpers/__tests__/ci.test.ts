@@ -158,34 +158,34 @@ describe('getCIMetadata', () => {
   })
 
   describe.each(CI_PROVIDERS)('Ensure DD env variables override %s env variables', (ciProvider) => {
-    const DD_METADATA = {
-      DD_CI_JOB_ID: 'DD_CI_JOB_ID',
-      DD_CI_JOB_NAME: 'DD_CI_JOB_NAME',
-      DD_CI_JOB_URL: 'DD_CI_JOB_URL',
-      DD_CI_PIPELINE_ID: 'DD_CI_PIPELINE_ID',
-      DD_CI_PIPELINE_NAME: 'DD_CI_PIPELINE_NAME',
-      DD_CI_PIPELINE_NUMBER: 'DD_CI_PIPELINE_NUMBER',
-      DD_CI_PIPELINE_URL: 'DD_CI_PIPELINE_URL',
-      DD_CI_PROVIDER_NAME: 'DD_CI_PROVIDER_NAME',
-      DD_CI_STAGE_NAME: 'DD_CI_STAGE_NAME',
-      DD_CI_WORKSPACE_PATH: 'DD_CI_WORKSPACE_PATH',
-      DD_GIT_BRANCH: 'DD_GIT_BRANCH',
-      DD_GIT_COMMIT_AUTHOR_DATE: 'DD_GIT_COMMIT_AUTHOR_DATE',
-      DD_GIT_COMMIT_AUTHOR_EMAIL: 'DD_GIT_COMMIT_AUTHOR_EMAIL',
-      DD_GIT_COMMIT_AUTHOR_NAME: 'DD_GIT_COMMIT_AUTHOR_NAME',
-      DD_GIT_COMMIT_COMMITTER_DATE: 'DD_GIT_COMMIT_COMMITTER_DATE',
-      DD_GIT_COMMIT_COMMITTER_EMAIL: 'DD_GIT_COMMIT_COMMITTER_EMAIL',
-      DD_GIT_COMMIT_COMMITTER_NAME: 'DD_GIT_COMMIT_COMMITTER_NAME',
-      DD_GIT_COMMIT_MESSAGE: 'DD_GIT_COMMIT_MESSAGE',
-      DD_GIT_COMMIT_SHA: 'DD_GIT_COMMIT_SHA',
-      DD_GIT_REPOSITORY_URL: 'DD_GIT_REPOSITORY_URL',
-      DD_GIT_TAG: 'DD_GIT_TAG',
-      DD_GIT_COMMIT_HEAD_SHA: 'DD_GIT_COMMIT_HEAD_SHA',
-      DD_GIT_PULL_REQUEST_BASE_BRANCH: 'DD_GIT_PULL_REQUEST_BASE_BRANCH',
-      DD_GIT_PULL_REQUEST_BASE_BRANCH_SHA: 'DD_GIT_PULL_REQUEST_BASE_BRANCH_SHA',
+    const OO_METADATA = {
+      OO_CI_JOB_ID: 'OO_CI_JOB_ID',
+      OO_CI_JOB_NAME: 'OO_CI_JOB_NAME',
+      OO_CI_JOB_URL: 'OO_CI_JOB_URL',
+      OO_CI_PIPELINE_ID: 'OO_CI_PIPELINE_ID',
+      OO_CI_PIPELINE_NAME: 'OO_CI_PIPELINE_NAME',
+      OO_CI_PIPELINE_NUMBER: 'OO_CI_PIPELINE_NUMBER',
+      OO_CI_PIPELINE_URL: 'OO_CI_PIPELINE_URL',
+      OO_CI_PROVIDER_NAME: 'OO_CI_PROVIDER_NAME',
+      OO_CI_STAGE_NAME: 'OO_CI_STAGE_NAME',
+      OO_CI_WORKSPACE_PATH: 'OO_CI_WORKSPACE_PATH',
+      OO_GIT_BRANCH: 'OO_GIT_BRANCH',
+      OO_GIT_COMMIT_AUTHOR_DATE: 'OO_GIT_COMMIT_AUTHOR_DATE',
+      OO_GIT_COMMIT_AUTHOR_EMAIL: 'OO_GIT_COMMIT_AUTHOR_EMAIL',
+      OO_GIT_COMMIT_AUTHOR_NAME: 'OO_GIT_COMMIT_AUTHOR_NAME',
+      OO_GIT_COMMIT_COMMITTER_DATE: 'OO_GIT_COMMIT_COMMITTER_DATE',
+      OO_GIT_COMMIT_COMMITTER_EMAIL: 'OO_GIT_COMMIT_COMMITTER_EMAIL',
+      OO_GIT_COMMIT_COMMITTER_NAME: 'OO_GIT_COMMIT_COMMITTER_NAME',
+      OO_GIT_COMMIT_MESSAGE: 'OO_GIT_COMMIT_MESSAGE',
+      OO_GIT_COMMIT_SHA: 'OO_GIT_COMMIT_SHA',
+      OO_GIT_REPOSITORY_URL: 'OO_GIT_REPOSITORY_URL',
+      OO_GIT_TAG: 'OO_GIT_TAG',
+      OO_GIT_COMMIT_HEAD_SHA: 'OO_GIT_COMMIT_HEAD_SHA',
+      OO_GIT_PULL_REQUEST_BASE_BRANCH: 'OO_GIT_PULL_REQUEST_BASE_BRANCH',
+      OO_GIT_PULL_REQUEST_BASE_BRANCH_SHA: 'OO_GIT_PULL_REQUEST_BASE_BRANCH_SHA',
     }
 
-    const expectedMetadata = ddMetadataToSpanTags(DD_METADATA)
+    const expectedMetadata = ddMetadataToSpanTags(OO_METADATA)
 
     const assertions = require(upath.join(__dirname, 'ci-env', ciProvider)) as [
       {[key: string]: string},
@@ -193,7 +193,7 @@ describe('getCIMetadata', () => {
     ][]
 
     it.each(assertions)('spec %#', (env, tags: SpanTags) => {
-      process.env = {...env, ...DD_METADATA}
+      process.env = {...env, ...OO_METADATA}
       const ciMetadata = getTags()
       // the tags below are deleted as they cannot be overridden by DD env variables
       // so we should ignore them in the comparison
@@ -379,21 +379,21 @@ describe('getCIEnv', () => {
       getCIEnv()
     }).toThrow()
 
-    process.env = {JENKINS_URL: 'something', DD_CUSTOM_PARENT_ID: 'span-id', DD_CUSTOM_TRACE_ID: 'trace-id'}
+    process.env = {JENKINS_URL: 'something', OO_CUSTOM_PARENT_ID: 'span-id', OO_CUSTOM_TRACE_ID: 'trace-id'}
     expect(getCIEnv()).toEqual({
-      ciEnv: {DD_CUSTOM_PARENT_ID: 'span-id', DD_CUSTOM_TRACE_ID: 'trace-id'},
+      ciEnv: {OO_CUSTOM_PARENT_ID: 'span-id', OO_CUSTOM_TRACE_ID: 'trace-id'},
       provider: 'jenkins',
     })
 
-    // DD_CUSTOM_STAGE_ID is optional (allowed to be missing)
+    // OO_CUSTOM_STAGE_ID is optional (allowed to be missing)
     process.env = {
       JENKINS_URL: 'something',
-      DD_CUSTOM_PARENT_ID: 'span-id',
-      DD_CUSTOM_TRACE_ID: 'trace-id',
-      DD_CUSTOM_STAGE_ID: 'stage-id',
+      OO_CUSTOM_PARENT_ID: 'span-id',
+      OO_CUSTOM_TRACE_ID: 'trace-id',
+      OO_CUSTOM_STAGE_ID: 'stage-id',
     }
     expect(getCIEnv()).toEqual({
-      ciEnv: {DD_CUSTOM_PARENT_ID: 'span-id', DD_CUSTOM_TRACE_ID: 'trace-id', DD_CUSTOM_STAGE_ID: 'stage-id'},
+      ciEnv: {OO_CUSTOM_PARENT_ID: 'span-id', OO_CUSTOM_TRACE_ID: 'trace-id', OO_CUSTOM_STAGE_ID: 'stage-id'},
       provider: 'jenkins',
     })
   })
@@ -404,9 +404,9 @@ describe('getCIEnv', () => {
       getCIEnv()
     }).toThrow()
 
-    process.env = {TEAMCITY_VERSION: 'something', DATADOG_BUILD_ID: 'build-id'}
+    process.env = {TEAMCITY_VERSION: 'something', OPENOBSERVE_BUILD_ID: 'build-id'}
     expect(getCIEnv()).toEqual({
-      ciEnv: {DATADOG_BUILD_ID: 'build-id'},
+      ciEnv: {OPENOBSERVE_BUILD_ID: 'build-id'},
       provider: 'teamcity',
     })
   })
@@ -436,7 +436,7 @@ describe('getCIEnv', () => {
       provider: 'github',
     })
 
-    // DD_GITHUB_JOB_NAME is optional (allowed to be missing)
+    // OO_GITHUB_JOB_NAME is optional (allowed to be missing)
     process.env = {
       GITHUB_ACTIONS: 'true',
       GITHUB_SERVER_URL: 'https://github.com',
@@ -444,7 +444,7 @@ describe('getCIEnv', () => {
       GITHUB_RUN_ID: '123',
       GITHUB_RUN_ATTEMPT: '1',
       GITHUB_JOB: 'build',
-      DD_GITHUB_JOB_NAME: 'my-job',
+      OO_GITHUB_JOB_NAME: 'my-job',
     }
     expect(getCIEnv()).toEqual({
       ciEnv: {
@@ -453,7 +453,7 @@ describe('getCIEnv', () => {
         GITHUB_RUN_ID: '123',
         GITHUB_RUN_ATTEMPT: '1',
         GITHUB_JOB: 'build',
-        DD_GITHUB_JOB_NAME: 'my-job',
+        OO_GITHUB_JOB_NAME: 'my-job',
       },
       provider: 'github',
     })
@@ -1289,7 +1289,7 @@ describe('shouldGetGitHubJobDisplayName', () => {
   test('should not get github display name if set manually', () => {
     process.env = {
       GITHUB_ACTIONS: 'true',
-      DD_GITHUB_JOB_NAME: 'value set by user',
+      OO_GITHUB_JOB_NAME: 'value set by user',
     }
     expect(shouldGetGithubJobDisplayName()).toBe(false)
   })

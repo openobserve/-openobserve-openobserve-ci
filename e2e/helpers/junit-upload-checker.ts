@@ -1,4 +1,4 @@
-import {v2} from '@datadog/datadog-api-client'
+import {v2} from '@openobserve/datadog-api-client'
 
 import {createE2EConfiguration} from './api-client'
 

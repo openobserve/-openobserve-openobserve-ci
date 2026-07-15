@@ -2,36 +2,36 @@ import fs from 'fs'
 
 import type {MappingMetadata} from './interfaces'
 import type {UploadInfo} from './renderer'
-import type {RepositoryData} from '@datadog/datadog-ci-base/helpers/git/format-git-sourcemaps-data'
-import type {MetricsLogger} from '@datadog/datadog-ci-base/helpers/metrics'
-import type {MultipartValue} from '@datadog/datadog-ci-base/helpers/upload'
+import type {RepositoryData} from '@openobserve/openobserve-ci-base/helpers/git/format-git-sourcemaps-data'
+import type {MetricsLogger} from '@openobserve/openobserve-ci-base/helpers/metrics'
+import type {MultipartValue} from '@openobserve/openobserve-ci-base/helpers/upload'
 
 import {Command, Option} from 'clipanion'
 import yaml from 'js-yaml'
 import semver from 'semver'
 
-import {BaseCommand} from '@datadog/datadog-ci-base'
-import {DsymsUploadCommand} from '@datadog/datadog-ci-base/commands/dsyms/upload'
-import {newSimpleGit} from '@datadog/datadog-ci-base/commands/git-metadata/git'
-import {FIPS_ENV_VAR, FIPS_IGNORE_ERROR_ENV_VAR} from '@datadog/datadog-ci-base/constants'
-import {getDatadogSiteFromEnv} from '@datadog/datadog-ci-base/helpers/api'
-import {newApiKeyValidator} from '@datadog/datadog-ci-base/helpers/apikey'
-import {doWithMaxConcurrency} from '@datadog/datadog-ci-base/helpers/concurrency'
-import {toBoolean} from '@datadog/datadog-ci-base/helpers/env'
-import {enableFips} from '@datadog/datadog-ci-base/helpers/fips'
-import {getRepositoryData} from '@datadog/datadog-ci-base/helpers/git/format-git-sourcemaps-data'
-import {globSync} from '@datadog/datadog-ci-base/helpers/glob'
-import {getMetricsLogger} from '@datadog/datadog-ci-base/helpers/metrics'
-import {UploadStatus} from '@datadog/datadog-ci-base/helpers/upload'
+import {BaseCommand} from '@openobserve/openobserve-ci-base'
+import {DsymsUploadCommand} from '@openobserve/openobserve-ci-base/commands/dsyms/upload'
+import {newSimpleGit} from '@openobserve/openobserve-ci-base/commands/git-metadata/git'
+import {FIPS_ENV_VAR, FIPS_IGNORE_ERROR_ENV_VAR} from '@openobserve/openobserve-ci-base/constants'
+import {getOpenObserveSiteFromEnv} from '@openobserve/openobserve-ci-base/helpers/api'
+import {newApiKeyValidator} from '@openobserve/openobserve-ci-base/helpers/apikey'
+import {doWithMaxConcurrency} from '@openobserve/openobserve-ci-base/helpers/concurrency'
+import {toBoolean} from '@openobserve/openobserve-ci-base/helpers/env'
+import {enableFips} from '@openobserve/openobserve-ci-base/helpers/fips'
+import {getRepositoryData} from '@openobserve/openobserve-ci-base/helpers/git/format-git-sourcemaps-data'
+import {globSync} from '@openobserve/openobserve-ci-base/helpers/glob'
+import {getMetricsLogger} from '@openobserve/openobserve-ci-base/helpers/metrics'
+import {UploadStatus} from '@openobserve/openobserve-ci-base/helpers/upload'
 import {
   buildPath,
   DEFAULT_CONFIG_PATHS,
   performSubCommand,
   resolveConfigFromFileAndEnvironment,
-} from '@datadog/datadog-ci-base/helpers/utils'
-import * as validation from '@datadog/datadog-ci-base/helpers/validation'
-import {checkAPIKeyOverride} from '@datadog/datadog-ci-base/helpers/validation'
-import {cliVersion} from '@datadog/datadog-ci-base/version'
+} from '@openobserve/openobserve-ci-base/helpers/utils'
+import * as validation from '@openobserve/openobserve-ci-base/helpers/validation'
+import {checkAPIKeyOverride} from '@openobserve/openobserve-ci-base/helpers/validation'
+import {cliVersion} from '@openobserve/openobserve-ci-base/version'
 
 import {SourcemapsUploadCommand} from '../sourcemaps/upload'
 
@@ -69,16 +69,16 @@ export class FlutterSymbolsUploadCommand extends BaseCommand {
 
   public static usage = Command.Usage({
     category: 'RUM',
-    description: 'Upload Flutter symbol files to Datadog.',
+    description: 'Upload Flutter symbol files to OpenObserve.',
     details: `
             This command will upload all symbol files for Flutter applications in order to symbolicate errors and
-            crash reports received by Datadog. This includes uploading iOS dSYMs, Proguard mapping files, and Dart
+            crash reports received by OpenObserve. This includes uploading iOS dSYMs, Proguard mapping files, and Dart
             symbol files.
         `,
     examples: [
       [
         'Upload all symbol files from default locations',
-        'datadog-ci flutter-symbols upload --dart-symbols-location ./debug-info --service-name com.datadog.example --ios-dsyms --android-mapping',
+        'openobserve-ci flutter-symbols upload --dart-symbols-location ./debug-info --service-name com.datadog.example --ios-dsyms --android-mapping',
       ],
     ],
   })
@@ -103,7 +103,7 @@ export class FlutterSymbolsUploadCommand extends BaseCommand {
 
   private cliVersion = cliVersion
   private config: Record<string, string> = {
-    datadogSite: 'datadoghq.com',
+    ooSite: 'datadoghq.com',
   }
   private gitData?: RepositoryData
 
@@ -156,15 +156,15 @@ export class FlutterSymbolsUploadCommand extends BaseCommand {
     this.config = await resolveConfigFromFileAndEnvironment(
       this.config,
       {
-        apiKey: process.env.DATADOG_API_KEY || process.env.DD_API_KEY,
-        datadogSite: getDatadogSiteFromEnv(),
+        apiKey: process.env.OPENOBSERVE_API_KEY || process.env.OO_API_KEY,
+        ooSite: getOpenObserveSiteFromEnv(),
       },
       {
         configPath: this.configPath,
         defaultConfigPaths: DEFAULT_CONFIG_PATHS,
         configFromFileCallback: (configFromFile: any) => {
           checkAPIKeyOverride(
-            process.env.DATADOG_API_KEY || process.env.DD_API_KEY,
+            process.env.OPENOBSERVE_API_KEY || process.env.OO_API_KEY,
             configFromFile.apiKey,
             this.context.stdout
           )
@@ -211,7 +211,7 @@ export class FlutterSymbolsUploadCommand extends BaseCommand {
   private getApiKeyValidator(metricsLogger: MetricsLogger) {
     return newApiKeyValidator({
       apiKey: this.config.apiKey,
-      datadogSite: this.config.datadogSite,
+      ooSite: this.config.ooSite,
       metricsLogger: metricsLogger.logger,
     })
   }
@@ -273,7 +273,7 @@ export class FlutterSymbolsUploadCommand extends BaseCommand {
   private getMetricsLogger(tags: string[]) {
     const metricsLogger = getMetricsLogger({
       apiKey: this.config.apiKey,
-      datadogSite: this.config.datadogSite,
+      ooSite: this.config.ooSite,
       defaultTags: [
         `version:${this.version}`,
         `service:${this.serviceName}`,
@@ -330,7 +330,7 @@ export class FlutterSymbolsUploadCommand extends BaseCommand {
     const metricsLogger = this.getMetricsLogger(['platform:android'])
     const apiKeyValidator = this.getApiKeyValidator(metricsLogger)
 
-    const requestBuilder = getFlutterRequestBuilder(this.config.apiKey, this.cliVersion, this.config.datadogSite)
+    const requestBuilder = getFlutterRequestBuilder(this.config.apiKey, this.cliVersion, this.config.ooSite)
     if (this.dryRun) {
       this.context.stdout.write(`[DRYRUN] ${renderUpload('Android Mapping File', this.androidMappingLocation!)}`)
 
@@ -393,7 +393,7 @@ export class FlutterSymbolsUploadCommand extends BaseCommand {
 
     const filesMetadata = files.map((filename) => ({filename, ...getArchInfoFromFilename(filename)}))
 
-    const requestBuilder = getFlutterRequestBuilder(this.config.apiKey, this.cliVersion, this.config.datadogSite)
+    const requestBuilder = getFlutterRequestBuilder(this.config.apiKey, this.cliVersion, this.config.ooSite)
     try {
       const results = await doWithMaxConcurrency(this.maxConcurrency, filesMetadata, async (fileMetadata) => {
         if (!fileMetadata.arch || !fileMetadata.platform) {

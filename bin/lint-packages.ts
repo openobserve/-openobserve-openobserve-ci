@@ -31,25 +31,25 @@ const noPluginExceptions = new Set([
  * Source of truth for scope-less commands: this should be updated manually.
  */
 const scopeLessCommandExceptions = new Set([
-  // `datadog-ci tag ...`
+  // `openobserve-ci tag ...`
   'tag',
-  // `datadog-ci measure ...`
+  // `openobserve-ci measure ...`
   'measure',
-  // `datadog-ci trace ...`
+  // `openobserve-ci trace ...`
   'trace',
-  // `datadog-ci trace span ...`
+  // `openobserve-ci trace span ...`
   'span',
-  // `datadog-ci version`
+  // `openobserve-ci version`
   'version',
 ])
 
 /**
- * Scopes with an associated GitHub Action that doesn't pin the version of `@datadog/datadog-ci`.
+ * Scopes with an associated GitHub Action that doesn't pin the version of `@openobserve/openobserve-ci`.
  *
  * See https://datadoghq.atlassian.net/wiki/x/awnBVgE
  */
-const scopesWithUnpinnedDatadogCiInGithubAction = {
-  // `datadog-ci-version` input defaulting to `latest`
+const scopesWithUnpinnedOpenObserveCiInGithubAction = {
+  // `openobserve-ci-version` input defaulting to `latest`
   coverage: 'https://github.com/DataDog/coverage-upload-github-action',
   junit: 'https://github.com/DataDog/junit-upload-github-action',
   // Pins the major version
@@ -194,7 +194,7 @@ const formatBasePackageCliFile = () => {
   ].sort((a, b) => a.importPath.localeCompare(b.importPath))
 
   const newContent = `/* eslint-disable quote-props */
-import type {RecordWithKebabCaseKeys} from '@datadog/datadog-ci-base/helpers/types'
+import type {RecordWithKebabCaseKeys} from '@openobserve/openobserve-ci-base/helpers/types'
 
 // DO NOT EDIT MANUALLY. Update the source of truth in \`bin/lint-packages.ts\` instead.
 
@@ -210,7 +210,7 @@ ${imports.map((p) => `  '${p.scope}': ${p.importName},`).join('\n')}
 // DO NOT EDIT MANUALLY. Update the source of truth in \`bin/lint-packages.ts\` instead.
 
 /**
- * Some command scopes do not have a plugin package, and their logic is entirely included in \`@datadog/datadog-ci-base\`.
+ * Some command scopes do not have a plugin package, and their logic is entirely included in \`@openobserve/openobserve-ci-base\`.
  */
 export const noPluginExceptions: Set<string> = new Set([
 ${Array.from(noPluginExceptions)
@@ -245,7 +245,7 @@ ${imports.map((i) => `  ${i.importName},`).join('\n')}
   return makeApplyChanges(file, originalContent, newContent)
 }
 
-const datadogCiPackage = loadPackage('datadog-ci')
+const ooCiPackage = loadPackage('openobserve-ci')
 const basePackage = loadPackage('base')
 
 // The source of truth is the filesystem and `noPluginExceptions`
@@ -284,9 +284,9 @@ const pluginPackages = fs
   })
   .filter((p): p is PluginPackage => p !== undefined)
 
-const builtinPlugins = pluginPackages.filter((p) => p.packageJson.name in datadogCiPackage.packageJson.devDependencies)
+const builtinPlugins = pluginPackages.filter((p) => p.packageJson.name in ooCiPackage.packageJson.devDependencies)
 const installablePlugins = pluginPackages.filter(
-  (p) => !(p.packageJson.name in datadogCiPackage.packageJson.devDependencies)
+  (p) => !(p.packageJson.name in ooCiPackage.packageJson.devDependencies)
 )
 
 const exceptionScopes: CommandScope[] = [...noPluginExceptions].map((scope) => ({
@@ -432,7 +432,7 @@ const resolutions = builtinPlugins
   .map((name) => `    "${name}": "file:./artifacts/${name.replace('/', '-')}-\${{ matrix.version }}.tgz"`)
   .join(',\n')
 
-const dependencies = ['@datadog/datadog-ci', ...installablePlugins.map((p) => p.packageJson.name)]
+const dependencies = ['@openobserve/openobserve-ci', ...installablePlugins.map((p) => p.packageJson.name)]
   .map((name) => `    "${name}": "./artifacts/${name.replace('/', '-')}-\${{ matrix.version }}.tgz"`)
   .join(',\n')
 
@@ -441,13 +441,13 @@ const e2eTestDependencies = [
   '"jest": "29.6.2"',
   '"ts-jest": "29.1.1"',
   '"typescript": "5.1.6"',
-  '"@datadog/datadog-api-client": "^1.0.0"',
+  '"@openobserve/datadog-api-client": "^1.0.0"',
 ]
   .map((dep) => `    ${dep}`)
   .join(',\n')
 
 const e2eProjectPackageJson = `{
-  "name": "datadog-ci-e2e-tests",
+  "name": "openobserve-ci-e2e-tests",
   "resolutions": {
 ${resolutions}
   },
@@ -457,7 +457,7 @@ ${e2eTestDependencies}
   }
 }`
 
-const npxArguments = ['@datadog/datadog-ci', ...builtinPlugins.map((p) => p.packageJson.name)]
+const npxArguments = ['@openobserve/openobserve-ci', ...builtinPlugins.map((p) => p.packageJson.name)]
   .map((name) => `-p ./artifacts/${name.replace('/', '-')}-20.tgz \\`)
   .join('\n')
 
@@ -469,12 +469,12 @@ const overridesNode20 = builtinPlugins
 
 // No plugins installed. Only the built-in plugins are overridden.
 const npmTestProjectPackageJson = `{
-  "name": "datadog-ci-plugin-auto-install-npm",
+  "name": "openobserve-ci-plugin-auto-install-npm",
   "overrides": {
 ${overridesNode20}
   },
   "dependencies": {
-    "@datadog/datadog-ci": "file:./artifacts/@datadog-datadog-ci-20.tgz"
+    "@openobserve/openobserve-ci": "file:./artifacts/@datadog-openobserve-ci-20.tgz"
   }
 }`
 
@@ -486,12 +486,12 @@ const resolutionsNode20 = builtinPlugins
 
 // No plugins installed. Only the built-in plugins are overridden.
 const yarnTestProjectPackageJson = `{
-  "name": "datadog-ci-plugin-auto-install-yarn",
+  "name": "openobserve-ci-plugin-auto-install-yarn",
   "resolutions": {
 ${resolutionsNode20}
   },
   "dependencies": {
-    "@datadog/datadog-ci": "file:./artifacts/@datadog-datadog-ci-20.tgz"
+    "@openobserve/openobserve-ci": "file:./artifacts/@datadog-openobserve-ci-20.tgz"
   }
 }`
 
@@ -512,7 +512,7 @@ TO_APPLY.push(matchAndReplace('.github/workflows/ci.yml')`
         run: |
           output=$(npx \\
               ${npxArguments}
-              datadog-ci aas instrument || true
+              openobserve-ci aas instrument || true
           )
 `)
 
@@ -553,14 +553,14 @@ TO_APPLY.push(...exceptionScopes.concat(pluginPackages).map(formatBasePackageSco
 TO_APPLY.push(matchAndReplace('tsconfig.json')`
   "references": [
     {"path": "./packages/base"},
-    {"path": "./packages/datadog-ci"},
+    {"path": "./packages/openobserve-ci"},
     ${pluginPackages.map((p) => `{"path": "./packages/plugin-${p.scope}"}`).join(',\n')}
   ],
 `)
 // #endregion
 
-// #region - Format file: packages/datadog-ci/tsconfig.json
-TO_APPLY.push(matchAndReplace('packages/datadog-ci/tsconfig.json')`
+// #region - Format file: packages/openobserve-ci/tsconfig.json
+TO_APPLY.push(matchAndReplace('packages/openobserve-ci/tsconfig.json')`
   "references": [
     {"path": "../base"},
     ${builtinPlugins.map((p) => `{"path": "../plugin-${p.scope}"}`).join(',\n')}
@@ -568,14 +568,14 @@ TO_APPLY.push(matchAndReplace('packages/datadog-ci/tsconfig.json')`
 `)
 // #endregion
 
-// #region - Format file: packages/datadog-ci/shims/plugin-commands.mjs
+// #region - Format file: packages/openobserve-ci/shims/plugin-commands.mjs
 const formatCommandList = (plugin: PluginPackage) => {
   return `  '${plugin.scope}': [${plugin.commands.map((command) => `'${command}'`).join(', ')}],`
 }
 
 TO_APPLY.push(
   replaceWholeFile(
-    'packages/datadog-ci/shims/plugin-commands.mjs',
+    'packages/openobserve-ci/shims/plugin-commands.mjs',
     `/* eslint-disable quote-props */
 export const builtinPluginCommands = {
 ${builtinPlugins.map(formatCommandList).join('\n')}
@@ -591,9 +591,9 @@ ${pluginPackages.map(formatCommandList).join('\n')}
 
 // #region - Format file: container/Dockerfile
 TO_APPLY.push(matchAndReplace('container/Dockerfile')`
-RUN npm install -g @datadog/datadog-ci@$VERSION \\
-    ${installablePlugins.map((p) => `@datadog/datadog-ci-plugin-${p.scope}@$VERSION \\`).join('\n')}
-    && echo -e "Installed packages:\\n$(npm list -g | grep -o '@datadog/.*')"
+RUN npm install -g @openobserve/openobserve-ci@$VERSION \\
+    ${installablePlugins.map((p) => `@openobserve/openobserve-ci-plugin-${p.scope}@$VERSION \\`).join('\n')}
+    && echo -e "Installed packages:\\n$(npm list -g | grep -o '@openobserve/.*')"
 `)
 // #endregion
 
@@ -614,7 +614,7 @@ if (sum > 0) {
 console.log(chalk.bold.blue('Running other checks...\n'))
 
 // #region - All packages have the same version
-const allPackages = [datadogCiPackage, basePackage, ...pluginPackages]
+const allPackages = [ooCiPackage, basePackage, ...pluginPackages]
 const versions = allPackages.reduce<Record<string, string[]>>(
   (acc, p) => ({...acc, [p.packageJson.version]: [...(acc[p.packageJson.version] || []), p.packageJson.name]}),
   {}
@@ -630,7 +630,7 @@ if (Object.keys(versions).length > 1) {
 // #region - Guard rail about making some plugins not built-in
 const impactedGithubActions = Object.fromEntries(
   installablePlugins.reduce<[string, string][]>((acc, p) => {
-    const impactedGithubAction = scopesWithUnpinnedDatadogCiInGithubAction[p.scope]
+    const impactedGithubAction = scopesWithUnpinnedOpenObserveCiInGithubAction[p.scope]
 
     return impactedGithubAction ? [...acc, [p.scope, impactedGithubAction]] : acc
   }, [])
@@ -638,7 +638,7 @@ const impactedGithubActions = Object.fromEntries(
 
 if (Object.keys(impactedGithubActions).length > 0) {
   error(
-    `\n${chalk.bold('Detected newly installable plugin(s) with an associated GitHub Action that does not pin the version of @datadog/datadog-ci:')} ${JSON.stringify(impactedGithubActions, undefined, 2)}`
+    `\n${chalk.bold('Detected newly installable plugin(s) with an associated GitHub Action that does not pin the version of @openobserve/openobserve-ci:')} ${JSON.stringify(impactedGithubActions, undefined, 2)}`
   )
   error(
     '\nRelying on the automatic installation of plugins in a GitHub Action is not recommended.\nIf you really want to change the list of built-in plugins, consider adding them as dependencies of the impacted GitHub Actions.'
@@ -676,7 +676,7 @@ if (fix) {
 } else {
   try {
     // Using `--strict` implies `--production`. See https://knip.dev/features/production-mode#strict-mode
-    // Note that we ignore `@datadog/datadog-ci-plugin-*` dependencies (see `ignoreDependencies` in `package.json`)
+    // Note that we ignore `@openobserve/openobserve-ci-plugin-*` dependencies (see `ignoreDependencies` in `package.json`)
     // because they are not used in production code in the base package, but they are marked as **optional** `peerDependencies`.
     exec('yarn knip:strict')
   } catch {
